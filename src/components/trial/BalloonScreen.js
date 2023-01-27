@@ -74,6 +74,7 @@ export function BalloonScreen()
     const [missedTrial, setMissedTrial] = useState(false);
     const [showOutcome, setShowOutcome] = useState(false);
     const [lastOutcomeDollars, setLastOutcomeDollars] = useState(0);
+    const [didSwitchScreen, setDidSwitchScreen] = useState(false);
 
     let loadingInterval = useRef(null);
 
@@ -81,11 +82,15 @@ export function BalloonScreen()
         let changeValue = valuePoints[trialNum]*multiplier;
         setLastOutcomeDollars(changeValue);
         if (lastMultiplier*multiplier < 0) {
+            setDidSwitchScreen(true);
             changeValue -= costToSwitch;
+        } else {
+            setDidSwitchScreen(false);
         }
         dispatch(addMoney(changeValue));
-        dispatch(setLastClickedMul(multiplier));
         setShowOutcome(multiplier !== 0);
+
+        dispatch(setLastClickedMul(multiplier));
         setLastMultiplier(multiplier);
         resetGameTimer();
         if (multiplier === 0) {
@@ -175,6 +180,7 @@ export function BalloonScreen()
                         missedTrial={missedTrial}
                         showOutcome={showOutcome}
                         lastOutcomeDollars={lastOutcomeDollars}
+                        didSwitchScreen={didSwitchScreen}
                     />
                 </Grid>
             </Grid>
@@ -182,7 +188,8 @@ export function BalloonScreen()
     )
 }
 
-function MoneyOutcome({missedTrial, showOutcome, lastOutcomeDollars}) {
+function MoneyOutcome({missedTrial, showOutcome, lastOutcomeDollars, didSwitchScreen}) {
+    const costToSwitch = useSelector(costSwitch);
     const afkTimeoutCostt = useSelector(afkTimeoutCost);
     const trialNum = useSelector(trials);
     const changeMoneyVariants = {
@@ -234,6 +241,9 @@ function MoneyOutcome({missedTrial, showOutcome, lastOutcomeDollars}) {
                         src={lastOutcomeDollars < 0 ? coinsdown : coins}
                         alt={"coins"}
                     />
+                    {didSwitchScreen &&
+                    <h5>change screen cost ${costToSwitch}</h5>
+                    }
                 </Stack>
             </MoneyPopup>
             }
