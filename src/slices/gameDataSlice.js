@@ -38,6 +38,8 @@ const gameDataSlice = createSlice({
         },
         addMoney: (state, action) => {
             state.money+=action.payload;
+        },
+        nextTrial: (state) => {
             state.trialNumber++;
         },
         resetGame: (state, action) => {
@@ -150,7 +152,7 @@ function fractionParse(a) {
     return split[0]/split[1];
 }
 
-export const { addMoney, resetGame, setLastClickedMul, incrementTimer, resetTimer , endGame} = gameDataSlice.actions;
+export const { addMoney, nextTrial, resetGame, setLastClickedMul, incrementTimer, resetTimer , endGame} = gameDataSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of

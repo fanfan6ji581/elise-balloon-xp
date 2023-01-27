@@ -9,6 +9,7 @@ import {Box, Button, Grid, Stack, Tooltip, Typography} from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
 import {
     addMoney,
+    nextTrial,
     balloonValuePoints,
     endGame,
     incrementTimer,
@@ -88,11 +89,11 @@ export function BalloonScreen()
         setLastMultiplier(multiplier);
         resetGameTimer();
         if (multiplier === 0) {
-            restartGameTimer();
+            goToNextTrial();
         } else {
             loadingInterval.current = setTimeout(() => {
                 setShowOutcome(false);
-                restartGameTimer();
+                goToNextTrial();
             }, outcomeTimeS * 1000)
         }
     }
@@ -108,6 +109,11 @@ export function BalloonScreen()
         clearInterval(loadingInterval.current);
     }
 
+    const goToNextTrial = () => {
+        dispatch(nextTrial());
+        restartGameTimer();
+    };
+
     const restartGameTimer = () => {
         resetGameTimer();
         clearInterval(loadingInterval.current);
@@ -115,6 +121,12 @@ export function BalloonScreen()
             dispatch(incrementTimer(0.5));
         }, afkTimeoutS*5);
     }
+
+    // only run once at beginning
+    useEffect( ()=> {
+        resetGameTimer();
+        resetInternalState();
+    }, [])
 
     useEffect(() => {
         if (trialNum >= maxTrialNumber) {
@@ -124,24 +136,18 @@ export function BalloonScreen()
                 dispatch(endGame())
             },outcomeTimeS*1000)
         }
-        if (trialNum === 1) {
-            resetGameTimer();
-            resetInternalState();
-        }
+       
         if (!showOutcome && progress >= 100) {
             resetGameTimer();
             dispatch(addMoney(-afkTimeoutCostt));
             setMissedTrial(true);
             loadingInterval.current = setTimeout(() => {
                 setMissedTrial(false);
-                restartGameTimer();
+                goToNextTrial();
             }, outcomeTimeS*1000)
         }
-        // return ()=> {
-        //     if (trialNumber >= maxTrialNumber)
-        //     clearInterval(loadingInterval.current);
-        // }
-    }, [progress, resetGameTimer, dispatch, afkTimeoutCostt, outcomeTimeS, restartGameTimer, maxTrialNumber, trialNum]);
+   
+    }, [progress, resetGameTimer, dispatch, afkTimeoutCostt, outcomeTimeS, restartGameTimer, goToNextTrial, maxTrialNumber, trialNum]);
 
     useEffect(() => {
         dispatch(resetGame(gameSettings))
@@ -207,7 +213,7 @@ function MoneyOutcome({missedTrial, showOutcome, lastOutcomeDollars}) {
 
     return (
         <>
-            {showOutcome && trialNum >= 2 &&
+            {showOutcome && trialNum >= 1 &&
             <MoneyPopup
                 variants={changeMoneyVariants}
                 animate={(trialNum%2 === 0) ? "left" : "right"}
@@ -268,7 +274,7 @@ function ChoiceSection({showOutcome, missedTrial, lastMultiplier, clickedAction}
             >
                 {[2,1,0,0,-1,-2].map((x, i) => {
                         if (x !== 0) return (
-                            <>
+                            <div key={i} style={{display:'flex', width:'100%'}}>
                                 <Grid item xs={6}>
                                     <Typography variant={'h4'} align="right">
                                         <b>{x}  &mdash;</b>
@@ -294,7 +300,7 @@ function ChoiceSection({showOutcome, missedTrial, lastMultiplier, clickedAction}
                                         />
                                     </Tooltip>
                                 </Grid>
-                            </>
+                            </div>
                         );
                         else return (
                             <>
