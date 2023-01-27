@@ -2,11 +2,11 @@ import balloon from '../../assets/balloon.png';
 import scale from '../../assets/scale.png';
 import coins from '../../assets/coins.png';
 import coinsdown from '../../assets/coinsdown.png';
-import {motion} from "framer-motion"
+import { motion } from "framer-motion"
 import styled from "styled-components";
-import {useEffect, useRef, useState} from "react";
-import {Box, Button, Grid, Stack, Tooltip, Typography} from "@mui/material";
-import {useDispatch, useSelector} from "react-redux";
+import { useEffect, useRef, useState } from "react";
+import { Box, Button, Grid, Stack, Tooltip, Typography } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
 import {
     addMoney,
     nextTrial,
@@ -19,9 +19,11 @@ import {
     resetTimer,
     setLastClickedMul,
     timerProgress,
-    trials
+    trials,
+    setMoneyOutcome,
+    isDisplayingMoneyOutcome,
 } from "../../slices/gameDataSlice";
-import {afkTimeout, afkTimeoutCost, costSwitch, numberOfTrials, outcomeShowTime} from "../../slices/gameSettingSlice";
+import { afkTimeout, afkTimeoutCost, costSwitch, numberOfTrials, outcomeShowTime } from "../../slices/gameSettingSlice";
 
 
 const initialValue = 480;
@@ -31,9 +33,9 @@ const BalloonImage = styled(motion.img)`
     display: block;
     margin-left: auto;
     margin-right: auto;
-    height: ${initialValue/5 + 'px'};
-    margin-botton: ${initialValue/84 + 'px'};
-    margin-top: ${initialValue/84 + 'px'};
+    height: ${initialValue / 5 + 'px'};
+    margin-botton: ${initialValue / 84 + 'px'};
+    margin-top: ${initialValue / 84 + 'px'};
     -webkit-filter: ${props => props.lastBalloon ? shadow : ''});
     filter: ${props => props.lastBalloon ? shadow : ''});
 `
@@ -44,9 +46,9 @@ const HiddenBalloonImage = styled(motion.img)`
     display: block;
     margin-left: auto;
     margin-right: auto;
-    height: ${initialValue/17 + 'px'};
-    margin-botton: ${initialValue/84 + 'px'};
-    margin-top: ${initialValue/84 + 'px'};
+    height: ${initialValue / 17 + 'px'};
+    margin-botton: ${initialValue / 84 + 'px'};
+    margin-top: ${initialValue / 84 + 'px'};
 `
 
 const MoneyPopup = styled(motion.div)`
@@ -54,8 +56,7 @@ const MoneyPopup = styled(motion.div)`
     height: 100%;
 `
 
-export function BalloonScreen()
-{
+export function BalloonScreen() {
     const dispatch = useDispatch();
 
 
@@ -68,23 +69,23 @@ export function BalloonScreen()
     const gameSettings = useSelector(state => state.gameSetting)
     const afkTimeoutCostt = useSelector(afkTimeoutCost);
     const costToSwitch = useSelector(costSwitch);
+    const showOutcome = useSelector(isDisplayingMoneyOutcome);
 
     const trialNum = useSelector(trials);
     const [lastMultiplier, setLastMultiplier] = useState(0);
     const [missedTrial, setMissedTrial] = useState(false);
-    const [showOutcome, setShowOutcome] = useState(false);
     const [lastOutcomeDollars, setLastOutcomeDollars] = useState(0);
 
     let loadingInterval = useRef(null);
 
     const clickedAction = (multiplier) => {
-        let changeValue = valuePoints[trialNum]*multiplier;
-        if (lastMultiplier*multiplier < 0) {
+        let changeValue = valuePoints[trialNum] * multiplier;
+        if (lastMultiplier * multiplier < 0) {
             changeValue -= costToSwitch;
         }
         setLastOutcomeDollars(changeValue);
         dispatch(addMoney(changeValue));
-        setShowOutcome(multiplier !== 0);
+        _setMoneyOutcome(multiplier !== 0);
 
         dispatch(setLastClickedMul(multiplier));
         setLastMultiplier(multiplier);
@@ -93,14 +94,18 @@ export function BalloonScreen()
             goToNextTrial();
         } else {
             loadingInterval.current = setTimeout(() => {
-                setShowOutcome(false);
+                _setMoneyOutcome(false);
                 goToNextTrial();
             }, outcomeTimeS * 1000)
         }
     }
 
+    const _setMoneyOutcome = (value) => {
+        dispatch(setMoneyOutcome(value));
+    }
+
     const resetInternalState = () => {
-        setShowOutcome(false);
+        _setMoneyOutcome(false);
         setMissedTrial(false);
         setLastMultiplier(0);
     }
@@ -120,24 +125,25 @@ export function BalloonScreen()
         clearInterval(loadingInterval.current);
         loadingInterval.current = setInterval(() => {
             dispatch(incrementTimer(0.5));
-        }, afkTimeoutS*5);
+        }, afkTimeoutS * 5);
     }
 
     // only run once at beginning
-    useEffect( ()=> {
+    useEffect(() => {
         resetGameTimer();
         resetInternalState();
+        restartGameTimer();
     }, [])
 
     useEffect(() => {
         if (trialNum >= maxTrialNumber) {
-            setShowOutcome(true);
+            _setMoneyOutcome(true);
             resetGameTimer();
-            loadingInterval.current = setTimeout(()=> {
+            loadingInterval.current = setTimeout(() => {
                 dispatch(endGame())
-            },outcomeTimeS*1000)
+            }, outcomeTimeS * 1000)
         }
-       
+
         if (!showOutcome && progress >= 100) {
             resetGameTimer();
             dispatch(addMoney(-afkTimeoutCostt));
@@ -145,9 +151,9 @@ export function BalloonScreen()
             loadingInterval.current = setTimeout(() => {
                 setMissedTrial(false);
                 goToNextTrial();
-            }, outcomeTimeS*1000)
+            }, outcomeTimeS * 1000)
         }
-   
+
     }, [progress, resetGameTimer, dispatch, afkTimeoutCostt, outcomeTimeS, restartGameTimer, goToNextTrial, maxTrialNumber, trialNum]);
 
     useEffect(() => {
@@ -174,7 +180,6 @@ export function BalloonScreen()
                 <Grid item xs={5}>
                     <MoneyOutcome
                         missedTrial={missedTrial}
-                        showOutcome={showOutcome}
                         lastOutcomeDollars={lastOutcomeDollars}
                     />
                 </Grid>
@@ -183,16 +188,16 @@ export function BalloonScreen()
     )
 }
 
-function MoneyOutcome({missedTrial, showOutcome, lastOutcomeDollars}) {
-    const costToSwitch = useSelector(costSwitch);
+function MoneyOutcome({ missedTrial, lastOutcomeDollars }) {
+    const showOutcome = useSelector(isDisplayingMoneyOutcome);
     const afkTimeoutCostt = useSelector(afkTimeoutCost);
     const trialNum = useSelector(trials);
     const changeMoneyVariants = {
         left: {
-            opacity: [0,1]
+            opacity: [0, 1]
         },
         right: {
-            opacity: [1,0,1]
+            opacity: [1, 0, 1]
         },
         hidden: {
             opacity: 0
@@ -216,28 +221,28 @@ function MoneyOutcome({missedTrial, showOutcome, lastOutcomeDollars}) {
     return (
         <>
             {showOutcome && trialNum >= 1 &&
-            <MoneyPopup
-                variants={changeMoneyVariants}
-                animate={(trialNum%2 === 0) ? "left" : "right"}
-            >
-                <Stack
-                    height={"100%"}
-                    direction="column"
-                    justifyContent="center"
-                    alignItems="center"
-                    alignContent="center"
+                <MoneyPopup
+                    variants={changeMoneyVariants}
+                    animate={(trialNum % 2 === 0) ? "left" : "right"}
                 >
-                    {(lastOutcomeDollars < 0 ?
-                        <h3>{'You just lost $'+Math.abs(lastOutcomeDollars)}</h3>
-                        :
-                        <h3>{'You just won $'+lastOutcomeDollars}</h3>
-                    )}
-                    <img
-                        src={lastOutcomeDollars < 0 ? coinsdown : coins}
-                        alt={"coins"}
-                    />
-                </Stack>
-            </MoneyPopup>
+                    <Stack
+                        height={"100%"}
+                        direction="column"
+                        justifyContent="center"
+                        alignItems="center"
+                        alignContent="center"
+                    >
+                        {(lastOutcomeDollars < 0 ?
+                            <h3>{'You just lost $' + Math.abs(lastOutcomeDollars)}</h3>
+                            :
+                            <h3>{'You just won $' + lastOutcomeDollars}</h3>
+                        )}
+                        <img
+                            src={lastOutcomeDollars < 0 ? coinsdown : coins}
+                            alt={"coins"}
+                        />
+                    </Stack>
+                </MoneyPopup>
             }
         </>
     )
@@ -245,7 +250,7 @@ function MoneyOutcome({missedTrial, showOutcome, lastOutcomeDollars}) {
 }
 
 
-function ChoiceSection({showOutcome, missedTrial, lastMultiplier, clickedAction}) {
+function ChoiceSection({ showOutcome, missedTrial, lastMultiplier, clickedAction }) {
 
     const costToSwitch = useSelector(costSwitch);
     const lastClicked = useSelector(lastClickedMul);
@@ -253,68 +258,68 @@ function ChoiceSection({showOutcome, missedTrial, lastMultiplier, clickedAction}
     const variants = {
         hover: {
             scale: 1.3,
-            transition: {yoyo: Infinity}
+            transition: { yoyo: Infinity }
         },
         top: {
             y: 0,
-            transition: {duration: 5, ease: "linear"}
+            transition: { duration: 5, ease: "linear" }
         },
         idle: {
             y: Math.random(),
             x: Math.random(),
-            transition: {yoyo: Infinity}
+            transition: { yoyo: Infinity }
         }
     }
 
     return (
         <>
             <Grid
-                style={showOutcome || missedTrial ? {filter: "grayscale(100%)", pointerEvents: "none"} : {}}
+                style={showOutcome || missedTrial ? { filter: "grayscale(100%)", pointerEvents: "none" } : {}}
                 container
                 direction="row"
                 alignItems="center"
             >
-                {[2,1,0,0,-1,-2].map((x, i) => {
-                        if (x !== 0) return (
-                            <div key={i} style={{display:'flex', width:'100%'}}>
-                                <Grid item xs={6}>
-                                    <Typography variant={'h4'} align="right">
-                                        <b>{x}  &mdash;</b>
-                                    </Typography>
-                                </Grid>
-                                <Grid item xs={6}>
-                                    <Tooltip
-                                        title={lastMultiplier*x < 0 ? <h2>{'Changing screen costs $' + costToSwitch}</h2> : ""}
-                                    >
-                                        <BalloonImage
-                                            lastBalloon={lastClicked === x}
-                                            variants={variants}
-                                            whileHover="hover"
-                                            animate={{
-                                                y: Math.random() * 5,
-                                                x: Math.random() * 5,
-                                                transition: {yoyo: Infinity, duration: 3 * Math.random() + 1}
-                                            }}
-                                            src={balloon} alt="balloon"
-                                            onClick={() => {
-                                                clickedAction(x)
-                                            }}
-                                        />
-                                    </Tooltip>
-                                </Grid>
-                            </div>
-                        );
-                        else return (
-                            <>
-                                <Grid item xs={6}>
-                                    <HiddenBalloonImage/>
-                                </Grid>
-                                <Grid item xs={6}>
-                                    <HiddenBalloonImage/>
-                                </Grid>
-                            </>
-                        )
-                    }
+                {[2, 1, 0, 0, -1, -2].map((x, i) => {
+                    if (x !== 0) return (
+                        <>
+                            <Grid item xs={6}>
+                                <Typography variant={'h4'} align="right">
+                                    <b>{x}  &mdash;</b>
+                                </Typography>
+                            </Grid>
+                            <Grid item xs={6}>
+                                <Tooltip
+                                    title={lastMultiplier * x < 0 ? <h2>{'Changing screen costs $' + costToSwitch}</h2> : ""}
+                                >
+                                    <BalloonImage
+                                        lastBalloon={lastClicked === x}
+                                        variants={variants}
+                                        whileHover="hover"
+                                        animate={{
+                                            y: Math.random() * 5,
+                                            x: Math.random() * 5,
+                                            transition: { yoyo: Infinity, duration: 3 * Math.random() + 1 }
+                                        }}
+                                        src={balloon} alt="balloon"
+                                        onClick={() => {
+                                            clickedAction(x)
+                                        }}
+                                    />
+                                </Tooltip>
+                            </Grid>
+                        </>
+                    );
+                    else return (
+                        <>
+                            <Grid item xs={6}>
+                                <HiddenBalloonImage />
+                            </Grid>
+                            <Grid item xs={6}>
+                                <HiddenBalloonImage />
+                            </Grid>
+                        </>
+                    )
+                }
                 )
 
                 }
@@ -323,20 +328,20 @@ function ChoiceSection({showOutcome, missedTrial, lastMultiplier, clickedAction}
                         display={"flex"}
                         justifyContent={"center"}
                     >
-                    <Button
-                        variant="contained"
-                        style={{
-                            backgroundColor: "#00A8F3",
-                            padding: "8px 15px",
-                            fontSize: "18px",
-                            color: "black"
-                        }}
-                        onClick={()=>{
-                            clickedAction(0)
-                        }}
-                    >
-                        Pass
-                    </Button>
+                        <Button
+                            variant="contained"
+                            style={{
+                                backgroundColor: "#00A8F3",
+                                padding: "8px 15px",
+                                fontSize: "18px",
+                                color: "black"
+                            }}
+                            onClick={() => {
+                                clickedAction(0)
+                            }}
+                        >
+                            Pass
+                        </Button>
 
                     </Box>
                 </Grid>

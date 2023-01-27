@@ -1,15 +1,16 @@
 import {Line} from "react-chartjs-2";
 import styled from "styled-components";
 import {useSelector} from "react-redux";
-import {balloonSpeedPoints, balloonValuePoints, trials} from "../../slices/gameDataSlice";
+import {balloonSpeedPoints, balloonValuePoints, trials, isDisplayingMoneyOutcome} from "../../slices/gameDataSlice";
 import {Stack} from "@mui/material";
 
 export function ValueChart() {
+    const isDisplayingMoneyOutcomeS = useSelector(isDisplayingMoneyOutcome);
     const trialNum = useSelector(trials);
     const valuePoints = useSelector(balloonValuePoints);
     const speedPoints = useSelector(balloonSpeedPoints);
 
-    const labelss = Array.from({length: (0+trialNum)}, (_, i) => i + 1);
+    const labelss = Array.from({length: trialNum + (isDisplayingMoneyOutcomeS ? 1 : 0)}, (_, i) => i + 1);
     const data = {
         labels: labelss,
         datasets: [
