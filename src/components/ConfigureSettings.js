@@ -1,8 +1,9 @@
-import Form from "@rjsf/core";
-import {useRef} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {submitSettings} from "../slices/gameSettingSlice";
-import {money, resetGame} from "../slices/gameDataSlice";
+import Form from '@rjsf/mui';
+import validator from "@rjsf/validator-ajv8";
+import { useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { submitSettings } from "../slices/gameSettingSlice";
+import { money, resetGame } from "../slices/gameDataSlice";
 
 
 const schema = {
@@ -116,31 +117,32 @@ export function ConfigureSettings() {
     const changeData = useRef(useSelector(state => state.gameSetting));
     const gameData = useRef(useSelector(state => state.gameData));
     const dispatch = useDispatch();
-    const onSubmit = ({formData}, e) => {
+    const onSubmit = ({ formData }, e) => {
         // alert(JSON.stringify(formData));
         dispatch(submitSettings(formData))
     }
-    const sum = gameData.current._dangerZoneSpeedReset.reduce((prev,next)=>prev+next);
-    const chances = gameData.current._dangerZoneSpeedReset.map(item => (item/sum).toFixed(2));
+    const sum = gameData.current._dangerZoneSpeedReset.reduce((prev, next) => prev + next);
+    const chances = gameData.current._dangerZoneSpeedReset.map(item => (item / sum).toFixed(2));
     return (
         <div key="key">
             <Form
                 schema={schema}
                 formData={changeData.current}
+                validator={validator}
                 // uiSchema={uiSchema}
                 onChange={data => changeData.current = data.formData}
                 onSubmit={onSubmit}
             >
             </Form>
 
-            Number of abberations {gameData.current._numAbberations} / {changeData.current.numberOfTrials} = {gameData.current._numAbberations/changeData.current.numberOfTrials}
-            <br/>
-            Times entered Dangerzone {gameData.current._numDangerzone} / {changeData.current.numberOfTrials} = {gameData.current._numDangerzone/changeData.current.numberOfTrials}
-            <br/>
+            Number of abberations {gameData.current._numAbberations} / {changeData.current.numberOfTrials} = {gameData.current._numAbberations / changeData.current.numberOfTrials}
+            <br />
+            Times entered Dangerzone {gameData.current._numDangerzone} / {changeData.current.numberOfTrials} = {gameData.current._numDangerzone / changeData.current.numberOfTrials}
+            <br />
             Trial n Dangerzone reset {JSON.stringify(gameData.current._dangerZoneSpeedReset)}
-            <br/>
+            <br />
             Trial n Dangerzone reset % chance {JSON.stringify(chances)}
-            <br/>
+            <br />
             Trial n Dangerzone reset expected {JSON.stringify(gameData.current._dangerZoneResetCalc)}
         </div>
     )

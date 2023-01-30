@@ -1,13 +1,15 @@
+import { Provider } from 'react-redux';
 import React from 'react';
 import './App.css';
-// import { BrowserRouter, Link, Outlet } from "react-router-dom";
 import { ThemeProvider, StyledEngineProvider, createTheme } from '@mui/material/styles';
-import { BrowserRouter, Link, Outlet, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
+import { store } from './app/store';
+import AdminLayout from "./components/admin/Layout";
+import LoginPage from "./components/admin/Login";
+import DashboardPage from "./components/admin/Dashboard";
+import TrialLayout from "./components/trial/Layout";
 import { TrialPage } from "./components/trial/TrialPage";
 import { ConfigureSettings } from "./components/ConfigureSettings";
-import LoginPage from "./components/admin/Login";
-import { store } from './app/store';
-import { Provider } from 'react-redux';
 
 const theme = createTheme();
 
@@ -17,7 +19,7 @@ function App() {
             <StyledEngineProvider injectFirst>
                 <ThemeProvider theme={theme}>
                     <BrowserRouter basename="/">
-                        <nav>
+                        {/* <nav>
                             <ul>
                                 <li>
                                     <Link to="trial">Trial</Link>
@@ -26,11 +28,16 @@ function App() {
                                     <Link to="config">Config</Link>
                                 </li>
                             </ul>
-                        </nav>
+                        </nav> */}
                         <Routes>
-                            <Route path="trial" element={<TrialPage />} />
-                            <Route path="config" element={<ConfigureSettings />} />
-                            <Route path="admin/login" element={<LoginPage />} />
+                            <Route path="/" element={<TrialLayout />}>
+                                <Route path="trial" element={<TrialPage />} />
+                                <Route path="config" element={<ConfigureSettings />} />
+                            </Route>
+                            <Route path="/admin" element={<AdminLayout />}>
+                                <Route path="login" element={<LoginPage />} />
+                                <Route path="dashboard" element={<DashboardPage />} />
+                            </Route>
                         </Routes>
                         <Outlet />
                     </BrowserRouter>

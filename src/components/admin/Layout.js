@@ -1,12 +1,19 @@
-// import Navigation from './Navigation'
-// import Footer from './Footer'
+import { useSelector } from "react-redux";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
+import AdminAppBar from './AdminAppBar';
+import { loginUser } from "../../slices/adminSlice";
 
-const Layout = ({ children }) => {
+const Layout = () => {
+  const location = useLocation();
+  const loginUserS = useSelector(loginUser);
+
+  if (!loginUserS && location.pathname !== '/admin/login') {
+    return <Navigate to="/admin/login" />;
+  }
   return (
     <>
-      <h1> I m admin header </h1>
-      <main>{children}</main>
-      {/* <Footer /> */}
+      <AdminAppBar />
+      <Outlet />
     </>
   )
 }
