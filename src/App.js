@@ -1,28 +1,42 @@
 import React from 'react';
 import './App.css';
-import {TrialPage} from "./components/trial/TrialPage";
-import {ConfigureSettings} from "./components/ConfigureSettings";
-import {MainPage} from "./components/MainPage";
-import {BrowserRouter, Link, Outlet} from "react-router-dom";
+// import { BrowserRouter, Link, Outlet } from "react-router-dom";
 import { ThemeProvider, StyledEngineProvider, createTheme } from '@mui/material/styles';
-
-import makeStyles from '@mui/styles/makeStyles';
+import { BrowserRouter, Link, Outlet, Route, Routes } from "react-router-dom";
+import { TrialPage } from "./components/trial/TrialPage";
+import { ConfigureSettings } from "./components/ConfigureSettings";
+import LoginPage from "./components/admin/Login";
+import { store } from './app/store';
+import { Provider } from 'react-redux';
 
 const theme = createTheme();
 
-const useStyles = makeStyles((theme) => {
-    root: {
-        // some CSS that accesses the theme
-    }
-});
-
 function App() {
-    const classes = useStyles(); // ❌ If you have this, consider moving it
-    // inside of a component wrapped with <ThemeProvider />
     return (
-        <StyledEngineProvider injectFirst>
-            <ThemeProvider theme={theme}><Outlet /></ThemeProvider>
-        </StyledEngineProvider>
+        <Provider store={store}>
+            <StyledEngineProvider injectFirst>
+                <ThemeProvider theme={theme}>
+                    <BrowserRouter basename="/">
+                        <nav>
+                            <ul>
+                                <li>
+                                    <Link to="trial">Trial</Link>
+                                </li>
+                                <li>
+                                    <Link to="config">Config</Link>
+                                </li>
+                            </ul>
+                        </nav>
+                        <Routes>
+                            <Route path="trial" element={<TrialPage />} />
+                            <Route path="config" element={<ConfigureSettings />} />
+                            <Route path="admin/login" element={<LoginPage />} />
+                        </Routes>
+                        <Outlet />
+                    </BrowserRouter>
+                </ThemeProvider>
+            </StyledEngineProvider>
+        </Provider>
     );
 }
 

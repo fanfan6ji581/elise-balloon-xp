@@ -288,11 +288,11 @@ function ChoiceSection({ showOutcome, missedTrial, lastMultiplier, clickedAction
                                 </Typography>
                             </Grid>
                             <Grid item xs={6}>
-                                <Tooltip
+                                <Tooltip placement="right"
                                     title={lastMultiplier * x < 0 ? <h2>{'Changing screen costs $' + costToSwitch}</h2> : ""}
                                 >
                                     <BalloonImage
-                                        lastBalloon={lastClicked === x}
+                                        lastBalloon={showOutcome && lastClicked === x}
                                         variants={variants}
                                         whileHover="hover"
                                         animate={{
