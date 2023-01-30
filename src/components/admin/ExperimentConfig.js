@@ -120,14 +120,14 @@ const ExperimentConfig = () => {
         <Container maxWidth="lg">
             <Grid container spacing={2}>
                 <Grid item xs={12}>
-                    <Typography variant='h4'>XP Config</Typography >
+                    <Typography variant='h4'>Experiment <b>{alias}</b></Typography >
                     {errorMsg && <Alert severity="error">{errorMsg}</Alert>}
                     {xp &&
                         <Box sx={{ width: '100%', typography: 'body1' }}>
                             <TabContext value={tab}>
                                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                                     <TabList onChange={onChangeTab} aria-label="lab API tabs example">
-                                        <Tab label="XP config" value="1" />
+                                        <Tab label="Config" value="1" />
                                         <Tab label="Attendants" value="2" />
                                     </TabList>
                                 </Box>
