@@ -7,6 +7,8 @@ import { store } from './app/store';
 import AdminLayout from "./components/admin/Layout";
 import LoginPage from "./components/admin/Login";
 import DashboardPage from "./components/admin/Dashboard";
+import ExperimentConfig from "./components/admin/ExperimentConfig";
+
 import TrialLayout from "./components/trial/Layout";
 import { TrialPage } from "./components/trial/TrialPage";
 import { ConfigureSettings } from "./components/ConfigureSettings";
@@ -37,6 +39,7 @@ function App() {
                             <Route path="/admin" element={<AdminLayout />}>
                                 <Route path="login" element={<LoginPage />} />
                                 <Route path="dashboard" element={<DashboardPage />} />
+                                <Route path="xp/:alias" element={<ExperimentConfig />} />
                             </Route>
                         </Routes>
                         <Outlet />
