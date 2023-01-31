@@ -6,17 +6,18 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
-import { loginAdmin, logout } from "../../slices/adminSlice";
-import { useNavigate } from "react-router-dom"
+import { loginAttendant, logout } from "../../slices/attendantSlice";
+import { useNavigate, useParams } from "react-router-dom"
 
-export default function AdminAppBar() {
+export default function AttendentAppBar() {
+  const { alias } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const loginAdminS = useSelector(loginAdmin);
+  const loginAttendantS = useSelector(loginAttendant);
 
   const onClickLogout = () => {
     dispatch(logout());
-    navigate('/admin/login')
+    navigate(`/xp/${alias}/login`)
   }
 
   return (
@@ -26,9 +27,8 @@ export default function AdminAppBar() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Balloon XP
           </Typography>
-          {loginAdminS && <Button component={Link} to="/admin/dashboard" color="inherit">Dashboard</Button>}
-          {loginAdminS && <Button color="inherit" onClick={onClickLogout}>Logout</Button>}
-          {!loginAdminS && <Button component={Link} to="/admin/login" color="inherit">Login</Button>}
+          {loginAttendantS && <Button color="inherit" onClick={onClickLogout}>Logout</Button>}
+          {!loginAttendantS && <Button component={Link} to={`/xp/${alias}/login`} color="inherit">Login</Button>}
         </Toolbar>
       </AppBar>
     </Box>

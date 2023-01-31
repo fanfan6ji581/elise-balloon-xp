@@ -1,4 +1,5 @@
-import { Container, Grid, Alert, Typography, Box, Tab } from "@mui/material";
+import { Container, Grid, Alert, Typography, Box, Tab, Tooltip, IconButton } from "@mui/material";
+import { Login as LoginIcon } from '@mui/icons-material';
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { useParams } from "react-router-dom"
 import { useEffect, useState } from "react";
@@ -6,6 +7,7 @@ import { collection, getDocs, query, where } from "firebase/firestore";
 import db from "../../database/firebase";
 import ExperimentConfig from './ExperimentConfig';
 import Attedents from './Attedents';
+import { Link } from 'react-router-dom';
 
 const Experiment = () => {
     const [tab, setTab] = useState('2');
@@ -36,7 +38,11 @@ const Experiment = () => {
         <Container maxWidth="lg">
             <Grid container spacing={2}>
                 <Grid item xs={12}>
-                    <Typography variant='h4'>Experiment <b>{alias}</b></Typography >
+                    <Typography variant='h4'>Experiment <b>{alias}</b>
+                        <Tooltip title="Experiment Login">
+                            <IconButton component={Link} to={`/xp/${alias}/login`} target="_blank"><LoginIcon /></IconButton>
+                        </Tooltip>
+                    </Typography >
                     {errorMsg && <Alert severity="error">{errorMsg}</Alert>}
                     {xp &&
                         <Box sx={{ width: '100%', typography: 'body1' }}>

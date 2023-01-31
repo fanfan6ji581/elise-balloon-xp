@@ -5,13 +5,16 @@ import { ThemeProvider, StyledEngineProvider, createTheme } from '@mui/material/
 import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
 import { store } from './app/store';
 import AdminLayout from "./components/admin/Layout";
-import LoginPage from "./components/admin/Login";
+import AdminLoginPage from "./components/admin/Login";
 import DashboardPage from "./components/admin/Dashboard";
 import Experiment from "./components/admin/Experiment";
 import Attedent from "./components/admin/Attedent";
 
-import TrialLayout from "./components/trial/Layout";
-import { TrialPage } from "./components/trial/TrialPage";
+import AttendantLayout from "./components/attendant/Layout";
+import LoginPage from "./components/attendant/Login";
+import BalloonTrialPage from "./components/attendant/BalloonTrial";
+
+import { TrialPage } from "./components/attendant/TrialPage";
 import { ConfigureSettings } from "./components/ConfigureSettings";
 
 const theme = createTheme();
@@ -33,12 +36,15 @@ function App() {
                             </ul>
                         </nav> */}
                         <Routes>
-                            <Route path="/" element={<TrialLayout />}>
+                            <Route path="/" element={<AttendantLayout />}>
+                                <Route path="xp/:alias/login/:username?/:password?" element={<LoginPage />} />
+                                <Route path="xp/:alias/trial" element={<BalloonTrialPage />} />
+
                                 <Route path="trial" element={<TrialPage />} />
                                 <Route path="config" element={<ConfigureSettings />} />
                             </Route>
                             <Route path="/admin" element={<AdminLayout />}>
-                                <Route path="login" element={<LoginPage />} />
+                                <Route path="login" element={<AdminLoginPage />} />
                                 <Route path="dashboard" element={<DashboardPage />} />
                                 <Route path="xp/:alias" element={<Experiment />} />
                                 <Route path="xp/:alias/attendant/:username" element={<Attedent />} />

@@ -3,8 +3,8 @@ import validator from "@rjsf/validator-ajv8";
 import { getDocs, doc, writeBatch, collection, query, where } from "firebase/firestore";
 import db from "../../database/firebase";
 import { useEffect, useState } from "react";
-import { Grid, Typography, IconButton, Button } from "@mui/material";
-import { Visibility as VisibilityIcon, Delete as DeleteIcon } from '@mui/icons-material';
+import { Grid, Typography, IconButton, Button, Tooltip } from "@mui/material";
+import { Visibility as VisibilityIcon, Delete as DeleteIcon, Login as LoginIcon } from '@mui/icons-material';
 import { DataGrid } from '@mui/x-data-grid';
 import moment from 'moment';
 import { generateBalloonData } from '../../util/xp_data'
@@ -43,7 +43,12 @@ const Attendents = ({ xp }) => {
             renderCell: (params) => {
                 return (
                     <>
-                        <IconButton component={Link} to={`/admin/xp/${params.row.xp_alias}/attendant/${params.row.username}`}><VisibilityIcon /></IconButton>
+                        <Tooltip title="View">
+                            <IconButton component={Link} to={`/admin/xp/${params.row.xp_alias}/attendant/${params.row.username}`}><VisibilityIcon /></IconButton>
+                        </Tooltip>
+                        <Tooltip title="Quick Login">
+                            <IconButton component={Link} to={`/xp/${params.row.xp_alias}/login/${params.row.username}/${params.row.password}`} target="_blank"><LoginIcon /></IconButton>
+                        </Tooltip>
                     </>
                 )
             },

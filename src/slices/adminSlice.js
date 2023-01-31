@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-    loginUser: localStorage.getItem('loginUser'),
+    loginAdmin: localStorage.getItem('loginAdmin'),
 }
 
 const adminSlice = createSlice({
@@ -9,10 +9,10 @@ const adminSlice = createSlice({
     initialState,
     reducers: {
         login(state, action) {
-            state.loginUser = action.payload;
+            state.loginAdmin = action.payload;
         },
         logout(state) {
-            state.loginUser = null;
+            state.loginAdmin = null;
         },
     },
 })
@@ -21,5 +21,5 @@ export const {
     login,
     logout,
 } = adminSlice.actions
-export const loginUser = (state) => state.admin.loginUser;
+export const loginAdmin = (state) => state.admin.loginAdmin;
 export default adminSlice.reducer

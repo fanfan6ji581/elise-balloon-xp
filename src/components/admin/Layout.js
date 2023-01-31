@@ -1,16 +1,16 @@
 import { useSelector } from "react-redux";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import AdminAppBar from './AdminAppBar';
-import { loginUser } from "../../slices/adminSlice";
+import { loginAdmin } from "../../slices/adminSlice";
 
 const Layout = () => {
   const location = useLocation();
-  const loginUserS = useSelector(loginUser);
+  const loginAdminS = useSelector(loginAdmin);
 
-  if (!loginUserS && location.pathname !== '/admin/login') {
+  if (!loginAdminS && location.pathname !== '/admin/login') {
     return <Navigate to="/admin/login" />;
   }
-  if (loginUserS && location.pathname === '/admin') {
+  if (loginAdminS && location.pathname === '/admin') {
     return <Navigate to="/admin/dashboard" />;
   }
   return (
