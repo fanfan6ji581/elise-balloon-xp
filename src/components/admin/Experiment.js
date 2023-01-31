@@ -8,7 +8,7 @@ import ExperimentConfig from './ExperimentConfig';
 import Attedents from './Attedents';
 
 const Experiment = () => {
-    const [tab, setTab] = useState('1');
+    const [tab, setTab] = useState('2');
     const [xp, setXp] = useState(null);
     const [errorMsg, setErrorMsg] = useState('');
     const { alias } = useParams()

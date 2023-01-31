@@ -79,8 +79,7 @@ const uiSchema = {
 }
 
 const ExperimentConfig = ({ xp, setXp }) => {
-    const onSaveConfig = async (data, e) => {
-        const { formData } = data;
+    const onSaveConfig = async ({ formData }, e) => {
         e.preventDefault();
         const xpDocRef = doc(db, "xp", formData.id);
         await updateDoc(xpDocRef, formData);
@@ -91,7 +90,9 @@ const ExperimentConfig = ({ xp, setXp }) => {
     return (
         <>
             {xp &&
-                <Form schema={schema} uiSchema={uiSchema} formData={xp} onSubmit={onSaveConfig} validator={validator} />
+                <>
+                    <Form schema={schema} uiSchema={uiSchema} formData={xp} onSubmit={onSaveConfig} validator={validator} />
+                </>
             }
         </>
     )

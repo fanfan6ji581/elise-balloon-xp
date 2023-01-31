@@ -8,6 +8,7 @@ import AdminLayout from "./components/admin/Layout";
 import LoginPage from "./components/admin/Login";
 import DashboardPage from "./components/admin/Dashboard";
 import Experiment from "./components/admin/Experiment";
+import Attedent from "./components/admin/Attedent";
 
 import TrialLayout from "./components/trial/Layout";
 import { TrialPage } from "./components/trial/TrialPage";
@@ -40,6 +41,7 @@ function App() {
                                 <Route path="login" element={<LoginPage />} />
                                 <Route path="dashboard" element={<DashboardPage />} />
                                 <Route path="xp/:alias" element={<Experiment />} />
+                                <Route path="xp/:alias/attendant/:username" element={<Attedent />} />
                             </Route>
                         </Routes>
                         <Outlet />

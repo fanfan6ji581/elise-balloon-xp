@@ -7,6 +7,8 @@ import { Grid, Typography, IconButton, Button } from "@mui/material";
 import { Visibility as VisibilityIcon, Delete as DeleteIcon } from '@mui/icons-material';
 import { DataGrid } from '@mui/x-data-grid';
 import moment from 'moment';
+import { generateBalloonData } from '../../util/xp_data'
+import { Link } from 'react-router-dom';
 
 const zeroPad = (num, places) => String(num).padStart(places, '0')
 
@@ -16,7 +18,7 @@ const schema = {
         "count": {
             "type": "number",
             "title": "Number of attendants to generate",
-            "default": 5,
+            "default": 1,
         },
     },
     required: [
@@ -24,7 +26,7 @@ const schema = {
     ]
 };
 
-const Attendents = ({ xp, setXp }) => {
+const Attendents = ({ xp }) => {
     const [attedents, setAttendents] = useState([]);
     const [selectionModel, setSelectionModel] = useState([]);
 
@@ -41,7 +43,7 @@ const Attendents = ({ xp, setXp }) => {
             renderCell: (params) => {
                 return (
                     <>
-                        <IconButton><VisibilityIcon /></IconButton>
+                        <IconButton component={Link} to={`/admin/xp/${params.row.xp_alias}/attendant/${params.row.username}`}><VisibilityIcon /></IconButton>
                     </>
                 )
             },
@@ -61,13 +63,23 @@ const Attendents = ({ xp, setXp }) => {
         }
 
         const batch = writeBatch(db);
+        let maxGuestIndex = 0;
+        attedents.forEach((att, i) => {
+            const index = parseInt(att.username.replace('guest', ''));
+            maxGuestIndex = Math.max(maxGuestIndex, index);
+        });
+
         for (let i = 0; i < formData.count; i++) {
+
+            const xpData = generateBalloonData(xp);
+
             const attendant = {
-                username: `guest${zeroPad(attedents.length + i + 1, 2)}`,
+                username: `guest${zeroPad(maxGuestIndex + i + 1, 2)}`,
                 password: Math.random().toString(36).slice(-6),
                 created: Date.now(),
                 xp_alias: xp.alias,
                 xp_id: xp.id,
+                xpData,
             }
             const ref = doc(collection(db, "attendant"));
             batch.set(ref, attendant);
@@ -102,6 +114,7 @@ const Attendents = ({ xp, setXp }) => {
                 <Grid item xs={10}>
                     <DataGrid autoHeight rows={attedents} columns={columns}
                         checkboxSelection
+                        disableSelectionOnClick
                         onSelectionModelChange={m => setSelectionModel(m)}
                         sx={{ mb: 3 }}
                         initialState={{
