@@ -5,10 +5,9 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom"
 import { useState } from "react";
 import { getDocs, collection, query, where } from "firebase/firestore";
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import db from "../../database/firebase";
-import { loginAttendant, login } from "../../slices/attendantSlice";
-
+import { login } from "../../slices/attendantSlice";
 
 const uiSchema = {
     "password": {
@@ -57,8 +56,8 @@ const LoginPage = () => {
 
         const snapshot = await getDocs(query(collection(db, "attendant"),
             where("xp_alias", "==", alias),
-            where("username", "==", formData.username),
-            where("password", "==", formData.password),
+            where("username", "==", username),
+            where("password", "==", password),
         ));
 
         const attendants = snapshot.docs.map(d => (Object.assign({ id: d.id }, d.data())));

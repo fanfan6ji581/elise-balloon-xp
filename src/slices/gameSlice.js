@@ -1,18 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const loginAttdant = JSON.parse(localStorage.getItem('loginAttendant'))
-
 const initialState = {
     trialIndex: 0,
     timerProgress: 0,
     showMoneyOutcome: false,
 
     // internal data
-    xpData: loginAttdant.xpData,
-    xpConfig: loginAttdant.xpConfig,
-    mulHistory: new Array(loginAttdant.xpConfig.numberOfTrials).fill(0),
-    moneyHistory: new Array(loginAttdant.xpConfig.numberOfTrials).fill(0),
-    missHistory: new Array(loginAttdant.xpConfig.numberOfTrials).fill(false),
+    xpData: {},
+    xpConfig: {},
+    mulHistory: [],
+    moneyHistory: [],
+    missHistory: [],
 };
 
 const gameSlice = createSlice({
@@ -51,10 +49,18 @@ const gameSlice = createSlice({
             state.timerProgress = 0;
             state.trialIndex++;
         },
+        onLogin: (state, action) => {
+            const loginAttdant = action.payload;
+            state.xpData = loginAttdant.xpData;
+            state.xpConfig = loginAttdant.xpConfig;
+            state.mulHistory = new Array(loginAttdant.xpConfig.numberOfTrials).fill(0);
+            state.moneyHistory = new Array(loginAttdant.xpConfig.numberOfTrials).fill(0);
+            state.missHistory = new Array(loginAttdant.xpConfig.numberOfTrials).fill(false);
+        },
     },
 });
 
-export const { recordMulResp, incrementTimer, nextTrial } = gameSlice.actions;
+export const { recordMulResp, incrementTimer, nextTrial, onLogin } = gameSlice.actions;
 
 export const trialIndex = (state) => state.game.trialIndex;
 export const timerProgress = (state) => state.game.timerProgress;

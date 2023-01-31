@@ -2,7 +2,7 @@ import { Box, Grid, Typography } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom"
 import { useRef, useEffect } from "react";
 import { loginAttendant } from "../../slices/attendantSlice";
-import { trialIndex, timerProgress, showMoneyOutcome, incrementTimer, recordMulResp } from "../../slices/gameSlice";
+import { trialIndex, timerProgress, showMoneyOutcome, incrementTimer, recordMulResp, onLogin } from "../../slices/gameSlice";
 import { useDispatch, useSelector } from "react-redux";
 import TrialTimerProgress from "./TrialTimerProgress";
 import PickBalloon from "./PickBalloon";
@@ -28,6 +28,7 @@ const BalloonTrialPage = () => {
     }
 
     useEffect(() => {
+        dispatch(onLogin(loginAttendantS));
         restartGameTimer();
         return () => {
             clearInterval(timerInterval.current);
