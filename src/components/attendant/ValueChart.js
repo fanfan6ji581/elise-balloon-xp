@@ -1,7 +1,6 @@
 import { Line } from "react-chartjs-2";
 import { useSelector } from "react-redux";
 import { trialIndex, showMoneyOutcome } from "../../slices/gameSlice";
-import { Stack } from "@mui/material";
 
 export default function ValueChart({ xpData }) {
     const showMoneyOutcomeS = useSelector(showMoneyOutcome);
@@ -15,7 +14,6 @@ export default function ValueChart({ xpData }) {
             {
                 label: 'Value history',
                 data: balloonValues,
-                fill: false,
                 backgroundColor: 'rgb(14,133,255)',
                 borderColor: 'rgba(99,104,255,0.2)',
             },
@@ -28,7 +26,6 @@ export default function ValueChart({ xpData }) {
             {
                 label: 'Speed history',
                 data: balloonSpeed,
-                fill: false,
                 backgroundColor: 'rgb(141,168,181)',
                 borderColor: 'rgba(99,104,255,0.2)',
             },
@@ -78,12 +75,8 @@ export default function ValueChart({ xpData }) {
     };
     return (
         <>
-            <Stack
-                height={"100%"}
-            >
-                <Line data={data} options={options} />
-                <Line style={{ paddingLeft: '25px' }} data={data2} options={options2} />
-            </Stack>
+            <Line data={data} options={options} />
+            <Line style={{ paddingLeft: '25px' }} data={data2} options={options2} />
         </>
     );
 }

@@ -2,13 +2,12 @@ import { useDispatch, useSelector } from "react-redux";
 import coins from '../../assets/coins.png';
 import coinsdown from '../../assets/coinsdown.png';
 import { motion } from "framer-motion";
-import { Stack, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import styled from "styled-components";
 import { showMoneyOutcome, moneyHistory, missHistory, trialIndex, nextTrial } from "../../slices/gameSlice";
 import { useEffect, useRef } from "react";
 
 const MoneyPopup = styled(motion.div)`
-    // border: black 1px solid;
     height: 100%;
 `
 
@@ -66,7 +65,7 @@ export default function MoneyOutcome({ xpData, xpConfig }) {
                 variants={changeMoneyVariants}
                 animate={(trialIndexS % 2 === 0) ? "left" : "right"}
             >
-                <Stack
+                <Box
                     height={"100%"}
                     direction="column"
                     justifyContent="center"
@@ -82,7 +81,7 @@ export default function MoneyOutcome({ xpData, xpConfig }) {
                         src={moneyEarned < 0 ? coinsdown : coins}
                         alt={"coins"}
                     />
-                </Stack>
+                </Box>
             </MoneyPopup>
         </>
     )

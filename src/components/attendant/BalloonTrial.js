@@ -1,4 +1,4 @@
-import { Grid, Typography } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom"
 import { useRef, useEffect } from "react";
 import { loginAttendant } from "../../slices/attendantSlice";
@@ -63,15 +63,21 @@ const BalloonTrialPage = () => {
     return (
         <Grid container spacing={2} justifyContent="center">
             <Grid item xs={12} sx={{ m: 2 }}>
-                <br />
-                <Typography variant="h4" align="center">Trial: {trialIndexS + 1}/{xpConfig.numberOfTrials}</Typography >
-                <br />
-                <TrialTimerProgress />
-                <br />
+                <Typography variant="h4" align="center" sx={{ my: 5 }}>Trial: {trialIndexS + 1}/{xpConfig.numberOfTrials}</Typography >
+                <TrialTimerProgress sx={{ my: 5 }} />
 
-                <PickBalloon xpData={xpData} xpConfig={xpConfig} />
-                <MoneyOutcome xpData={xpData} xpConfig={xpConfig} />
-                <ValueChart xpData={xpData} />
+                <Grid container spacing={2} sx={{ mt: 5 }}>
+                    <Grid item xs={4}>
+                        <PickBalloon xpData={xpData} xpConfig={xpConfig} />
+                    </Grid>
+                    <Grid item xs={1} />
+                    <Grid item xs={7}>
+                        <Box sx={{ height: 50 }}>
+                            <MoneyOutcome xpData={xpData} xpConfig={xpConfig} />
+                        </Box>
+                        <ValueChart xpData={xpData} />
+                    </Grid>
+                </Grid>
             </Grid>
         </Grid >
     )

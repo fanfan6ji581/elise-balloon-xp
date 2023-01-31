@@ -1,22 +1,17 @@
 import balloon from '../../assets/balloon.png';
 import { motion } from "framer-motion";
 import styled from "styled-components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Box, Button, Grid, Tooltip, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { showMoneyOutcome, recordMulResp, mulHistory, trialIndex } from "../../slices/gameSlice";
 import { Fragment } from 'react';
 
-const initialValue = 480;
 const shadow = 'brightness(120%) contrast(150%) drop-shadow(0px 0px 7px rgba(0,128,128,1.0)'
 const BalloonImage = styled(motion.img)`
-    border-radius: 3px;
     display: block;
-    margin-left: auto;
-    margin-right: auto;
-    height: ${initialValue / 5 + 'px'};
-    margin-botton: ${initialValue / 84 + 'px'};
-    margin-top: ${initialValue / 84 + 'px'};
+    margin: 15px auto;
+    height: 100px;
     -webkit-filter: ${props => props.lastBalloon ? shadow : ''});
     filter: ${props => props.lastBalloon ? shadow : ''});
 `
@@ -28,7 +23,6 @@ export default function BalloonScreen({ xpData, xpConfig }) {
     const trialIndexS = useSelector(trialIndex);
     const [mul, setMul] = useState(0);
     const { costToSwitch } = xpConfig;
-    const lastMultiplier = trialIndexS > 0 ? mulHistoryS[trialIndexS - 1] : 0;
 
     const variants = {
         hover: {
@@ -36,7 +30,7 @@ export default function BalloonScreen({ xpData, xpConfig }) {
             transition: {
                 repeat: Infinity,
                 repeatType: 'reverse',
-                duration: 0.6,
+                duration: 0.5,
             }
         },
     }
@@ -53,32 +47,29 @@ export default function BalloonScreen({ xpData, xpConfig }) {
                 container
                 direction="row"
                 alignItems="center"
+                justifyContent="center"
             >
                 {[2, 1, -1, -2].map((x, i) => {
                     return (
                         <Fragment key={i}>
-                            <Grid item xs={6}>
-                                <Typography variant={'h4'} align="right">
-                                    <b>{x}  &mdash;</b>
+                            <Grid item xs={5}>
+                                <Typography variant={'h4'} align="center">
+                                    <b>{x}</b>
                                 </Typography>
                             </Grid>
-                            <Grid item xs={6}>
+                            <Grid item xs={2}>
+                                <Typography variant={'h4'} align="center">
+                                    <b> &mdash;</b>
+                                </Typography>
+                            </Grid>
+                            <Grid item xs={5}>
                                 <Tooltip placement="right"
-                                    title={lastMultiplier * x < 0 ? <h2>{'Changing screen costs $' + costToSwitch}</h2> : ""}
+                                    title={(trialIndexS > 0 ? mulHistoryS[trialIndexS - 1] : 0) * x < 0 ? <h2>{'Changing screen costs $' + costToSwitch}</h2> : ""}
                                 >
                                     <BalloonImage
                                         lastBalloon={showMoneyOutcomeS && mul === x}
                                         variants={variants}
                                         whileHover="hover"
-                                        animate={{
-                                            y: Math.random() * 5,
-                                            x: Math.random() * 5,
-                                            transition: {
-                                                repeat: Infinity,
-                                                repeatType: 'reverse',
-                                                duration: 3 * Math.random() + 1
-                                            }
-                                        }}
                                         src={balloon} alt="balloon"
                                         onClick={() => { clickedAction(x) }}
                                     />
