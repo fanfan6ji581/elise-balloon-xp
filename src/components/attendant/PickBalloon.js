@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Box, Button, Grid, Tooltip, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { showMoneyOutcome, recordMulResp, mulHistory, trialIndex } from "../../slices/gameSlice";
+import { Fragment } from 'react';
 
 const initialValue = 480;
 const shadow = 'brightness(120%) contrast(150%) drop-shadow(0px 0px 7px rgba(0,128,128,1.0)'
@@ -55,7 +56,7 @@ export default function BalloonScreen({ xpData, xpConfig }) {
             >
                 {[2, 1, -1, -2].map((x, i) => {
                     return (
-                        <>
+                        <Fragment key={i}>
                             <Grid item xs={6}>
                                 <Typography variant={'h4'} align="right">
                                     <b>{x}  &mdash;</b>
@@ -83,7 +84,7 @@ export default function BalloonScreen({ xpData, xpConfig }) {
                                     />
                                 </Tooltip>
                             </Grid>
-                        </>
+                        </Fragment>
                     )
                 })}
                 <Grid item xs={12}>
