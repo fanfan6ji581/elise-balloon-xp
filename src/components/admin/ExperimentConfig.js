@@ -1,11 +1,6 @@
 import Form from '@rjsf/mui';
 import validator from "@rjsf/validator-ajv8";
-import { Container, Grid, Alert, Typography, Box, Tab } from "@mui/material";
-import { TabContext, TabList, TabPanel } from "@mui/lab";
-import { useDispatch } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom"
-import { useEffect, useState } from "react";
-import { collection, getDocs, updateDoc, doc, query, where } from "firebase/firestore";
+import { updateDoc, doc } from "firebase/firestore";
 import db from "../../database/firebase";
 
 const schema = {
@@ -83,28 +78,9 @@ const uiSchema = {
     }
 }
 
-const ExperimentConfig = () => {
-    const dispatch = useDispatch();
-    const [tab, setTab] = useState('1');
-    const [xp, setXp] = useState(null);
-    const [errorMsg, setErrorMsg] = useState('');
-    const { alias } = useParams()
-
-    const onChangeTab = (event, newValue) => {
-        setTab(newValue);
-    };
-
-    const fetchXP = async () => {
-        const snapshot = await getDocs(query(collection(db, "xp"), where("alias", "==", alias)));
-        const xps = snapshot.docs.map(d => (Object.assign({ id: d.id }, d.data())));
-        if (xps.length == 1) {
-            setXp(xps[0]);
-        } else {
-            setErrorMsg(`Cannot find such XP with alias "${alias}"`)
-        }
-    };
-
-    const onSaveConfig = async ({ formData }, e) => {
+const ExperimentConfig = ({ xp, setXp }) => {
+    const onSaveConfig = async (data, e) => {
+        const { formData } = data;
         e.preventDefault();
         const xpDocRef = doc(db, "xp", formData.id);
         await updateDoc(xpDocRef, formData);
@@ -112,35 +88,12 @@ const ExperimentConfig = () => {
         window.alert("XP config has been saved successfully");
     };
 
-    useEffect(() => {
-        fetchXP();
-    }, [])
-
     return (
-        <Container maxWidth="lg">
-            <Grid container spacing={2}>
-                <Grid item xs={12}>
-                    <Typography variant='h4'>Experiment <b>{alias}</b></Typography >
-                    {errorMsg && <Alert severity="error">{errorMsg}</Alert>}
-                    {xp &&
-                        <Box sx={{ width: '100%', typography: 'body1' }}>
-                            <TabContext value={tab}>
-                                <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                                    <TabList onChange={onChangeTab} aria-label="lab API tabs example">
-                                        <Tab label="Config" value="1" />
-                                        <Tab label="Attendants" value="2" />
-                                    </TabList>
-                                </Box>
-                                <TabPanel value="1">
-                                    <Form schema={schema} uiSchema={uiSchema} formData={xp} onSubmit={onSaveConfig} validator={validator} />
-                                </TabPanel>
-                                <TabPanel value="2">to be build</TabPanel>
-                            </TabContext>
-                        </Box>
-                    }
-                </Grid>
-            </Grid>
-        </Container>
+        <>
+            {xp &&
+                <Form schema={schema} uiSchema={uiSchema} formData={xp} onSubmit={onSaveConfig} validator={validator} />
+            }
+        </>
     )
 }
 

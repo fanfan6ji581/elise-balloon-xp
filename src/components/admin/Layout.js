@@ -10,6 +10,9 @@ const Layout = () => {
   if (!loginUserS && location.pathname !== '/admin/login') {
     return <Navigate to="/admin/login" />;
   }
+  if (loginUserS && location.pathname === '/admin') {
+    return <Navigate to="/admin/dashboard" />;
+  }
   return (
     <>
       <AdminAppBar />
