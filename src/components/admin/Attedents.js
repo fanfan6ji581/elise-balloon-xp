@@ -75,7 +75,6 @@ const Attendents = ({ xp }) => {
         });
 
         for (let i = 0; i < formData.count; i++) {
-
             const xpData = generateBalloonData(xp);
 
             const attendant = {
@@ -85,6 +84,7 @@ const Attendents = ({ xp }) => {
                 xp_alias: xp.alias,
                 xp_id: xp.id,
                 xpData,
+                xpConfig: xp,
             }
             const ref = doc(collection(db, "attendant"));
             batch.set(ref, attendant);

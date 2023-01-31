@@ -97,12 +97,9 @@ function generateBalloonData(xp) {
         balloonValues,
         balloonSpeed,
     });
-    // state.money = 0
     // state.trialNumber = 1
     // state.balloonValues = balloonValues
     // state.balloonSpeed = balloonSpeed
-    // state.hiddenCurrValue = 0
-    // state.hiddenCurrSpeed = 0
     // state.lastClickedMul = 0
     // state.timerProgress = 0
     // state.gameOver = false

@@ -3,12 +3,14 @@ import counterReducer from '../features/counter/counterSlice';
 import gameDataSlice from "../slices/gameDataSlice";
 import gameSettingSlice from "../slices/gameSettingSlice";
 import adminSlice from "../slices/adminSlice";
+import gameSlice from "../slices/gameSlice";
 import attendantSlice from "../slices/attendantSlice";
 
 export const store = configureStore({
   reducer: {
     admin: adminSlice,
     attendant: attendantSlice,
+    game: gameSlice,
     counter: counterReducer,
     gameData: gameDataSlice,
     gameSetting: gameSettingSlice,

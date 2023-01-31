@@ -273,7 +273,7 @@ function ChoiceSection({ showOutcome, missedTrial, lastMultiplier, clickedAction
 
     return (
         <>
-            <Grid
+            {/* <Grid
                 style={showOutcome || missedTrial ? { filter: "grayscale(100%)", pointerEvents: "none" } : {}}
                 container
                 direction="row"
@@ -281,7 +281,7 @@ function ChoiceSection({ showOutcome, missedTrial, lastMultiplier, clickedAction
             >
                 {[2, 1, 0, 0, -1, -2].map((x, i) => {
                     if (x !== 0) return (
-                        <>
+                        <Stack key={i}>
                             <Grid item xs={6}>
                                 <Typography variant={'h4'} align="right">
                                     <b>{x}  &mdash;</b>
@@ -307,7 +307,7 @@ function ChoiceSection({ showOutcome, missedTrial, lastMultiplier, clickedAction
                                     />
                                 </Tooltip>
                             </Grid>
-                        </>
+                        </Stack>
                     );
                     else return (
                         <>
@@ -345,7 +345,7 @@ function ChoiceSection({ showOutcome, missedTrial, lastMultiplier, clickedAction
 
                     </Box>
                 </Grid>
-            </Grid>
+            </Grid> */}
         </>
     )
 }

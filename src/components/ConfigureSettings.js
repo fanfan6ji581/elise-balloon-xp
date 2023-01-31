@@ -3,8 +3,6 @@ import validator from "@rjsf/validator-ajv8";
 import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { submitSettings } from "../slices/gameSettingSlice";
-import { money, resetGame } from "../slices/gameDataSlice";
-
 
 const schema = {
     "title": "Configure random system",
@@ -113,7 +111,6 @@ const uiSchema = {
 const log = (type) => console.log.bind(console, type);
 
 export function ConfigureSettings() {
-    const currMoney = useSelector(money);
     const changeData = useRef(useSelector(state => state.gameSetting));
     const gameData = useRef(useSelector(state => state.gameData));
     const dispatch = useDispatch();

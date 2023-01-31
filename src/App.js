@@ -25,16 +25,6 @@ function App() {
             <StyledEngineProvider injectFirst>
                 <ThemeProvider theme={theme}>
                     <BrowserRouter basename="/">
-                        {/* <nav>
-                            <ul>
-                                <li>
-                                    <Link to="trial">Trial</Link>
-                                </li>
-                                <li>
-                                    <Link to="config">Config</Link>
-                                </li>
-                            </ul>
-                        </nav> */}
                         <Routes>
                             <Route path="/" element={<AttendantLayout />}>
                                 <Route path="xp/:alias/login/:username?/:password?" element={<LoginPage />} />

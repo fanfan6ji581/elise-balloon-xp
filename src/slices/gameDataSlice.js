@@ -5,8 +5,6 @@ const initialState = {
     trialNumber: 1,
     balloonValues: [],
     balloonSpeed: [],
-    hiddenCurrValue: 0,
-    hiddenCurrSpeed: 0,
     lastClickedMul: 0,
     timerProgress: 0,
     gameOver: false,
@@ -135,8 +133,6 @@ const gameDataSlice = createSlice({
             state.trialNumber = 1
             state.balloonValues = balloonValues
             state.balloonSpeed = balloonSpeed
-            state.hiddenCurrValue = 0
-            state.hiddenCurrSpeed = 0
             state.lastClickedMul = 0
             state.timerProgress = 0
             state.gameOver = false
@@ -163,10 +159,11 @@ export const { addMoney, nextTrial, resetGame, setLastClickedMul,
 // the state. Selectors can also be defined inline where they're used instead of
 // in the slice file. For example: `useSelector((state: RootState) => state.counter.value)`
 export const money = (state) => state.gameData.money;
+export const trialNumber = (state) => state.gameData.trialNumber;
+// TODO delte this one
 export const trials = (state) => state.gameData.trialNumber;
 export const balloonValuePoints = (state) => state.gameData.balloonValues;
 export const balloonSpeedPoints = (state) => state.gameData.balloonSpeed;
-export const currBalloonValue = (state) => state.gameData.hiddenCurrValue;
 export const lastClickedMul = (state) => state.gameData.lastClickedMul;
 export const timerProgress = (state) => state.gameData.timerProgress;
 export const gameOver = (state) => state.gameData.gameOver;
