@@ -6,9 +6,9 @@ import { loginAttendant } from "../../slices/attendantSlice";
 const Layout = () => {
     const { alias } = useParams();
     const location = useLocation();
-    const loginAttdentS = useSelector(loginAttendant);
+    const loginAttendantS = useSelector(loginAttendant);
 
-    if (!loginAttdentS && !location.pathname.includes(`login`)) {
+    if (!loginAttendantS && !location.pathname.includes(`login`)) {
         return <Navigate to={`/xp/${alias || '1st-xp'}/login`} />;
     }
 

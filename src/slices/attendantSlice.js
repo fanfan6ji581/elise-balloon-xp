@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-    loginAttendant: localStorage.getItem('loginAttendant'),
+    loginAttendant: JSON.parse(localStorage.getItem('loginAttendant')),
 }
 
 const attendantSlice = createSlice({
-    name: 'admin',
+    name: 'attendant',
     initialState,
     reducers: {
         login(state, action) {

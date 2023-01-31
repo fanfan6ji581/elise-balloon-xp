@@ -7,7 +7,7 @@ import { useState } from "react";
 import { getDocs, collection, query, where } from "firebase/firestore";
 import { Link, useParams } from 'react-router-dom';
 import db from "../../database/firebase";
-import { loginAttdent, login } from "../../slices/attendantSlice";
+import { loginAttendant, login } from "../../slices/attendantSlice";
 
 
 const uiSchema = {

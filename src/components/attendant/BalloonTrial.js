@@ -1,84 +1,27 @@
 import Form from '@rjsf/mui';
 import validator from "@rjsf/validator-ajv8";
 import { Grid, Alert, Typography } from "@mui/material";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom"
 import { useState } from "react";
 import { getDocs, collection, query, where } from "firebase/firestore";
 import { Link, useParams } from 'react-router-dom';
 import db from "../../database/firebase";
-import { loginAttdent, login } from "../../slices/attendantSlice";
+import { loginAttendant } from "../../slices/attendantSlice";
+import { useDispatch, useSelector } from "react-redux";
 
-
-const uiSchema = {
-    "password": {
-        "ui:widget": "password"
-    },
-    "ui:options": {
-        "submitButtonOptions": {
-            "props": {
-                "className": "btn btn-info",
-            },
-            "norender": false,
-            "submitText": "Login"
-        }
-    }
-}
-
-const LoginPage = () => {
-    const { alias, username, password } = useParams()
+const BalloonTrialPage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate()
-    const [errorMsg, setErrorMsg] = useState('');
-
-    const schema = {
-        "type": "object",
-        "properties": {
-            "username": {
-                "type": "string",
-                "default": username,
-            },
-            "password": {
-                "type": "string",
-                "default": password,
-            }
-        },
-        required: [
-            "username",
-            "password"
-        ]
-    };
-
-
-    const onLogin = async ({ formData }, e) => {
-        e.preventDefault();
-        setErrorMsg('');
-        const { username, password } = formData;
-
-        const snapshot = await getDocs(query(collection(db, "attendant"),
-            where("xp_alias", "==", alias),
-            where("username", "==", formData.username),
-            where("password", "==", formData.password),
-        ));
-
-        const attendants = snapshot.docs.map(d => (Object.assign({ id: d.id }, d.data())));
-        if (attendants.length === 1) {
-            console.log("Login successful")
-            dispatch(login(attendants[0]));
-        } else {
-            setErrorMsg("Invalid login")
-        }
-    }
+    const loginAttendantS = useSelector(loginAttendant);
 
     return (
         <Grid container spacing={2} justifyContent="center">
-            <Grid item xs={3}>
-                <br />
-                <br />
-                <Typography variant='h3' align="center">Trial page</Typography >
+            <Grid item xs={12}>
+                <Typography variant="h3">Trial page</Typography >
+                {JSON.stringify(loginAttendantS.xpData)}
             </Grid>
         </Grid>
     )
 }
 
-export default LoginPage
+export default BalloonTrialPage

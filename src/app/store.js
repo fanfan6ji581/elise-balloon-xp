@@ -17,19 +17,15 @@ export const store = configureStore({
 
 store.subscribe(() => {
   const { admin, attendant } = store.getState();
-  if (admin) {
-    if (admin.loginAdmin) {
-      localStorage.setItem('loginAdmin', admin.loginAdmin);
-    } else {
-      localStorage.removeItem('loginAdmin');
-    }
+  if (admin.loginAdmin) {
+    localStorage.setItem('loginAdmin', admin.loginAdmin);
+  } else {
+    localStorage.removeItem('loginAdmin');
   }
 
-  if (attendant) {
-    if (attendant.loginAttendant) {
-      localStorage.setItem('loginAttendant', attendant.loginAttendant);
-    } else {
-      localStorage.removeItem('loginAttendant');
-    }
+  if (attendant.loginAttendant) {
+    localStorage.setItem('loginAttendant', JSON.stringify(attendant.loginAttendant));
+  } else {
+    localStorage.removeItem('loginAttendant');
   }
 })
