@@ -2,7 +2,7 @@ import Form from '@rjsf/mui';
 import validator from "@rjsf/validator-ajv8";
 import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { submitSettings } from "../slices/gameSettingSlice";
+import { submitSettings } from "../../slices/gameSettingSlice";
 
 const schema = {
     "title": "Configure random system",

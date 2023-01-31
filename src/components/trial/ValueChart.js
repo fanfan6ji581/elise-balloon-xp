@@ -1,20 +1,21 @@
 import { Line } from "react-chartjs-2";
 import { useSelector } from "react-redux";
-import { trialIndex, showMoneyOutcome } from "../../slices/gameSlice";
+import { balloonSpeedPoints, balloonValuePoints, trials, isDisplayingMoneyOutcome } from "../../slices/gameDataSlice";
 import { Stack } from "@mui/material";
 
-export default function ValueChart({ xpData }) {
-    const showMoneyOutcomeS = useSelector(showMoneyOutcome);
-    const trialIndexS = useSelector(trialIndex);
-    const { balloonValues, balloonSpeed } = xpData;
+export function ValueChart() {
+    const isDisplayingMoneyOutcomeS = useSelector(isDisplayingMoneyOutcome);
+    const trialNum = useSelector(trials);
+    const valuePoints = useSelector(balloonValuePoints);
+    const speedPoints = useSelector(balloonSpeedPoints);
 
-    const labels = Array.from({ length: trialIndexS + (showMoneyOutcomeS ? 2 : 1) }, (_, i) => i + 1);
+    const labelss = Array.from({ length: trialNum + (isDisplayingMoneyOutcomeS ? 1 : 0) }, (_, i) => i + 1);
     const data = {
-        labels: labels,
+        labels: labelss,
         datasets: [
             {
                 label: 'Value history',
-                data: balloonValues,
+                data: valuePoints,
                 fill: false,
                 backgroundColor: 'rgb(14,133,255)',
                 borderColor: 'rgba(99,104,255,0.2)',
@@ -22,18 +23,20 @@ export default function ValueChart({ xpData }) {
         ],
     };
 
+
     const data2 = {
-        labels: labels,
+        labels: labelss,
         datasets: [
             {
                 label: 'Speed history',
-                data: balloonSpeed,
+                data: speedPoints,
                 fill: false,
                 backgroundColor: 'rgb(141,168,181)',
                 borderColor: 'rgba(99,104,255,0.2)',
             },
         ],
     };
+
 
     const options = {
         aspectRatio: 3.5,

@@ -14,8 +14,8 @@ import AttendantLayout from "./components/attendant/Layout";
 import LoginPage from "./components/attendant/Login";
 import BalloonTrialPage from "./components/attendant/BalloonTrial";
 
-import { TrialPage } from "./components/attendant/TrialPage";
-import { ConfigureSettings } from "./components/ConfigureSettings";
+// import { TrialPage } from "./components/trial/TrialPage";
+// import { ConfigureSettings } from "./components/trial/ConfigureSettings";
 
 const theme = createTheme();
 
@@ -30,8 +30,8 @@ function App() {
                                 <Route path="xp/:alias/login/:username?/:password?" element={<LoginPage />} />
                                 <Route path="xp/:alias/trial" element={<BalloonTrialPage />} />
 
-                                <Route path="trial" element={<TrialPage />} />
-                                <Route path="config" element={<ConfigureSettings />} />
+                                {/* <Route path="trial" element={<TrialPage />} />
+                                <Route path="config" element={<ConfigureSettings />} /> */}
                             </Route>
                             <Route path="/admin" element={<AdminLayout />}>
                                 <Route path="login" element={<AdminLoginPage />} />

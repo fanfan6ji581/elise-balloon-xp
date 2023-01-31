@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import TrialTimerProgress from "./TrialTimerProgress";
 import PickBalloon from "./PickBalloon";
 import MoneyOutcome from "./MoneyOutcome";
+import ValueChart from "./ValueChart";
 
 const BalloonTrialPage = () => {
     const dispatch = useDispatch();
@@ -70,6 +71,7 @@ const BalloonTrialPage = () => {
 
                 <PickBalloon xpData={xpData} xpConfig={xpConfig} />
                 <MoneyOutcome xpData={xpData} xpConfig={xpConfig} />
+                <ValueChart xpData={xpData} />
             </Grid>
         </Grid >
     )
