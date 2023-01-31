@@ -72,7 +72,7 @@ const BalloonTrialPage = () => {
                     </Grid>
                     <Grid item xs={1} />
                     <Grid item xs={7}>
-                        <Box sx={{ height: 50 }}>
+                        <Box sx={{ height: 80 }}>
                             <MoneyOutcome xpData={xpData} xpConfig={xpConfig} />
                         </Box>
                         <ValueChart xpData={xpData} />

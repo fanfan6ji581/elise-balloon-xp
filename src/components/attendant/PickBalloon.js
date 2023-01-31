@@ -1,7 +1,7 @@
 import balloon from '../../assets/balloon.png';
 import { motion } from "framer-motion";
 import styled from "styled-components";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Box, Button, Grid, Tooltip, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { showMoneyOutcome, recordMulResp, mulHistory, trialIndex } from "../../slices/gameSlice";

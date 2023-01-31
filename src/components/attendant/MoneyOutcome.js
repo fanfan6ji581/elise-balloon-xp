@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import coins from '../../assets/coins.png';
 import coinsdown from '../../assets/coinsdown.png';
 import { motion } from "framer-motion";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, CardMedia, CardContent } from "@mui/material";
 import styled from "styled-components";
 import { showMoneyOutcome, moneyHistory, missHistory, trialIndex, nextTrial } from "../../slices/gameSlice";
 import { useEffect, useRef } from "react";
@@ -51,36 +51,32 @@ export default function MoneyOutcome({ xpData, xpConfig }) {
         return <></>
     }
 
-    if (missedTrial) {
-        return (
-            <Typography variant="h5" align="center">
-                Missed trial, you lost ${afkTimeoutCost}!
-            </Typography>
-        )
-    }
-
     return (
         <>
             <MoneyPopup
                 variants={changeMoneyVariants}
-                animate={(trialIndexS % 2 === 0) ? "left" : "right"}
+                animate={(trialIndexS % 2 === 0) ? "left" : "left"}
             >
-                <Box
-                    height={"100%"}
-                    direction="column"
-                    justifyContent="center"
-                    alignItems="center"
-                    alignContent="center"
-                >
-                    {(moneyEarned < 0 ?
-                        <h3>{'You just lost $' + -moneyEarned}</h3>
-                        :
-                        <h3>{'You just won $' + moneyEarned}</h3>
-                    )}
-                    <img
-                        src={moneyEarned < 0 ? coinsdown : coins}
-                        alt={"coins"}
-                    />
+                <Box sx={{ display: 'flex', width: '100%', alignItems: 'center', justifyContent: 'center' }}>
+                    {!missedTrial &&
+                        <CardMedia
+                            component="img"
+                            sx={{ width: 64, height: 64 }}
+                            src={moneyEarned < 0 ? coinsdown : coins}
+                            alt="coins" />
+                    }
+                    <CardContent>
+                        {!missedTrial && <>
+                            <Typography variant="h5" align="center">
+                                {moneyEarned < 0 ? `You just lost $${-moneyEarned}` : `You just won $${moneyEarned}`}
+                            </Typography>
+                        </>}
+                        {missedTrial && <>
+                            <Typography variant="h5" align="center">
+                                Missed trial, you lost ${afkTimeoutCost}!
+                            </Typography>
+                        </>}
+                    </CardContent>
                 </Box>
             </MoneyPopup>
         </>
