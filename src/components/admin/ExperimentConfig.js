@@ -40,12 +40,12 @@ const schema = {
         },
         "outcomeShowTime": {
             "type": "integer",
-            "title": "Outcome stage",
+            "title": "Outcome stage, how many seconds showing the ouput result",
             // "default": 2
         },
         "afkTimeout": {
             "type": "integer",
-            "title": "Decision stage",
+            "title": "Decision stage, this will affect progress bar, smaller value is faster",
             // "default": 2
         },
         "afkTimeoutCost": {

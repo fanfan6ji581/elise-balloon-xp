@@ -13,9 +13,7 @@ import Attedent from "./components/admin/Attedent";
 import AttendantLayout from "./components/attendant/Layout";
 import LoginPage from "./components/attendant/Login";
 import BalloonTrialPage from "./components/attendant/BalloonTrial";
-
-// import { TrialPage } from "./components/trial/TrialPage";
-// import { ConfigureSettings } from "./components/trial/ConfigureSettings";
+import PaymentPage from "./components/attendant/Payment";
 
 const theme = createTheme();
 
@@ -29,9 +27,7 @@ function App() {
                             <Route path="/" element={<AttendantLayout />}>
                                 <Route path="xp/:alias/login/:username?/:password?" element={<LoginPage />} />
                                 <Route path="xp/:alias/trial" element={<BalloonTrialPage />} />
-
-                                {/* <Route path="trial" element={<TrialPage />} />
-                                <Route path="config" element={<ConfigureSettings />} /> */}
+                                <Route path="xp/:alias/payment" element={<PaymentPage />} />
                             </Route>
                             <Route path="/admin" element={<AdminLayout />}>
                                 <Route path="login" element={<AdminLoginPage />} />
