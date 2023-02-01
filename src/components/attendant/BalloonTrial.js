@@ -2,7 +2,10 @@ import { Container, Box, Grid, Typography } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom"
 import { useRef, useEffect } from "react";
 import { loginAttendant } from "../../slices/attendantSlice";
-import { trialIndex, timerProgress, showMoneyOutcome, incrementTimer, recordMulResp, onLogin } from "../../slices/gameSlice";
+import {
+    trialIndex, timerProgress, showMoneyOutcome, showAfterClickDelay,
+    incrementTimer, recordMulResp, onLogin
+} from "../../slices/gameSlice";
 import { useDispatch, useSelector } from "react-redux";
 import TrialTimerProgress from "./TrialTimerProgress";
 import PickBalloon from "./PickBalloon";
@@ -18,6 +21,7 @@ const BalloonTrialPage = () => {
     const trialIndexS = useSelector(trialIndex);
     const showMoneyOutcomeS = useSelector(showMoneyOutcome);
     const timerProgressS = useSelector(timerProgress);
+    const showAfterClickDelayS = useSelector(showAfterClickDelay);
     const { xpData, xpConfig } = loginAttendantS;
 
     const restartGameTimer = () => {
@@ -45,13 +49,13 @@ const BalloonTrialPage = () => {
     }, [timerProgressS])
 
     useEffect(() => {
-        if (showMoneyOutcomeS) {
+        if (showMoneyOutcomeS || showAfterClickDelayS) {
             clearInterval(timerInterval.current);
         } else {
             restartGameTimer()
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [showMoneyOutcomeS])
+    }, [showMoneyOutcomeS, showAfterClickDelayS])
 
     useEffect(() => {
         if (trialIndexS === xpConfig.numberOfTrials) {
@@ -66,7 +70,7 @@ const BalloonTrialPage = () => {
             <Grid container justifyContent="center">
                 <Grid item xs={12}>
                     <Typography variant="h5" align="center" sx={{ mt: 2, mb: 1 }}>Trial: {trialIndexS + 1}/{xpConfig.numberOfTrials}</Typography >
-                    <TrialTimerProgress/>
+                    <TrialTimerProgress />
                     <Grid container>
                         <Grid item xs={12}>
                             <Box sx={{ height: 64, my: 1 }}>

@@ -86,6 +86,7 @@ const DashboardPage = () => {
             aberrationChance: "1/12",
             delta: 100,
             costToSwitch: 1,
+            choiceDelay: 0,
             outcomeShowTime: 2,
             afkTimeout: 2,
             afkTimeoutCost: 1,

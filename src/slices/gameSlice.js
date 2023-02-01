@@ -4,6 +4,7 @@ const initialState = {
     trialIndex: 0,
     timerProgress: 0,
     showMoneyOutcome: false,
+    showAfterClickDelay: false,
 
     // internal data
     xpData: {},
@@ -34,12 +35,18 @@ const gameSlice = createSlice({
 
             // should show outcome
             if (missed || mul !== 0) {
-                state.showMoneyOutcome = true;
+                state.showAfterClickDelay = true;
+                // state.showMoneyOutcome = true;
             } else {
                 // when click pass
                 state.timerProgress = 0;
                 state.trialIndex++;
             }
+        },
+        setShowMoneyOutcome: (state, action) => {
+            state.showMoneyOutcome = action.payload;
+            // means delay has finished
+            state.showAfterClickDelay = false;
         },
         incrementTimer: (state, action) => {
             state.timerProgress = Math.min(100, state.timerProgress + action.payload);
@@ -60,9 +67,10 @@ const gameSlice = createSlice({
     },
 });
 
-export const { recordMulResp, incrementTimer, nextTrial, onLogin } = gameSlice.actions;
+export const { recordMulResp, incrementTimer, nextTrial, onLogin, setShowMoneyOutcome } = gameSlice.actions;
 
 export const trialIndex = (state) => state.game.trialIndex;
+export const showAfterClickDelay = (state) => state.game.showAfterClickDelay;
 export const timerProgress = (state) => state.game.timerProgress;
 export const showMoneyOutcome = (state) => state.game.showMoneyOutcome;
 export const mulHistory = (state) => state.game.mulHistory;

@@ -38,14 +38,19 @@ const schema = {
             "title": "Cost to switch the other screen",
             // "default": 6
         },
-        "outcomeShowTime": {
-            "type": "integer",
-            "title": "Outcome stage, how many seconds showing the ouput result",
-            // "default": 2
-        },
         "afkTimeout": {
             "type": "integer",
             "title": "Decision stage, this will affect progress bar, smaller value is faster",
+            // "default": 2
+        },
+        "choiceDelay": {
+            "type": "integer",
+            "title": "Delay in milliseconds after clicking a balloon, 1000 ms = 1 sec",
+            "default": 0
+        },
+        "outcomeShowTime": {
+            "type": "integer",
+            "title": "Outcome stage,Seconds showing the ouput result",
             // "default": 2
         },
         "afkTimeoutCost": {

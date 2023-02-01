@@ -3,8 +3,11 @@ import { motion } from "framer-motion";
 import styled from "styled-components";
 import { Box, Button, Grid, Tooltip, Typography, Divider } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { showMoneyOutcome, recordMulResp, mulHistory, missHistory, trialIndex } from "../../slices/gameSlice";
-import { Fragment } from 'react';
+import {
+    showMoneyOutcome, recordMulResp, setShowMoneyOutcome, showAfterClickDelay,
+    mulHistory, missHistory, trialIndex
+} from "../../slices/gameSlice";
+import { Fragment, useEffect, useRef } from 'react';
 
 const shadow = 'brightness(120%) contrast(150%) drop-shadow(0px 0px 7px rgba(0,128,128,1.0)'
 const BalloonImage = styled(motion.img)`
@@ -21,7 +24,9 @@ export default function BalloonScreen({ xpData, xpConfig }) {
     const mulHistoryS = useSelector(mulHistory);
     const missHistoryS = useSelector(missHistory);
     const trialIndexS = useSelector(trialIndex);
-    const { costToSwitch } = xpConfig;
+    const showAfterClickDelayS = useSelector(showAfterClickDelay);
+    const loadingInterval = useRef(null);
+    const { costToSwitch, choiceDelay } = xpConfig;
 
     const variants = {
         hover: {
@@ -38,11 +43,23 @@ export default function BalloonScreen({ xpData, xpConfig }) {
         dispatch(recordMulResp({ mul, missed: false }));
     }
 
+    useEffect(() => {
+        if (showAfterClickDelayS) {
+            loadingInterval.current = setTimeout(() => {
+                dispatch(setShowMoneyOutcome(true));
+            }, choiceDelay)
+        }
+
+        return () => clearInterval(loadingInterval.current);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [showAfterClickDelayS])
+
 
     return (
         <>
             <Grid container
-                style={showMoneyOutcomeS ? { filter: "grayscale(100%)", pointerEvents: "none" } : {}}>
+                style={(showAfterClickDelayS || showMoneyOutcomeS) ?
+                    { filter: "grayscale(100%)", pointerEvents: "none" } : {}}>
                 <Grid item xs={9}>
                     <Grid container alignItems="center">
                         {[2, 1, -1, -2].map((x, i) => {
