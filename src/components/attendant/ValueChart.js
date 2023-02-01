@@ -1,4 +1,5 @@
 import { Line } from "react-chartjs-2";
+import { Box } from "@mui/material";
 import { useSelector } from "react-redux";
 import { trialIndex, showMoneyOutcome } from "../../slices/gameSlice";
 
@@ -75,8 +76,12 @@ export default function ValueChart({ xpData }) {
     };
     return (
         <>
-            <Line data={data} options={options} />
-            <Line style={{ paddingLeft: '25px' }} data={data2} options={options2} />
+            <Box>
+                <Line data={data} options={options} />
+            </Box>
+            <Box sx={{mt: 15}}>
+                <Line style={{ paddingLeft: '25px' }} data={data2} options={options2} />
+            </Box>
         </>
     );
 }

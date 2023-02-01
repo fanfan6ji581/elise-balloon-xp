@@ -10,7 +10,7 @@ const shadow = 'brightness(120%) contrast(150%) drop-shadow(0px 0px 7px rgba(0,1
 const BalloonImage = styled(motion.img)`
     display: block;
     margin: 8px auto;
-    height: 120px;
+    height: 112px;
     -webkit-filter: ${props => props.lastBalloon ? shadow : ''});
     filter: ${props => props.lastBalloon ? shadow : ''});
 `

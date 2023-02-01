@@ -1,4 +1,4 @@
-import { Box, Grid, Typography } from "@mui/material";
+import { Container, Box, Grid, Typography } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom"
 import { useRef, useEffect } from "react";
 import { loginAttendant } from "../../slices/attendantSlice";
@@ -62,26 +62,32 @@ const BalloonTrialPage = () => {
     }, [trialIndexS])
 
     return (
-        <Grid container spacing={2} justifyContent="center">
-            <Grid item xs={12} sx={{ m: 2 }}>
-                <Typography variant="h4" align="center" sx={{ my: 3 }}>Trial: {trialIndexS + 1}/{xpConfig.numberOfTrials}</Typography >
-                <TrialTimerProgress sx={{ my: 3 }} />
-                <Grid container spacing={2} sx={{ m: 1 }}>
-                    <Grid item xs={12}>
-                        <Box sx={{ height: 50 }}>
-                            <MoneyOutcome xpData={xpData} xpConfig={xpConfig} />
-                        </Box>
-                    </Grid>
+        <Container maxWidth="lg">
+            <Grid container spacing={2} justifyContent="center">
+                <Grid item xs={12} sx={{ m: 2 }}>
+                    <Typography variant="h5" align="center" sx={{ my: 3 }}>Trial: {trialIndexS + 1}/{xpConfig.numberOfTrials}</Typography >
+                    <TrialTimerProgress sx={{ my: 3 }} />
+                    <Grid container spacing={2} sx={{ m: 1 }}>
 
-                    <Grid item xs={3}>
-                        <PickBalloon xpData={xpData} xpConfig={xpConfig} />
+                        <Grid item xs={12}>
+                            <Box sx={{ height: 80 }}>
+                                <MoneyOutcome xpData={xpData} xpConfig={xpConfig} />
+                            </Box>
+                        </Grid>
                     </Grid>
-                    <Grid item xs={8} sx={{m: 3}}>
-                        <ValueChart xpData={xpData} />
+                    <Grid container spacing={2} sx={{ m: 1 }} alignItems="center">
+                        <Grid item xs={3}>
+                            <PickBalloon xpData={xpData} xpConfig={xpConfig} />
+                        </Grid>
+                        <Grid item xs={2} />
+
+                        <Grid item xs={7}>
+                            <ValueChart xpData={xpData} />
+                        </Grid>
                     </Grid>
                 </Grid>
-            </Grid>
-        </Grid >
+            </Grid >
+        </Container>
     )
 }
 

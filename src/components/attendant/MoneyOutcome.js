@@ -53,29 +53,23 @@ export default function MoneyOutcome({ xpData, xpConfig }) {
 
     return (
         <>
-            <MoneyPopup
-                variants={changeMoneyVariants}
-                animate={(trialIndexS % 2 === 0) ? "left" : "left"}
-            >
+            <MoneyPopup variants={changeMoneyVariants} animate={(trialIndexS % 2 === 0) ? "left" : "left"}>
                 <Box sx={{ display: 'flex', width: '100%', alignItems: 'center', justifyContent: 'center' }}>
-                    {!missedTrial &&
-                        <CardMedia
-                            component="img"
-                            sx={{ width: 48, height: 48 }}
-                            src={moneyEarned < 0 ? coinsdown : coins}
-                            alt="coins" />
-                    }
+                    <CardMedia
+                        component="img"
+                        sx={{ width: 64, height: 64 }}
+                        src={(moneyEarned < 0 || missedTrial) ? coinsdown : coins}
+                        alt="coins" />
                     <CardContent>
-                        {!missedTrial && <>
-                            <Typography variant="h5" align="center">
-                                {moneyEarned < 0 ? `You just lost $${-moneyEarned}` : `You just won $${moneyEarned}`}
-                            </Typography>
-                        </>}
-                        {missedTrial && <>
-                            <Typography variant="h5" align="center">
-                                Missed trial, you lost ${afkTimeoutCost}!
-                            </Typography>
-                        </>}
+                        <Typography variant="h5" align="center">
+                            {
+                                missedTrial ?
+                                    `Missed trial, you lost -${afkTimeoutCost}!` :
+                                    moneyEarned < 0 ?
+                                        `You just lost $${-moneyEarned}` :
+                                        `You just won $${moneyEarned}`
+                            }
+                        </Typography>
                     </CardContent>
                 </Box>
             </MoneyPopup>
