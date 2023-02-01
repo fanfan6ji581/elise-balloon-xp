@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Container, Grid, Typography, IconButton, Divider } from "@mui/material";
 import { Visibility as VisibilityIcon, Delete as DeleteIcon } from '@mui/icons-material';
-import { collection, getDocs, deleteDoc, doc, addDoc } from "firebase/firestore";
+import { collection, getDocs, deleteDoc, doc, addDoc, query, where, writeBatch } from "firebase/firestore";
 import db from "../../database/firebase";
 import { DataGrid } from '@mui/x-data-grid';
 import Form from '@rjsf/mui';
@@ -28,10 +28,18 @@ const DashboardPage = () => {
                     if (!window.confirm(`Are you sure to delete "${data.alias}"?`)) {
                         return;
                     }
-                    // do delete
+                    // delete attdents
+                    const snapshot = await getDocs(query(collection(db, "attendant"), where("xp_alias", "==", data.alias)));
+                    const batch = writeBatch(db);
+                    snapshot.docs.forEach((document) => {
+                        batch.delete(document.ref);
+                    });
+                    await batch.commit();
+
+                    // delete xp
                     const xpDocRef = doc(db, "xp", data.id)
                     await deleteDoc(xpDocRef);
-                    setXps(xps.filter(xp => xp.id != data.id))
+                    setXps(xps.filter(xp => xp.id !== data.id))
                 }
                 return (
                     <>
@@ -75,9 +83,9 @@ const DashboardPage = () => {
             // following are default value
             dangerZoneChance: "1/6",
             lambda: "1/3",
-            aberrationChance: "1/6",
+            aberrationChance: "1/12",
             delta: 100,
-            costToSwitch: 6,
+            costToSwitch: 1,
             outcomeShowTime: 2,
             afkTimeout: 2,
             afkTimeoutCost: 1,
