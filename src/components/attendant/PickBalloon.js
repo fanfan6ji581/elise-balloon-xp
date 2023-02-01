@@ -76,7 +76,7 @@ export default function BalloonScreen({ xpData, xpConfig }) {
                                             title={(trialIndexS > 0 ? mulHistoryS[trialIndexS - 1] : 0) * x < 0 ? <h2>{'Changing screen costs $' + costToSwitch}</h2> : ""}
                                         >
                                             <BalloonImage
-                                                lastBalloon={showMoneyOutcomeS && mulHistoryS[trialIndexS] === x && !missHistoryS[trialIndexS]}
+                                                lastBalloon={(showAfterClickDelayS || showMoneyOutcomeS) && mulHistoryS[trialIndexS] === x && !missHistoryS[trialIndexS]}
                                                 variants={variants}
                                                 whileHover="hover"
                                                 src={balloon} alt="balloon"
