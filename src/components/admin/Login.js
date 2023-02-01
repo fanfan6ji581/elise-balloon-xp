@@ -55,7 +55,7 @@ const LoginPage = () => {
     }
     return (
         <Grid container spacing={2} justifyContent="center">
-            <Grid item xs={3}>
+            <Grid item xs={8} sm={6} md={4} lg={3}>
                 <Typography variant='h3' align="center">Admin Login</Typography >
                 {errorMsg && <Alert severity="error">{errorMsg}</Alert>}
                 <Form schema={schema} uiSchema={uiSchema} onSubmit={onSubmit} validator={validator} />

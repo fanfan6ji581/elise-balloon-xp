@@ -71,7 +71,7 @@ const LoginPage = () => {
 
     return (
         <Grid container spacing={2} justifyContent="center">
-            <Grid item xs={3}>
+            <Grid item xs={8} sm={6} md={4} lg={3}>
                 <br />
                 <br />
                 <Typography variant='h3' align="center">Guest Login</Typography >
