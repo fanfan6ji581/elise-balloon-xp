@@ -24,7 +24,7 @@ const BalloonTrialPage = () => {
         clearInterval(timerInterval.current);
         timerInterval.current = setInterval(() => {
             dispatch(incrementTimer(0.5));
-        }, xpConfig.afkTimeout * 20);
+        }, xpConfig.afkTimeout * 5);
     }
 
     useEffect(() => {
