@@ -1,7 +1,7 @@
 import balloon from '../../assets/balloon.png';
 import { motion } from "framer-motion";
 import styled from "styled-components";
-import { Box, Button, Grid, Tooltip, Typography } from "@mui/material";
+import { Box, Button, Grid, Tooltip, Typography, Divider } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { showMoneyOutcome, recordMulResp, mulHistory, missHistory, trialIndex } from "../../slices/gameSlice";
 import { Fragment } from 'react';
@@ -68,6 +68,7 @@ export default function BalloonScreen({ xpData, xpConfig }) {
                                     />
                                 </Tooltip>
                             </Grid>
+                            {x === 1 && <Grid item xs={12} sx={{ m: 2 }}><Divider style={{ background: 'lightgray', height: 2 }} /> </Grid>}
                         </Fragment>
                     )
                 })}
