@@ -63,19 +63,18 @@ const BalloonTrialPage = () => {
 
     return (
         <Container maxWidth="lg">
-            <Grid container spacing={2} justifyContent="center">
-                <Grid item xs={12} sx={{ m: 2 }}>
-                    <Typography variant="h5" align="center" sx={{ my: 3 }}>Trial: {trialIndexS + 1}/{xpConfig.numberOfTrials}</Typography >
-                    <TrialTimerProgress sx={{ my: 3 }} />
-                    <Grid container spacing={2} sx={{ m: 1 }}>
-
+            <Grid container justifyContent="center">
+                <Grid item xs={12}>
+                    <Typography variant="h5" align="center" sx={{ mt: 2, mb: 1 }}>Trial: {trialIndexS + 1}/{xpConfig.numberOfTrials}</Typography >
+                    <TrialTimerProgress/>
+                    <Grid container>
                         <Grid item xs={12}>
-                            <Box sx={{ height: 80 }}>
+                            <Box sx={{ height: 64, my: 1 }}>
                                 <MoneyOutcome xpData={xpData} xpConfig={xpConfig} />
                             </Box>
                         </Grid>
                     </Grid>
-                    <Grid container spacing={2} sx={{ m: 1 }} alignItems="center">
+                    <Grid container sx={{ m: 1 }} alignItems="center">
                         <Grid item xs={5}>
                             <PickBalloon xpData={xpData} xpConfig={xpConfig} />
                         </Grid>

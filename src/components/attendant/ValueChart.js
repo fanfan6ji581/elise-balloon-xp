@@ -79,7 +79,7 @@ export default function ValueChart({ xpData }) {
             <Box>
                 <Line data={data} options={options} />
             </Box>
-            <Box sx={{mt: 15}}>
+            <Box sx={{mt: 12}}>
                 <Line style={{ paddingLeft: '25px' }} data={data2} options={options2} />
             </Box>
         </>

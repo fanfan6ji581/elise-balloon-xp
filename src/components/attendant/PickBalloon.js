@@ -9,7 +9,7 @@ import { Fragment } from 'react';
 const shadow = 'brightness(120%) contrast(150%) drop-shadow(0px 0px 7px rgba(0,128,128,1.0)'
 const BalloonImage = styled(motion.img)`
     display: block;
-    margin: 8px auto;
+    margin: 6px auto;
     height: 112px;
     -webkit-filter: ${props => props.lastBalloon ? shadow : ''});
     filter: ${props => props.lastBalloon ? shadow : ''});
