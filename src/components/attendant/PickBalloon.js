@@ -11,6 +11,7 @@ const BalloonImage = styled(motion.img)`
     display: block;
     margin: 6px auto;
     height: 112px;
+    user-select: none;
     -webkit-filter: ${props => props.lastBalloon ? shadow : ''});
     filter: ${props => props.lastBalloon ? shadow : ''});
 `
