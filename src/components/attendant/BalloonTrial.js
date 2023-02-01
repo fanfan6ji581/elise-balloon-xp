@@ -74,7 +74,7 @@ const BalloonTrialPage = () => {
                             </Box>
                         </Grid>
                     </Grid>
-                    <Grid container sx={{ m: 1 }} alignItems="center">
+                    <Grid container alignItems="center">
                         <Grid item xs={5}>
                             <PickBalloon xpData={xpData} xpConfig={xpConfig} />
                         </Grid>
