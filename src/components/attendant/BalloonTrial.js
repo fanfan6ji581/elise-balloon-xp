@@ -76,10 +76,10 @@ const BalloonTrialPage = () => {
                         </Grid>
                     </Grid>
                     <Grid container spacing={2} sx={{ m: 1 }} alignItems="center">
-                        <Grid item xs={3}>
+                        <Grid item xs={5}>
                             <PickBalloon xpData={xpData} xpConfig={xpConfig} />
                         </Grid>
-                        <Grid item xs={2} />
+                        {/* <Grid item xs={2} /> */}
 
                         <Grid item xs={7}>
                             <ValueChart xpData={xpData} />
