@@ -64,7 +64,7 @@ export default function MoneyOutcome({ xpData, xpConfig }) {
                         <Typography variant="h5" align="center">
                             {
                                 missedTrial ?
-                                    `Missed trial, you lost -${afkTimeoutCost}!` :
+                                    `Missed trial, you lost -$${afkTimeoutCost}!` :
                                     moneyEarned < 0 ?
                                         `You just lost $${-moneyEarned}` :
                                         `You just won $${moneyEarned}`
