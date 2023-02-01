@@ -61,7 +61,7 @@ export default function MoneyOutcome({ xpData, xpConfig }) {
                     {!missedTrial &&
                         <CardMedia
                             component="img"
-                            sx={{ width: 64, height: 64 }}
+                            sx={{ width: 48, height: 48 }}
                             src={moneyEarned < 0 ? coinsdown : coins}
                             alt="coins" />
                     }
