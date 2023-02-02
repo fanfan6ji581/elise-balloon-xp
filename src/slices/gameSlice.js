@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
     trialIndex: 0,
     timerProgress: 0,
+    progressStartTime: 0,
     showMoneyOutcome: false,
     showAfterClickDelay: false,
 
@@ -12,6 +13,7 @@ const initialState = {
     mulHistory: [],
     moneyHistory: [],
     missHistory: [],
+    timerHistory: [],
 };
 
 const gameSlice = createSlice({
@@ -33,6 +35,10 @@ const gameSlice = createSlice({
             }
             state.moneyHistory[trialIndex] = money;
 
+            if (!missed) {
+                state.timerHistory[trialIndex] = Date.now() - state.progressStartTime;
+            }
+
             // should show outcome
             if (missed || mul !== 0) {
                 state.showAfterClickDelay = true;
@@ -48,8 +54,11 @@ const gameSlice = createSlice({
             // means delay has finished
             state.showAfterClickDelay = false;
         },
-        incrementTimer: (state, action) => {
-            state.timerProgress = Math.min(100, state.timerProgress + action.payload);
+        setTimerProgress: (state, action) => {
+            state.timerProgress = Math.min(100, action.payload);
+        },
+        setProgressStartTime: (state, action) => {
+            state.progressStartTime = action.payload;
         },
         nextTrial: (state) => {
             state.showMoneyOutcome = false;
@@ -60,14 +69,17 @@ const gameSlice = createSlice({
             const loginAttdant = action.payload;
             state.xpData = loginAttdant.xpData;
             state.xpConfig = loginAttdant.xpConfig;
-            state.mulHistory = new Array(loginAttdant.xpConfig.numberOfTrials).fill(0);
-            state.moneyHistory = new Array(loginAttdant.xpConfig.numberOfTrials).fill(0);
-            state.missHistory = new Array(loginAttdant.xpConfig.numberOfTrials).fill(false);
+            const { numberOfTrials } = state.xpConfig;
+            state.mulHistory = new Array(numberOfTrials).fill(0);
+            state.moneyHistory = new Array(numberOfTrials).fill(0);
+            state.missHistory = new Array(numberOfTrials).fill(false);
+            state.timerHistory = new Array(numberOfTrials).fill(0);
         },
     },
 });
 
-export const { recordMulResp, incrementTimer, nextTrial, onLogin, setShowMoneyOutcome } = gameSlice.actions;
+export const { recordMulResp, setProgressStartTime,
+    setTimerProgress, nextTrial, onLogin, setShowMoneyOutcome } = gameSlice.actions;
 
 export const trialIndex = (state) => state.game.trialIndex;
 export const showAfterClickDelay = (state) => state.game.showAfterClickDelay;

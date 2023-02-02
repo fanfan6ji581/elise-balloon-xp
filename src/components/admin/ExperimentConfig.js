@@ -40,7 +40,7 @@ const schema = {
         },
         "afkTimeout": {
             "type": "integer",
-            "title": "Decision stage, this will affect progress bar, smaller value is faster",
+            "title": "Decision stage, milliseconds that allow attendant to do decision, e.g. 2000 ms = 2 sec",
             // "default": 2
         },
         "choiceDelay": {

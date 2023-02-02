@@ -4,7 +4,7 @@ import { useRef, useEffect } from "react";
 import { loginAttendant } from "../../slices/attendantSlice";
 import {
     trialIndex, timerProgress, showMoneyOutcome, showAfterClickDelay,
-    incrementTimer, recordMulResp, onLogin
+    setTimerProgress, recordMulResp, onLogin, setProgressStartTime
 } from "../../slices/gameSlice";
 import { useDispatch, useSelector } from "react-redux";
 import TrialTimerProgress from "./TrialTimerProgress";
@@ -23,12 +23,17 @@ const BalloonTrialPage = () => {
     const timerProgressS = useSelector(timerProgress);
     const showAfterClickDelayS = useSelector(showAfterClickDelay);
     const { xpData, xpConfig } = loginAttendantS;
+    const progressStartTime = useRef(0);
 
     const restartGameTimer = () => {
         clearInterval(timerInterval.current);
+        progressStartTime.current = Date.now();
+        dispatch(setProgressStartTime(progressStartTime.current));
         timerInterval.current = setInterval(() => {
-            dispatch(incrementTimer(0.5));
-        }, xpConfig.afkTimeout * 5);
+            const timePassed = (Date.now() - progressStartTime.current);
+            const progress = Math.round(timePassed * 100 / xpConfig.afkTimeout);
+            dispatch(setTimerProgress(progress));
+        }, 30);
     }
 
     useEffect(() => {
