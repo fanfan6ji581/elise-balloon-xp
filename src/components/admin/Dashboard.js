@@ -87,7 +87,7 @@ const DashboardPage = () => {
             delta: 100,
             costToSwitch: 1,
             choiceDelay: 0,
-            outcomeShowTime: 2,
+            outcomeShowTime: 2000,
             afkTimeout: 2000,
             afkTimeoutCost: 1,
             numberOfTrials: 400,

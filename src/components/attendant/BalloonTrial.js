@@ -64,7 +64,6 @@ const BalloonTrialPage = () => {
 
     useEffect(() => {
         if (trialIndexS === xpConfig.numberOfTrials) {
-            console.log(`Game over`);
             navigate(`/xp/${alias}/payment`)
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps

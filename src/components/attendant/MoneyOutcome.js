@@ -39,7 +39,7 @@ export default function MoneyOutcome({ xpData, xpConfig }) {
         if (showMoneyOutcomeS) {
             loadingInterval.current = setTimeout(() => {
                 dispatch(nextTrial())
-            }, outcomeShowTime * 1000)
+            }, outcomeShowTime)
         }
 
         return () => clearInterval(loadingInterval.current);

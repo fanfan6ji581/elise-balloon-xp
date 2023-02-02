@@ -50,7 +50,7 @@ const schema = {
         },
         "outcomeShowTime": {
             "type": "integer",
-            "title": "Outcome stage,Seconds showing the ouput result",
+            "title": "Outcome stage, millisecond showing the ouput result, 2000 ms = 2 sec",
             // "default": 2
         },
         "afkTimeoutCost": {
