@@ -1,5 +1,4 @@
 import { Navigate, useParams, useLocation, Outlet } from "react-router-dom";
-import AttendentAppBar from "./AttendentAppBar";
 import { useSelector } from "react-redux";
 import { loginAttendant } from "../../slices/attendantSlice";
 
@@ -14,7 +13,6 @@ const Layout = () => {
 
     return (
         <>
-            {/* <AttendentAppBar /> */}
             <Outlet />
         </>
     )

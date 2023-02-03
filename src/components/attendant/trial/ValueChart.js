@@ -1,7 +1,27 @@
-import { Line } from "react-chartjs-2";
+import {
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend,
+} from 'chart.js';
+import { Line } from 'react-chartjs-2';
 import { Box } from "@mui/material";
 import { useSelector } from "react-redux";
 import { trialIndex, showMoneyOutcome } from "../../../slices/gameSlice";
+
+ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend
+);
 
 export default function ValueChart({ xpData }) {
     const showMoneyOutcomeS = useSelector(showMoneyOutcome);
@@ -79,7 +99,7 @@ export default function ValueChart({ xpData }) {
             <Box>
                 <Line data={data} options={options} />
             </Box>
-            <Box sx={{mt: 12}}>
+            <Box sx={{ mt: 12 }}>
                 <Line style={{ paddingLeft: '25px' }} data={data2} options={options2} />
             </Box>
         </>

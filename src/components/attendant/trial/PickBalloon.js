@@ -1,6 +1,5 @@
 import balloon from '../../../assets/balloon.png';
 import { motion } from "framer-motion";
-import styled from "styled-components";
 import { Box, Button, Grid, Tooltip, Typography, Divider } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -9,15 +8,6 @@ import {
 } from "../../../slices/gameSlice";
 import { Fragment, useEffect, useRef } from 'react';
 
-const shadow = 'brightness(120%) contrast(150%) drop-shadow(0px 0px 7px rgba(0,128,128,1.0)'
-const BalloonImage = styled(motion.img)`
-    display: block;
-    margin: 6px auto;
-    height: 112px;
-    user-select: none;
-    -webkit-filter: ${props => props.lastBalloon ? shadow : ''});
-    filter: ${props => props.lastBalloon ? shadow : ''});
-`
 export default function BalloonScreen({ xpData, xpConfig }) {
     const dispatch = useDispatch();
     const showMoneyOutcomeS = useSelector(showMoneyOutcome);
@@ -71,15 +61,26 @@ export default function BalloonScreen({ xpData, xpConfig }) {
                                             <b>{x}</b>
                                         </Typography>
                                     </Grid>
-                                    <Grid item xs={3}>
+                                    <Grid item xs={3} sx={{ my: 1 }}>
                                         <Tooltip placement="right"
                                             title={(trialIndexS > 0 ? mulHistoryS[trialIndexS - 1] : 0) * x < 0 ? <h2>{'Changing screen costs $' + costToSwitch}</h2> : ""}
                                         >
-                                            <BalloonImage
+                                            <motion.img
                                                 lastBalloon={(showAfterClickDelayS || showMoneyOutcomeS) && mulHistoryS[trialIndexS] === x && !missHistoryS[trialIndexS]}
                                                 variants={variants}
                                                 whileHover="hover"
-                                                src={balloon} alt="balloon"
+                                                src={balloon}
+                                                alt="balloon"
+                                                style={{
+                                                    height: 112,
+                                                    userSelect: 'none',
+                                                    filter:
+                                                        `${(showAfterClickDelayS || showMoneyOutcomeS) &&
+                                                            mulHistoryS[trialIndexS] === x && !missHistoryS[trialIndexS] ?
+                                                            'drop-shadow(0 0 8px #008080)' :
+                                                            ''
+                                                        }`,
+                                                }}
                                                 onClick={() => { clickedAction(x) }}
                                             />
                                         </Tooltip>

@@ -3,13 +3,8 @@ import coins from '../../../assets/coins.png';
 import coinsdown from '../../../assets/coinsdown.png';
 import { motion } from "framer-motion";
 import { Box, Typography, CardMedia, CardContent } from "@mui/material";
-import styled from "styled-components";
 import { showMoneyOutcome, moneyHistory, missHistory, trialIndex, nextTrial } from "../../../slices/gameSlice";
 import { useEffect, useRef } from "react";
-
-const MoneyPopup = styled(motion.div)`
-    height: 100%;
-`
 
 export default function MoneyOutcome({ xpData, xpConfig }) {
     const dispatch = useDispatch();
@@ -53,7 +48,7 @@ export default function MoneyOutcome({ xpData, xpConfig }) {
 
     return (
         <>
-            <MoneyPopup variants={changeMoneyVariants} animate={(trialIndexS % 2 === 0) ? "left" : "left"}>
+            <motion.div variants={changeMoneyVariants} animate={(trialIndexS % 2 === 0) ? "left" : "left"}>
                 <Box sx={{ display: 'flex', width: '100%', alignItems: 'center', justifyContent: 'center' }}>
                     <CardMedia
                         component="img"
@@ -72,7 +67,7 @@ export default function MoneyOutcome({ xpData, xpConfig }) {
                         </Typography>
                     </CardContent>
                 </Box>
-            </MoneyPopup>
+            </motion.div>
         </>
     )
 }
