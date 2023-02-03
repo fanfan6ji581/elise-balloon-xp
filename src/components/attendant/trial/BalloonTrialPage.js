@@ -5,7 +5,7 @@ import { loginAttendant } from "../../../slices/attendantSlice";
 import {
     trialIndex, timerProgress, showMoneyOutcome, showAfterClickDelay,
     setTimerProgress, recordMulResp, onLogin, setProgressStartTime,
-    choiceHistory, outcomeHistory, missHistory
+    choiceHistory, outcomeHistory, missHistory, timerHistory
 } from "../../../slices/gameSlice";
 import { useDispatch, useSelector } from "react-redux";
 import TrialTimerProgress from "./TrialTimerProgress";
@@ -26,6 +26,7 @@ const BalloonTrialPage = () => {
     const choiceHistoryS = useSelector(choiceHistory);
     const outcomeHistoryS = useSelector(outcomeHistory);
     const missHistoryS = useSelector(missHistory);
+    const timerHistoryS = useSelector(timerHistory);
 
     const { xpData, xpConfig } = loginAttendantS;
     const progressStartTime = useRef(0);
@@ -76,12 +77,15 @@ const BalloonTrialPage = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [trialIndexS])
 
-    // useEffect(() => {
-    //     if (trialIndexS > 0) {
-    //         // store it into database
-    //         debugger
-    //     }
-    // }, [trialIndexS, choiceHistoryS, outcomeHistoryS, missHistoryS])
+    useEffect(() => {
+        // store it into database
+        if (choiceHistoryS[trialIndexS] ||
+            outcomeHistoryS[trialIndexS] ||
+            missHistoryS[trialIndexS] ||
+            timerHistoryS[trialIndexS]) {
+            console.log(trialIndexS, choiceHistoryS[trialIndexS], outcomeHistoryS[trialIndexS], missHistoryS[trialIndexS], timerHistoryS[trialIndexS])
+        }
+    }, [trialIndexS, choiceHistoryS, outcomeHistoryS, missHistoryS, timerHistoryS])
 
     return (
         <Container maxWidth="lg">

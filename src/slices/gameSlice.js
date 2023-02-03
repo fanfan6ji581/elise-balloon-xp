@@ -88,5 +88,6 @@ export const showMoneyOutcome = (state) => state.game.showMoneyOutcome;
 export const choiceHistory = (state) => state.game.choiceHistory;
 export const outcomeHistory = (state) => state.game.outcomeHistory;
 export const missHistory = (state) => state.game.missHistory;
+export const timerHistory = (state) => state.game.timerHistory;
 
 export default gameSlice.reducer;
