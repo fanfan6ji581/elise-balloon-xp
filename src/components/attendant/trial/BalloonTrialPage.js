@@ -5,13 +5,16 @@ import { loginAttendant } from "../../../slices/attendantSlice";
 import {
     trialIndex, timerProgress, showMoneyOutcome, showAfterClickDelay,
     setTimerProgress, recordMulResp, onLogin, setProgressStartTime,
-    choiceHistory, outcomeHistory, missHistory, timerHistory
+    choiceHistory, outcomeHistory, missHistory, reactionHistory,
 } from "../../../slices/gameSlice";
+import { login } from "../../../slices/attendantSlice";
 import { useDispatch, useSelector } from "react-redux";
 import TrialTimerProgress from "./TrialTimerProgress";
 import PickBalloon from "./PickBalloon";
 import MoneyOutcome from "./MoneyOutcome";
 import ValueChart from "./ValueChart";
+import { doc, updateDoc } from "firebase/firestore";
+import db from "../../../database/firebase";
 
 const BalloonTrialPage = () => {
     const dispatch = useDispatch();
@@ -19,6 +22,7 @@ const BalloonTrialPage = () => {
     const { alias } = useParams();
     const timerInterval = useRef(null);
     const loginAttendantS = useSelector(loginAttendant);
+
     const trialIndexS = useSelector(trialIndex);
     const showMoneyOutcomeS = useSelector(showMoneyOutcome);
     const timerProgressS = useSelector(timerProgress);
@@ -26,7 +30,7 @@ const BalloonTrialPage = () => {
     const choiceHistoryS = useSelector(choiceHistory);
     const outcomeHistoryS = useSelector(outcomeHistory);
     const missHistoryS = useSelector(missHistory);
-    const timerHistoryS = useSelector(timerHistory);
+    const reactionHistoryS = useSelector(reactionHistory);
 
     const { xpData, xpConfig } = loginAttendantS;
     const progressStartTime = useRef(0);
@@ -42,7 +46,22 @@ const BalloonTrialPage = () => {
         }, 30);
     }
 
+    const storeToDB = async () => {
+        const attendantRef = doc(db, "attendant", loginAttendantS.id);
+        const xpRecord = {
+            trialIndex: trialIndexS,
+            choiceHistory: choiceHistoryS,
+            outcomeHistory: outcomeHistoryS,
+            missHistory: missHistoryS,
+            reactionHistory: reactionHistoryS,
+        };
+        await updateDoc(attendantRef, { xpRecord });
+        // store into local storage as well
+        dispatch(login(Object.assign({}, loginAttendantS, { xpRecord })));
+    }
+
     useEffect(() => {
+        // fetch Login attdendant detail every time
         dispatch(onLogin(loginAttendantS));
         restartGameTimer();
         return () => {
@@ -71,21 +90,18 @@ const BalloonTrialPage = () => {
     }, [showMoneyOutcomeS, showAfterClickDelayS])
 
     useEffect(() => {
+        // store user click into database
+        if (choiceHistoryS[trialIndexS] ||
+            outcomeHistoryS[trialIndexS] ||
+            missHistoryS[trialIndexS] ||
+            reactionHistoryS[trialIndexS]) {
+            storeToDB();
+        }
         if (trialIndexS === xpConfig.numberOfTrials) {
             navigate(`/xp/${alias}/payment`)
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [trialIndexS])
-
-    useEffect(() => {
-        // store it into database
-        if (choiceHistoryS[trialIndexS] ||
-            outcomeHistoryS[trialIndexS] ||
-            missHistoryS[trialIndexS] ||
-            timerHistoryS[trialIndexS]) {
-            console.log(trialIndexS, choiceHistoryS[trialIndexS], outcomeHistoryS[trialIndexS], missHistoryS[trialIndexS], timerHistoryS[trialIndexS])
-        }
-    }, [trialIndexS, choiceHistoryS, outcomeHistoryS, missHistoryS, timerHistoryS])
+    }, [trialIndexS, choiceHistoryS, outcomeHistoryS, missHistoryS, reactionHistoryS])
 
     return (
         <Container maxWidth="lg">

@@ -24,4 +24,6 @@ store.subscribe(() => {
   } else {
     localStorage.removeItem('loginAttendant');
   }
+
+  window.loginAttendant = attendant.loginAttendant
 })

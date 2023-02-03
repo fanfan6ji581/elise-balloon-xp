@@ -75,7 +75,7 @@ const Attendents = ({ xp }) => {
         });
 
         for (let i = 0; i < formData.count; i++) {
-            const xpData = generateBalloonData(xp);
+            const { xpData, xpRecord } = generateBalloonData(xp);
 
             const attendant = {
                 username: `guest${zeroPad(maxGuestIndex + i + 1, 2)}`,
@@ -84,6 +84,7 @@ const Attendents = ({ xp }) => {
                 xp_alias: xp.alias,
                 xp_id: xp.id,
                 xpData,
+                xpRecord,
                 xpConfig: xp,
             }
             const ref = doc(collection(db, "attendant"));

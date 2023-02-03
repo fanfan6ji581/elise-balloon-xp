@@ -8,16 +8,16 @@ const columns = [
     { field: 'speed', headerName: 'speed', width: 100 },
     { field: 'aberration', headerName: 'aberration', width: 100 },
     { field: 'shift', headerName: 'shift', width: 100 },
-    { field: 'reactionTime', headerName: 'Reaction ms', width: 100 },
+    { field: 'reaction', headerName: 'Reaction ms', width: 100 },
     { field: 'choice', headerName: 'choice', width: 100 },
-    { field: 'outcome', headerName: '$ outcome', width: 100 },
-    { field: 'sumOutcome', headerName: '$ accumulate', width: 100 },
-    { field: 'pickedOutcome', headerName: '$ picked', width: 100 },
+    { field: 'outcome', headerName: '$ outcome', valueFormatter: p => `$ ${p.value}`, width: 100 },
+    { field: 'sumOutcome', headerName: '$ accumulate', valueFormatter: p => `$ ${p.value}`, width: 100 },
+    { field: 'pickedOutcome', headerName: '$ picked', valueFormatter: p => `$ ${p.value || 0}`, width: 100 },
 ];
 
 const AttendentDataTable = ({ attedent }) => {
-    const { xpData } = attedent;
-    const rows = extractXpData(xpData);
+    const { xpData, xpRecord } = attedent;
+    const rows = extractXpData(xpData, xpRecord);
 
     useEffect(() => {
 

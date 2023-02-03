@@ -13,7 +13,7 @@ const initialState = {
     choiceHistory: [],
     outcomeHistory: [],
     missHistory: [],
-    timerHistory: [],
+    reactionHistory: [],
 };
 
 const gameSlice = createSlice({
@@ -36,7 +36,7 @@ const gameSlice = createSlice({
             state.outcomeHistory[trialIndex] = money;
 
             if (!missed) {
-                state.timerHistory[trialIndex] = Date.now() - state.progressStartTime;
+                state.reactionHistory[trialIndex] = Date.now() - state.progressStartTime;
             }
 
             // should show outcome
@@ -66,14 +66,21 @@ const gameSlice = createSlice({
             state.trialIndex++;
         },
         onLogin: (state, action) => {
-            const loginAttdant = action.payload;
-            state.xpData = loginAttdant.xpData;
-            state.xpConfig = loginAttdant.xpConfig;
-            const { numberOfTrials } = state.xpConfig;
-            state.choiceHistory = new Array(numberOfTrials).fill(0);
-            state.outcomeHistory = new Array(numberOfTrials).fill(0);
-            state.missHistory = new Array(numberOfTrials).fill(false);
-            state.timerHistory = new Array(numberOfTrials).fill(0);
+            const { xpData, xpRecord, xpConfig } = action.payload
+            const {
+                trialIndex,
+                choiceHistory,
+                outcomeHistory,
+                missHistory,
+                reactionHistory,
+            } = xpRecord;
+            state.trialIndex = trialIndex + 1;
+            state.choiceHistory = choiceHistory;
+            state.outcomeHistory = outcomeHistory;
+            state.missHistory = missHistory;
+            state.reactionHistory = reactionHistory;
+            state.xpData = xpData;
+            state.xpConfig = xpConfig;
         },
     },
 });
@@ -88,6 +95,6 @@ export const showMoneyOutcome = (state) => state.game.showMoneyOutcome;
 export const choiceHistory = (state) => state.game.choiceHistory;
 export const outcomeHistory = (state) => state.game.outcomeHistory;
 export const missHistory = (state) => state.game.missHistory;
-export const timerHistory = (state) => state.game.timerHistory;
+export const reactionHistory = (state) => state.game.reactionHistory;
 
 export default gameSlice.reducer;

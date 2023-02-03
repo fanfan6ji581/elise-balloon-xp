@@ -92,37 +92,44 @@ function generateBalloonData(xp) {
         }
     }
 
-    return Object.assign({}, state, {
-        chances,
-        // data recordings
-        trialIndex: 0,
-        balloonValues,
-        balloonSpeed,
-        aberration,
-        shift,
-        reactionTime: Array.from({ length: xp.numberOfTrials }).fill(0),
-        missed: Array.from({ length: xp.numberOfTrials }).fill(0),
-        choice: Array.from({ length: xp.numberOfTrials }).fill(0),
-        outcome: Array.from({ length: xp.numberOfTrials }).fill(0),
-        sumOutcome: Array.from({ length: xp.numberOfTrials }).fill(0),
-        pickedOutcome: Array.from({ length: xp.numberOfTrials }).fill(0),
-    });
+    return {
+        xpData: Object.assign({}, state, {
+            chances,
+            balloonValues,
+            balloonSpeed,
+            aberration,
+            shift,
+        }),
+        xpRecord: {
+            // data recordings
+            trialIndex: -1,
+            reactionHistory: Array.from({ length: xp.numberOfTrials }).fill(0),
+            missHistory: Array.from({ length: xp.numberOfTrials }).fill(false),
+            choiceHistory: Array.from({ length: xp.numberOfTrials }).fill(0),
+            outcomeHistory: Array.from({ length: xp.numberOfTrials }).fill(0),
+            sumOutcomeHistory: Array.from({ length: xp.numberOfTrials }).fill(0),
+            pickedOutcomeHistory: Array.from({ length: xp.numberOfTrials }).fill(0),
+        }
+    };
 }
 
-function extractXpData(xpData) {
+function extractXpData(xpData, xpRecord) {
     const rows = []
     const {
         balloonValues,
         balloonSpeed,
         aberration,
         shift,
-        reactionTime,
-        missed,
-        choice,
-        outcome,
-        sumOutcome,
-        pickedOutcome,
     } = xpData;
+    const {
+        reactionHistory,
+        missHistory,
+        choiceHistory,
+        outcomeHistory,
+    } = xpRecord;
+
+    let sum = 0;
+    const sumOutcomeHistory = outcomeHistory.map(v => sum = sum + v);
 
     for (let i = 0; i < balloonValues.length; i++) {
         rows.push({
@@ -131,12 +138,12 @@ function extractXpData(xpData) {
             speed: balloonSpeed[i],
             aberration: aberration[i],
             shift: shift[i],
-            reactionTime: reactionTime[i],
-            choice: choice[i],
-            miss: missed[i],
-            outcome: outcome[i],
-            sumOutcome: sumOutcome[i],
-            pickedOutcome: pickedOutcome[i],
+            reaction: reactionHistory[i],
+            choice: choiceHistory[i],
+            miss: missHistory[i],
+            outcome: outcomeHistory[i],
+            sumOutcome: sumOutcomeHistory[i],
+            // pickedOutcome: pickedOutcomeHistory[i],
         })
     }
     return rows;
