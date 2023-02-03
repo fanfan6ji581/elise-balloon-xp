@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { Container, Grid, Typography, IconButton, Divider } from "@mui/material";
-import { Visibility as VisibilityIcon, Delete as DeleteIcon } from '@mui/icons-material';
-import { collection, getDocs, deleteDoc, doc, addDoc, query, where, writeBatch } from "firebase/firestore";
+import { Container, Grid, Typography, IconButton, Divider, Tooltip } from "@mui/material";
+import { Visibility as VisibilityIcon, Delete as DeleteIcon, Lock, LockOpen } from '@mui/icons-material';
+import { collection, getDocs, deleteDoc, doc, addDoc, query, where, writeBatch, updateDoc } from "firebase/firestore";
 import db from "../../database/firebase";
 import { DataGrid } from '@mui/x-data-grid';
 import Form from '@rjsf/mui';
@@ -22,14 +22,14 @@ const DashboardPage = () => {
             field: 'action', headerName: 'Actions', width: 200,
             sortable: false,
             renderCell: (params) => {
+                const xp = params.row;
                 const onDelete = async (e) => {
                     e.stopPropagation();
-                    const data = params.row;
-                    if (!window.confirm(`Are you sure to delete "${data.alias}"?`)) {
+                    if (!window.confirm(`Are you sure to delete "${xp.alias}"?`)) {
                         return;
                     }
                     // delete attdents
-                    const snapshot = await getDocs(query(collection(db, "attendant"), where("xp_alias", "==", data.alias)));
+                    const snapshot = await getDocs(query(collection(db, "attendant"), where("xp_alias", "==", xp.alias)));
                     const batch = writeBatch(db);
                     snapshot.docs.forEach((document) => {
                         batch.delete(document.ref);
@@ -37,14 +37,53 @@ const DashboardPage = () => {
                     await batch.commit();
 
                     // delete xp
-                    const xpDocRef = doc(db, "xp", data.id)
+                    const xpDocRef = doc(db, "xp", xp.id)
                     await deleteDoc(xpDocRef);
-                    setXps(xps.filter(xp => xp.id !== data.id))
+                    setXps(xps.filter(x => x.id !== xp.id))
+                }
+                const onLock = async (e) => {
+                    e.stopPropagation();
+                    const xpDocRef = doc(db, "xp", xp.id)
+                    await updateDoc(xpDocRef, { locked: true });
+                    const newXps = xps.map(x => {
+                        if (x.id === xp.id) {
+                            x.locked = true;
+                        }
+                        return x;
+                    });
+                    setXps(newXps);
+                };
+                const onUnLock = async (e) => {
+                    e.stopPropagation();
+                    if (!window.confirm(`Are you sure to unlock "${xp.alias}"?`)) {
+                        return;
+                    }
+                    const xpDocRef = doc(db, "xp", xp.id)
+                    await updateDoc(xpDocRef, { locked: false });
+                    const newXps = xps.map(x => {
+                        if (x.id === xp.id) {
+                            x.locked = false;
+                        }
+                        return x;
+                    });
+                    setXps(newXps);
                 }
                 return (
                     <>
-                        <IconButton component={Link} to={`/admin/xp/${params.row.alias}`}><VisibilityIcon /></IconButton>
-                        <IconButton onClick={onDelete}><DeleteIcon /></IconButton>
+                        <Tooltip title="View xp">
+                            <IconButton component={Link} to={`/admin/xp/${xp.alias}`}><VisibilityIcon /></IconButton>
+                        </Tooltip>
+                        <Tooltip title="Delete xp">
+                            <IconButton onClick={onDelete} disabled={xp.locked}><DeleteIcon /></IconButton>
+                        </Tooltip>
+                        {!xp.locked &&
+                            <Tooltip title="Lock xp, so you cant delete">
+                                <IconButton onClick={onLock}><Lock /></IconButton>
+                            </Tooltip>
+                        }
+                        {xp.locked && <Tooltip title="Unlock xp, so you can delete">
+                            <IconButton onClick={onUnLock}><LockOpen /></IconButton>
+                        </Tooltip>}
                     </>
                 )
             },
@@ -101,6 +140,7 @@ const DashboardPage = () => {
 
     useEffect(() => {
         fetchXPs();
+        // eslint-disable-next-line
     }, [])
 
     return (
