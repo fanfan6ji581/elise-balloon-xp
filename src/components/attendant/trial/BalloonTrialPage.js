@@ -75,6 +75,9 @@ const BalloonTrialPage = () => {
             clearInterval(timerInterval.current);
             dispatch(recordMulResp({ mul: 0, missed: true }));
         }
+        if (timerProgressS === 0) {
+            restartGameTimer();
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [timerProgressS])
 
@@ -84,7 +87,7 @@ const BalloonTrialPage = () => {
             clearInterval(timerInterval.current);
         } else {
             // when change, restart the game
-            restartGameTimer();
+            // restartGameTimer();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [showMoneyOutcomeS, showAfterClickDelayS])
