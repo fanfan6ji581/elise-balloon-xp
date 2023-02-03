@@ -1,11 +1,11 @@
 import { Container, Box, Grid, Typography } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom"
 import { useRef, useEffect } from "react";
-import { loginAttendant } from "../../slices/attendantSlice";
+import { loginAttendant } from "../../../slices/attendantSlice";
 import {
     trialIndex, timerProgress, showMoneyOutcome, showAfterClickDelay,
     setTimerProgress, recordMulResp, onLogin, setProgressStartTime
-} from "../../slices/gameSlice";
+} from "../../../slices/gameSlice";
 import { useDispatch, useSelector } from "react-redux";
 import TrialTimerProgress from "./TrialTimerProgress";
 import PickBalloon from "./PickBalloon";

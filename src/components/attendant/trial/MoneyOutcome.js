@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
-import coins from '../../assets/coins.png';
-import coinsdown from '../../assets/coinsdown.png';
+import coins from '../../../assets/coins.png';
+import coinsdown from '../../../assets/coinsdown.png';
 import { motion } from "framer-motion";
 import { Box, Typography, CardMedia, CardContent } from "@mui/material";
 import styled from "styled-components";
-import { showMoneyOutcome, moneyHistory, missHistory, trialIndex, nextTrial } from "../../slices/gameSlice";
+import { showMoneyOutcome, moneyHistory, missHistory, trialIndex, nextTrial } from "../../../slices/gameSlice";
 import { useEffect, useRef } from "react";
 
 const MoneyPopup = styled(motion.div)`

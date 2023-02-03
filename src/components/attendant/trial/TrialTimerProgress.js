@@ -1,6 +1,6 @@
 import { LinearProgress } from "@mui/material";
 import { useSelector } from "react-redux";
-import { timerProgress } from "../../slices/gameSlice";
+import { timerProgress } from "../../../slices/gameSlice";
 
 export default function TrialTimer() {
     const progress = useSelector(timerProgress);

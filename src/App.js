@@ -11,8 +11,8 @@ import Experiment from "./components/admin/Experiment";
 import Attedent from "./components/admin/Attedent";
 
 import AttendantLayout from "./components/attendant/Layout";
-import LoginPage from "./components/attendant/Login";
-import BalloonTrialPage from "./components/attendant/BalloonTrial";
+import LoginPage from "./components/attendant/LoginPage";
+import BalloonTrialPage from "./components/attendant/trial/BalloonTrialPage";
 import PaymentPage from "./components/attendant/Payment";
 
 const theme = createTheme();

@@ -1,4 +1,4 @@
-import balloon from '../../assets/balloon.png';
+import balloon from '../../../assets/balloon.png';
 import { motion } from "framer-motion";
 import styled from "styled-components";
 import { Box, Button, Grid, Tooltip, Typography, Divider } from "@mui/material";
@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
     showMoneyOutcome, recordMulResp, setShowMoneyOutcome, showAfterClickDelay,
     mulHistory, missHistory, trialIndex
-} from "../../slices/gameSlice";
+} from "../../../slices/gameSlice";
 import { Fragment, useEffect, useRef } from 'react';
 
 const shadow = 'brightness(120%) contrast(150%) drop-shadow(0px 0px 7px rgba(0,128,128,1.0)'

@@ -1,7 +1,7 @@
 import { Line } from "react-chartjs-2";
 import { Box } from "@mui/material";
 import { useSelector } from "react-redux";
-import { trialIndex, showMoneyOutcome } from "../../slices/gameSlice";
+import { trialIndex, showMoneyOutcome } from "../../../slices/gameSlice";
 
 export default function ValueChart({ xpData }) {
     const showMoneyOutcomeS = useSelector(showMoneyOutcome);
