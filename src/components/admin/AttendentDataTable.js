@@ -1,5 +1,7 @@
-import { useEffect } from "react";
-import { DataGrid } from '@mui/x-data-grid';
+import {
+    DataGrid, GridToolbarDensitySelector,
+    GridToolbarContainer, GridToolbarExportContainer, GridCsvExportMenuItem
+} from '@mui/x-data-grid';
 import { extractXpData } from '../../util/xp_data'
 
 const columns = [
@@ -19,17 +21,27 @@ const AttendentDataTable = ({ attedent }) => {
     const { xpData, xpRecord } = attedent;
     const rows = extractXpData(xpData, xpRecord);
 
-    useEffect(() => {
+    const csvOptions = { fileName: `${attedent.xp_alias}-${attedent.username}` };
 
-    }, [])
+    const CustomToolbar = (props) => (
+        <GridToolbarContainer {...props}>
+            <GridToolbarDensitySelector />
+            <GridToolbarExportContainer {...props}>
+                <GridCsvExportMenuItem options={csvOptions} />
+            </GridToolbarExportContainer>
+        </GridToolbarContainer>
+    );
 
     return (
         <>
-            <DataGrid autoHeight rows={rows} columns={columns} rowHeight={24} initialState={{
-                pagination: {
-                    // pageSize: xpConfig.numberOfTrials || 400,
-                },
-            }} />
+            <DataGrid autoHeight rows={rows} columns={columns}
+                rowHeight={32}
+                components={{ Toolbar: CustomToolbar }}
+                initialState={{
+                    pagination: {
+                        // pageSize: xpConfig.numberOfTrials || 400,
+                    },
+                }} />
         </>
     )
 }
