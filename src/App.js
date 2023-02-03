@@ -13,7 +13,8 @@ import AttendentPage from "./components/admin/AttendentPage";
 import AttendantLayout from "./components/attendant/Layout";
 import LoginPage from "./components/attendant/LoginPage";
 import BalloonTrialPage from "./components/attendant/trial/BalloonTrialPage";
-import PaymentPage from "./components/attendant/Payment";
+import PaymentPage from "./components/attendant/PaymentPage";
+import Instruction1Page from "./components/attendant/instruction/Instruction1Page";
 
 const theme = createTheme();
 
