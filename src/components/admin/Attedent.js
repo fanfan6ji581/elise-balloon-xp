@@ -1,15 +1,21 @@
 import { getDocs, collection, query, where } from "firebase/firestore";
 import db from "../../database/firebase";
 import { useEffect, useState } from "react";
-import { Container, Grid, Typography, Alert, TextField } from "@mui/material";
+import { Container, Grid, Typography, Alert, TextField, Box, Tab } from "@mui/material";
+import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { Link, useParams } from 'react-router-dom';
+import AttendentDataTable from "./AttedentDataTable";
 
-
-const Attendents = () => {
+const Attendent = () => {
     const [attedent, setAttendent] = useState([]);
     const [xp, setXp] = useState(null);
     const [errorMsg, setErrorMsg] = useState('');
     const { alias, username } = useParams()
+    const [tab, setTab] = useState('1');
+
+    const onChangeTab = (e, newValue) => {
+        setTab(newValue);
+    };
 
     const fetchXP = async () => {
         const snapshot = await getDocs(query(collection(db, "xp"), where("alias", "==", alias)));
@@ -53,34 +59,40 @@ const Attendents = () => {
 
                         <br />
                         {xp && attedent && <>
-                            <TextField variant="standard" fullWidth sx={{ my: 2 }}
-                                label="Number of abberations"
-                                defaultValue={`${attedent.xpData._numAbberations} / ${attedent.xpData.balloonValues.length} = ${attedent.xpData._numAbberations / xp.numberOfTrials}`}
-                                InputProps={{ readOnly: true }} />
-                            <TextField variant="standard" fullWidth sx={{ my: 2 }}
-                                label="Times entered Dangerzone"
-                                defaultValue={`${attedent.xpData._numDangerzone} / ${attedent.xpData.balloonValues.length} = ${attedent.xpData._numDangerzone / xp.numberOfTrials}`}
-                                InputProps={{ readOnly: true }} />
-                            <TextField variant="standard" fullWidth sx={{ my: 2 }}
-                                label="Trial n Dangerzone reset"
-                                defaultValue={JSON.stringify(attedent.xpData._dangerZoneSpeedReset)}
-                                InputProps={{ readOnly: true }} />
-                            <TextField variant="standard" fullWidth sx={{ my: 2 }}
-                                label="Trial n Dangerzone reset % chance"
-                                defaultValue={JSON.stringify(attedent.xpData.chances)}
-                                InputProps={{ readOnly: true }} />
-                            <TextField variant="standard" fullWidth sx={{ my: 2 }}
-                                label="Trial n Dangerzone reset expected"
-                                defaultValue={JSON.stringify(attedent.xpData._dangerZoneResetCalc)}
-                                InputProps={{ readOnly: true }} />
-                            <TextField variant="standard" fullWidth sx={{ my: 2 }} multiline rows={6}
-                                label="Ballon Values"
-                                defaultValue={JSON.stringify(attedent.xpData.balloonValues)}
-                                InputProps={{ readOnly: true }} />
-                            <TextField variant="standard" fullWidth sx={{ my: 2 }} multiline rows={6}
-                                label="Ballon Speed"
-                                defaultValue={JSON.stringify(attedent.xpData.balloonSpeed)}
-                                InputProps={{ readOnly: true }} />
+                            <TabContext value={tab}>
+                                <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                                    <TabList onChange={onChangeTab} aria-label="lab API tabs example">
+                                        <Tab label="Data" value="1" />
+                                        <Tab label="Info" value="2" />
+                                    </TabList>
+                                </Box>
+                                <TabPanel value="1">
+                                    <AttendentDataTable attedent={attedent} />
+                                    <br />
+                                    <TextField variant="standard" fullWidth sx={{ my: 2 }}
+                                        label="Number of abberations"
+                                        defaultValue={`${attedent.xpData._numAbberations} / ${attedent.xpData.balloonValues.length} = ${attedent.xpData._numAbberations / xp.numberOfTrials}`}
+                                        InputProps={{ readOnly: true }} />
+                                    <TextField variant="standard" fullWidth sx={{ my: 2 }}
+                                        label="Times entered Dangerzone"
+                                        defaultValue={`${attedent.xpData._numDangerzone} / ${attedent.xpData.balloonValues.length} = ${attedent.xpData._numDangerzone / xp.numberOfTrials}`}
+                                        InputProps={{ readOnly: true }} />
+                                    <TextField variant="standard" fullWidth sx={{ my: 2 }}
+                                        label="Trial n Dangerzone reset"
+                                        defaultValue={JSON.stringify(attedent.xpData._dangerZoneSpeedReset)}
+                                        InputProps={{ readOnly: true }} />
+                                    <TextField variant="standard" fullWidth sx={{ my: 2 }}
+                                        label="Trial n Dangerzone reset % chance"
+                                        defaultValue={JSON.stringify(attedent.xpData.chances)}
+                                        InputProps={{ readOnly: true }} />
+                                    <TextField variant="standard" fullWidth sx={{ my: 2 }}
+                                        label="Trial n Dangerzone reset expected"
+                                        defaultValue={JSON.stringify(attedent.xpData._dangerZoneResetCalc)}
+                                        InputProps={{ readOnly: true }} />
+                                </TabPanel>
+                                <TabPanel value="2">
+                                </TabPanel>
+                            </TabContext>
                         </>}
                     </Grid>
                 </Grid>
@@ -89,4 +101,4 @@ const Attendents = () => {
     )
 }
 
-export default Attendents
+export default Attendent

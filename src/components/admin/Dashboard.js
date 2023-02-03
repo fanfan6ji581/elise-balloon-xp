@@ -13,7 +13,7 @@ const DashboardPage = () => {
     const [xps, setXps] = useState([]);
 
     const columns = [
-        { field: 'alias', headerName: 'Aalias', width: 400 },
+        { field: 'alias', headerName: 'Alias', width: 400 },
         {
             field: 'created', headerName: 'Created', width: 200,
             valueFormatter: params => moment(params?.value).format("YYYY-MM-DD HH:mm:ss")

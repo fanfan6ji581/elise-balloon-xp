@@ -26,26 +26,11 @@ function generateBalloonData(xp) {
     const speedIncrement = xp.delta
     let balloonValues = [];
     let balloonSpeed = [];
-    let isCooldown = true;
     let lastBalloonValue = 2;
     let lastBalloonSpeed = 0;
-    //let speedIncrement = 2;
     let depthIntoDangerZone = 1;
     while (balloonValues.length < xp.numberOfTrials) {
-        // TODO: Temporarily disable cooldown
-        if (isCooldown) {
-            // balloonValues.push(lastBalloonValue);
-            // balloonValues.push(lastBalloonValue);
-            // balloonValues.push(lastBalloonValue);
-            // balloonSpeed.push(0);
-            // balloonSpeed.push(0);
-            // balloonSpeed.push(0);
-            isCooldown = false;
-            // continue;
-        }
-
         let num = 100 * Math.random();
-
         if (lastBalloonSpeed === 0) {
             // dangerzone chance
             if (num <= dangerZoneChance) {
@@ -62,7 +47,6 @@ function generateBalloonData(xp) {
                 balloonValues.push(lastBalloonValue)
                 balloonSpeed.push(lastBalloonSpeed)
                 balloonSpeed.push(lastBalloonSpeed)
-                isCooldown = true;
                 state._numAbberations++;
                 continue;
             }
@@ -79,7 +63,6 @@ function generateBalloonData(xp) {
                 balloonValues.push(lastBalloonValue)
                 lastBalloonSpeed = 0
                 balloonSpeed.push(lastBalloonSpeed)
-                isCooldown = true
             } else {
                 depthIntoDangerZone += 1
                 lastBalloonSpeed += speedIncrement;
@@ -92,17 +75,68 @@ function generateBalloonData(xp) {
     const sum = state._dangerZoneSpeedReset.reduce((prev, next) => prev + next);
     const chances = state._dangerZoneSpeedReset.map(item => (item / sum).toFixed(2));
 
+    // calculate aberration and shift
+    const aberration = Array.from({ length: xp.numberOfTrials }).fill(0);
+    const shift = Array.from({ length: xp.numberOfTrials }).fill(0);
+
+    for (let i = 1; i < xp.numberOfTrials - 1; i++) {
+        if (balloonValues[i] * balloonValues[i - 1] < 0 &&
+            balloonSpeed[i - 1] === 0 &&
+            balloonValues[i] * balloonValues[i + 1] < 0) {
+            aberration[i] = 1
+        }
+        if (balloonValues[i] * balloonValues[i - 1] < 0 &&
+            balloonSpeed[i - 1] !== 0 &&
+            balloonValues[i] * balloonValues[i + 1] > 0) {
+            shift[i] = 1
+        }
+    }
+
     return Object.assign({}, state, {
         chances,
+        // data recordings
+        trialIndex: 0,
         balloonValues,
         balloonSpeed,
+        aberration,
+        shift,
+        reactionTime: Array.from({ length: xp.numberOfTrials }).fill(0),
+        choice: Array.from({ length: xp.numberOfTrials }).fill(0),
+        outcome: Array.from({ length: xp.numberOfTrials }).fill(0),
+        sumOutcome: Array.from({ length: xp.numberOfTrials }).fill(0),
+        pickedOutcome: Array.from({ length: xp.numberOfTrials }).fill(0),
     });
-    // state.trialNumber = 1
-    // state.balloonValues = balloonValues
-    // state.balloonSpeed = balloonSpeed
-    // state.lastClickedMul = 0
-    // state.timerProgress = 0
-    // state.gameOver = false
 }
 
-export { generateBalloonData };
+function extractXpData(xpData) {
+    const rows = []
+    const {
+        balloonValues,
+        balloonSpeed,
+        aberration,
+        shift,
+        reactionTime,
+        choice,
+        outcome,
+        sumOutcome,
+        pickedOutcome,
+    } = xpData;
+
+    for (let i = 0; i < balloonValues.length; i++) {
+        rows.push({
+            id: i + 1,
+            value: balloonValues[i],
+            speed: balloonSpeed[i],
+            aberration: aberration[i],
+            shift: shift[i],
+            reactionTime: reactionTime[i],
+            choice: choice[i],
+            outcome: outcome[i],
+            sumOutcome: sumOutcome[i],
+            pickedOutcome: pickedOutcome[i],
+        })
+    }
+    return rows;
+}
+
+export { generateBalloonData, extractXpData };
