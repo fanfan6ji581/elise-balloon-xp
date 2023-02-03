@@ -6,9 +6,9 @@ import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
 import { store } from './app/store';
 import AdminLayout from "./components/admin/Layout";
 import AdminLoginPage from "./components/admin/Login";
-import DashboardPage from "./components/admin/Dashboard";
-import Experiment from "./components/admin/Experiment";
-import Attedent from "./components/admin/Attedent";
+import DashboardPage from "./components/admin/DashboardPage";
+import ExperimentPage from "./components/admin/ExperimentPage";
+import AttendentPage from "./components/admin/AttendentPage";
 
 import AttendantLayout from "./components/attendant/Layout";
 import LoginPage from "./components/attendant/LoginPage";
@@ -32,8 +32,8 @@ function App() {
                             <Route path="/admin" element={<AdminLayout />}>
                                 <Route path="login" element={<AdminLoginPage />} />
                                 <Route path="dashboard" element={<DashboardPage />} />
-                                <Route path="xp/:alias" element={<Experiment />} />
-                                <Route path="xp/:alias/attendant/:username" element={<Attedent />} />
+                                <Route path="xp/:alias" element={<ExperimentPage />} />
+                                <Route path="xp/:alias/attendant/:username" element={<AttendentPage />} />
                             </Route>
                         </Routes>
                         <Outlet />

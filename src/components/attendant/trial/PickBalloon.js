@@ -4,14 +4,14 @@ import { Box, Button, Grid, Tooltip, Typography, Divider } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import {
     showMoneyOutcome, recordMulResp, setShowMoneyOutcome, showAfterClickDelay,
-    mulHistory, missHistory, trialIndex
+    choiceHistory, missHistory, trialIndex
 } from "../../../slices/gameSlice";
 import { Fragment, useEffect, useRef } from 'react';
 
 export default function BalloonScreen({ xpData, xpConfig }) {
     const dispatch = useDispatch();
     const showMoneyOutcomeS = useSelector(showMoneyOutcome);
-    const mulHistoryS = useSelector(mulHistory);
+    const choiceHistoryS = useSelector(choiceHistory);
     const missHistoryS = useSelector(missHistory);
     const trialIndexS = useSelector(trialIndex);
     const showAfterClickDelayS = useSelector(showAfterClickDelay);
@@ -63,10 +63,10 @@ export default function BalloonScreen({ xpData, xpConfig }) {
                                     </Grid>
                                     <Grid item xs={3} sx={{ my: 1 }}>
                                         <Tooltip placement="right"
-                                            title={(trialIndexS > 0 ? mulHistoryS[trialIndexS - 1] : 0) * x < 0 ? <h2>{'Changing screen costs $' + costToSwitch}</h2> : ""}
+                                            title={(trialIndexS > 0 ? choiceHistoryS[trialIndexS - 1] : 0) * x < 0 ? <h2>{'Changing screen costs $' + costToSwitch}</h2> : ""}
                                         >
                                             <motion.img
-                                                lastBalloon={(showAfterClickDelayS || showMoneyOutcomeS) && mulHistoryS[trialIndexS] === x && !missHistoryS[trialIndexS]}
+                                                lastBalloon={(showAfterClickDelayS || showMoneyOutcomeS) && choiceHistoryS[trialIndexS] === x && !missHistoryS[trialIndexS]}
                                                 variants={variants}
                                                 whileHover="hover"
                                                 src={balloon}
@@ -76,7 +76,7 @@ export default function BalloonScreen({ xpData, xpConfig }) {
                                                     userSelect: 'none',
                                                     filter:
                                                         `${(showAfterClickDelayS || showMoneyOutcomeS) &&
-                                                            mulHistoryS[trialIndexS] === x && !missHistoryS[trialIndexS] ?
+                                                            choiceHistoryS[trialIndexS] === x && !missHistoryS[trialIndexS] ?
                                                             'drop-shadow(0 0 8px #008080)' :
                                                             ''
                                                         }`,

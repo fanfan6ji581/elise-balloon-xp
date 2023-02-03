@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { moneyHistory } from "../../slices/gameSlice";
+import { outcomeHistory } from "../../slices/gameSlice";
 import { loginAttendant } from "../../slices/attendantSlice";
 import { Container, Grid, Button, Typography } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
@@ -7,11 +7,11 @@ import { Winwheel } from "../winwheel/Winwheel";
 import wheelConfig from "../winwheel/WheelConfig";
 
 export default function PaymentScreen() {
-    const moneyHistoryS = useSelector(moneyHistory);
+    const outcomeHistoryS = useSelector(outcomeHistory);
     const loginAttendantS = useSelector(loginAttendant);
     const { xpConfig } = loginAttendantS;
 
-    const moneyFromTrials = moneyHistoryS.reduce((a, b) => a + b, 0);
+    const moneyFromTrials = outcomeHistoryS.reduce((a, b) => a + b, 0);
     const earnings = moneyFromTrials - xpConfig.thresholdValue;
 
     const [spinning, setSpinning] = useState(false);

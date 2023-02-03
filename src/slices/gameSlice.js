@@ -10,8 +10,8 @@ const initialState = {
     // internal data
     xpData: {},
     xpConfig: {},
-    mulHistory: [],
-    moneyHistory: [],
+    choiceHistory: [],
+    outcomeHistory: [],
     missHistory: [],
     timerHistory: [],
 };
@@ -26,14 +26,14 @@ const gameSlice = createSlice({
             const { mul, missed } = action.payload;
 
             // keep mul history
-            state.mulHistory[trialIndex] = mul;
+            state.choiceHistory[trialIndex] = mul;
             state.missHistory[trialIndex] = missed;
             let money = xpData.balloonValues[trialIndex] * mul;
             // if different with previous one, add up a switch cost
             if (trialIndex > 0) {
-                money -= state.mulHistory[trialIndex - 1] * mul < 0 ? xpConfig.costToSwitch : 0;
+                money -= state.choiceHistory[trialIndex - 1] * mul < 0 ? xpConfig.costToSwitch : 0;
             }
-            state.moneyHistory[trialIndex] = money;
+            state.outcomeHistory[trialIndex] = money;
 
             if (!missed) {
                 state.timerHistory[trialIndex] = Date.now() - state.progressStartTime;
@@ -70,8 +70,8 @@ const gameSlice = createSlice({
             state.xpData = loginAttdant.xpData;
             state.xpConfig = loginAttdant.xpConfig;
             const { numberOfTrials } = state.xpConfig;
-            state.mulHistory = new Array(numberOfTrials).fill(0);
-            state.moneyHistory = new Array(numberOfTrials).fill(0);
+            state.choiceHistory = new Array(numberOfTrials).fill(0);
+            state.outcomeHistory = new Array(numberOfTrials).fill(0);
             state.missHistory = new Array(numberOfTrials).fill(false);
             state.timerHistory = new Array(numberOfTrials).fill(0);
         },
@@ -85,8 +85,8 @@ export const trialIndex = (state) => state.game.trialIndex;
 export const showAfterClickDelay = (state) => state.game.showAfterClickDelay;
 export const timerProgress = (state) => state.game.timerProgress;
 export const showMoneyOutcome = (state) => state.game.showMoneyOutcome;
-export const mulHistory = (state) => state.game.mulHistory;
-export const moneyHistory = (state) => state.game.moneyHistory;
+export const choiceHistory = (state) => state.game.choiceHistory;
+export const outcomeHistory = (state) => state.game.outcomeHistory;
 export const missHistory = (state) => state.game.missHistory;
 
 export default gameSlice.reducer;

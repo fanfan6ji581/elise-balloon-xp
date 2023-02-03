@@ -4,7 +4,8 @@ import { useRef, useEffect } from "react";
 import { loginAttendant } from "../../../slices/attendantSlice";
 import {
     trialIndex, timerProgress, showMoneyOutcome, showAfterClickDelay,
-    setTimerProgress, recordMulResp, onLogin, setProgressStartTime
+    setTimerProgress, recordMulResp, onLogin, setProgressStartTime,
+    choiceHistory, outcomeHistory, missHistory
 } from "../../../slices/gameSlice";
 import { useDispatch, useSelector } from "react-redux";
 import TrialTimerProgress from "./TrialTimerProgress";
@@ -22,6 +23,10 @@ const BalloonTrialPage = () => {
     const showMoneyOutcomeS = useSelector(showMoneyOutcome);
     const timerProgressS = useSelector(timerProgress);
     const showAfterClickDelayS = useSelector(showAfterClickDelay);
+    const choiceHistoryS = useSelector(choiceHistory);
+    const outcomeHistoryS = useSelector(outcomeHistory);
+    const missHistoryS = useSelector(missHistory);
+
     const { xpData, xpConfig } = loginAttendantS;
     const progressStartTime = useRef(0);
 
@@ -55,9 +60,11 @@ const BalloonTrialPage = () => {
 
     useEffect(() => {
         if (showMoneyOutcomeS || showAfterClickDelayS) {
+            // when showing delay or showing money outcome, pause progress bar
             clearInterval(timerInterval.current);
         } else {
-            restartGameTimer()
+            // when change, restart the game
+            restartGameTimer();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [showMoneyOutcomeS, showAfterClickDelayS])
@@ -68,6 +75,13 @@ const BalloonTrialPage = () => {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [trialIndexS])
+
+    // useEffect(() => {
+    //     if (trialIndexS > 0) {
+    //         // store it into database
+    //         debugger
+    //     }
+    // }, [trialIndexS, choiceHistoryS, outcomeHistoryS, missHistoryS])
 
     return (
         <Container maxWidth="lg">

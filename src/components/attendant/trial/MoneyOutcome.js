@@ -3,19 +3,19 @@ import coins from '../../../assets/coins.png';
 import coinsdown from '../../../assets/coinsdown.png';
 import { motion } from "framer-motion";
 import { Box, Typography, CardMedia, CardContent } from "@mui/material";
-import { showMoneyOutcome, moneyHistory, missHistory, trialIndex, nextTrial } from "../../../slices/gameSlice";
+import { showMoneyOutcome, outcomeHistory, missHistory, trialIndex, nextTrial } from "../../../slices/gameSlice";
 import { useEffect, useRef } from "react";
 
 export default function MoneyOutcome({ xpData, xpConfig }) {
     const dispatch = useDispatch();
     const loadingInterval = useRef(null);
     const showMoneyOutcomeS = useSelector(showMoneyOutcome);
-    const moneyHistoryS = useSelector(moneyHistory);
+    const outcomeHistoryS = useSelector(outcomeHistory);
     const missHistoryS = useSelector(missHistory);
     const trialIndexS = useSelector(trialIndex);
     const { afkTimeoutCost, outcomeShowTime } = xpConfig;
 
-    const moneyEarned = moneyHistoryS[trialIndexS];
+    const moneyEarned = outcomeHistoryS[trialIndexS];
     const missedTrial = missHistoryS[trialIndexS];
 
     const changeMoneyVariants = {

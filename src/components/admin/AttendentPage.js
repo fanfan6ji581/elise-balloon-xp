@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Container, Grid, Typography, Alert, TextField, Box, Tab } from "@mui/material";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { Link, useParams } from 'react-router-dom';
-import AttendentDataTable from "./AttedentDataTable";
+import AttendentDataTable from "./AttendentDataTable";
 
 const Attendent = () => {
     const [attedent, setAttendent] = useState([]);
