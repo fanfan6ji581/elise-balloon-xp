@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { loginAttendant } from "../../slices/attendantSlice";
-import { Container, Grid, Typography, CircularProgress } from "@mui/material";
+import { Container, Grid, Typography, Backdrop, CircularProgress } from "@mui/material";
 import { useEffect, useState } from "react";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import db from "../../database/firebase";
@@ -12,7 +12,8 @@ const shuffle = (array) => {
 export default function PaymentPage() {
     const loginAttendantS = useSelector(loginAttendant);
     const { xpConfig } = loginAttendantS;
-    const [earning, setEarning] = useState(null);
+    const [earning, setEarning] = useState("...");
+    const [loadingOpen, setLoadingOpen] = useState(true);
 
     const calculateFinalOutcomes = async () => {
         const attendantRef = doc(db, "attendant", loginAttendantS.id);
@@ -39,6 +40,7 @@ export default function PaymentPage() {
         const sumEarning = pickedOutcomeIndexes.reduce((a, b) => a + outcomeHistory[b], 0);
         const earning = Math.max(0, Math.min(150, sumEarning));
         setEarning(earning);
+        setLoadingOpen(false);
     }
 
     useEffect(() => {
@@ -60,12 +62,17 @@ export default function PaymentPage() {
                         of the trials you played and computed your net accumulated outcomes at these trials.
                     </Typography>
 
-                    {!earning && <CircularProgress />}
+                    <Typography variant="body1" sx={{ my: 3 }}>
+                        Your earnings are <b>${earning}</b>. Please wait, the experimenter will come shortly.
+                    </Typography>
 
-                    {earning &&
-                        <Typography variant="body1" sx={{ my: 3 }}>
-                            Your earnings are <b>${earning}</b>. Please wait, the experimenter will come shortly.
-                        </Typography>}
+                    <Backdrop
+                        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                        open={loadingOpen}
+                        onClick={() => setLoadingOpen(false)}
+                    >
+                        <CircularProgress color="inherit" />
+                    </Backdrop>
                 </Grid>
             </Grid>
         </Container >

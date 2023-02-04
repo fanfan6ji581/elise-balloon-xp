@@ -1,13 +1,24 @@
 import {
     Container, Typography
 } from "@mui/material";
-// import { useParams } from "react-router-dom"
-// import { loginAttendant } from "../../../slices/attendantSlice";
-// import { useSelector } from "react-redux";
+import { useParams, useNavigate } from "react-router-dom"
+import { useEffect } from "react"
 
 const SkipTraining = () => {
-    // const { alias } = useParams();
-    // const loginAttendantS = useSelector(loginAttendant);
+    const { alias } = useParams();
+    const navigate = useNavigate();
+
+    const onKeyDown = (e) => {
+        if (e.ctrlKey && e.key === 'n') {
+            navigate(`/xp/${alias}/quiz`);
+        }
+    }
+
+    useEffect(() => {
+        document.addEventListener("keydown", onKeyDown, false);
+        return () => document.removeEventListener("keydown", onKeyDown, false)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     return (
         <Container maxWidth="lg">

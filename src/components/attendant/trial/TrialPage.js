@@ -19,7 +19,6 @@ const TrialPage = () => {
     }
 
     useEffect(() => {
-        console.log('run fetchXP in trialPage')
         fetchXP();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])

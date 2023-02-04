@@ -19,6 +19,8 @@ import Instruction1Page from "./components/attendant/instruction/Instruction1Pag
 import Instruction2Page from "./components/attendant/instruction/Instruction2Page";
 import Instruction3Page from "./components/attendant/instruction/Instruction3Page";
 import SkipTrainingPage from "./components/attendant/instruction/SkipTrainingPage";
+import QuizPage from "./components/attendant/QuizPage";
+import StrategyPage from "./components/attendant/StrategyPage";
 
 const theme = createTheme();
 
@@ -38,6 +40,8 @@ function App() {
                                 <Route path="xp/:alias/instruction2" element={<Instruction2Page />} />
                                 <Route path="xp/:alias/instruction3" element={<Instruction3Page />} />
                                 <Route path="xp/:alias/skip-training" element={<SkipTrainingPage />} />
+                                <Route path="xp/:alias/quiz" element={<QuizPage />} />
+                                <Route path="xp/:alias/strategy" element={<StrategyPage />} />
                             </Route>
                             <Route path="/admin" element={<AdminLayout />}>
                                 <Route path="login" element={<AdminLoginPage />} />

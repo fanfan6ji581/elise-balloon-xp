@@ -13,16 +13,13 @@ const columns = [
     { field: 'reaction', headerName: 'Reaction ms', width: 100 },
     { field: 'choice', headerName: 'choice', width: 100 },
     { field: 'outcome', headerName: '$ outcome', valueFormatter: p => `$ ${p.value}`, width: 100 },
-    { field: 'pickedOutcome', headerName: '$ picked', valueFormatter: p => `${p.value ? `$${p.value}` : '-'}`, width: 100 },
-    { field: 'sumOutcome', headerName: '$ accumulate', valueFormatter: p => `${p.value ? `$${p.value}` : '-'}`, width: 100 },
+    { field: 'pickedOutcome', headerName: '$ picked', valueFormatter: p => `${p.value != null ? `$${p.value}` : '-'}`, width: 100 },
+    { field: 'sumOutcome', headerName: '$ accumulate', valueFormatter: p => `${p.value != null ? `$${p.value}` : '-'}`, width: 100 },
 ];
 
-const AttendentDataTable = ({ attedent }) => {
-    debugger
-    const rows = extractXpData(attedent);
-
-    const csvOptions = { fileName: `${attedent.xp_alias}-${attedent.username}` };
-
+const AttendentDataTable = ({ attendant }) => {
+    const rows = extractXpData(attendant);
+    const csvOptions = { fileName: `${attendant.xp_alias}-${attendant.username}` };
     const CustomToolbar = (props) => (
         <GridToolbarContainer {...props}>
             <GridToolbarDensitySelector />

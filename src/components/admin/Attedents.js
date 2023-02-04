@@ -28,7 +28,7 @@ const schema = {
 
 const Attendents = ({ xp }) => {
     const { alias } = useParams();
-    const [attedents, setAttendents] = useState([]);
+    const [attendants, setAttendents] = useState([]);
     const [selectionModel, setSelectionModel] = useState([]);
 
     const columns = [
@@ -70,7 +70,7 @@ const Attendents = ({ xp }) => {
 
         const batch = writeBatch(db);
         let maxGuestIndex = 0;
-        attedents.forEach((att, i) => {
+        attendants.forEach((att, i) => {
             const index = parseInt(att.username.replace('guest', ''));
             maxGuestIndex = Math.max(maxGuestIndex, index);
         });
@@ -117,7 +117,7 @@ const Attendents = ({ xp }) => {
         <>
             <Grid container spacing={2}>
                 <Grid item xs={10}>
-                    <DataGrid autoHeight rows={attedents} columns={columns}
+                    <DataGrid autoHeight rows={attendants} columns={columns}
                         checkboxSelection
                         disableSelectionOnClick
                         onSelectionModelChange={m => setSelectionModel(m)}

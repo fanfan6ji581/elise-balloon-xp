@@ -138,7 +138,7 @@ function extractXpData(attendant) {
             sum = sum + v
             return sum;
         }
-        return 0;
+        return null;
     });
 
     for (let i = 0; i < balloonValues.length; i++) {
@@ -152,7 +152,7 @@ function extractXpData(attendant) {
             choice: choiceHistory[i],
             miss: missHistory[i],
             outcome: outcomeHistory[i],
-            pickedOutcome: pickedOutcomeIndexes.includes(i) ? outcomeHistory[i] : 0,
+            pickedOutcome: pickedOutcomeIndexes.includes(i) ? outcomeHistory[i] : null,
             sumOutcome: sumOutcomeHistory[i],
         })
     }

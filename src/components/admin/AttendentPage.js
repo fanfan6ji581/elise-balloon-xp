@@ -5,9 +5,10 @@ import { Container, Grid, Typography, Alert, TextField, Box, Tab } from "@mui/ma
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { Link, useParams } from 'react-router-dom';
 import AttendentDataTable from "./AttendentDataTable";
+import AttendentInfo from "./AttendentInfo";
 
 const Attendent = () => {
-    const [attedent, setAttendent] = useState([]);
+    const [attendant, setAttendent] = useState([]);
     const [xp, setXp] = useState(null);
     const [errorMsg, setErrorMsg] = useState('');
     const { alias, username } = useParams()
@@ -37,7 +38,7 @@ const Attendent = () => {
         if (attendants.length === 1) {
             setAttendent(attendants[0]);
         } else {
-            setErrorMsg("Could not find this attendent")
+            setErrorMsg("Could not find this attendant")
         }
     };
 
@@ -58,7 +59,7 @@ const Attendent = () => {
                         {errorMsg && <Alert severity="error">{errorMsg}</Alert>}
 
                         <br />
-                        {xp && attedent && <>
+                        {xp && attendant && <>
                             <TabContext value={tab}>
                                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                                     <TabList onChange={onChangeTab} aria-label="lab API tabs example">
@@ -67,30 +68,31 @@ const Attendent = () => {
                                     </TabList>
                                 </Box>
                                 <TabPanel value="1">
-                                    <AttendentDataTable attedent={attedent} />
+                                    <AttendentDataTable attendant={attendant} />
                                     <br />
                                     <TextField variant="standard" fullWidth sx={{ my: 2 }}
                                         label="Number of abberations"
-                                        defaultValue={`${attedent.xpData._numAbberations} / ${attedent.xpData.balloonValues.length} = ${attedent.xpData._numAbberations / xp.numberOfTrials}`}
+                                        defaultValue={`${attendant.xpData._numAbberations} / ${attendant.xpData.balloonValues.length} = ${attendant.xpData._numAbberations / xp.numberOfTrials}`}
                                         InputProps={{ readOnly: true }} />
                                     <TextField variant="standard" fullWidth sx={{ my: 2 }}
                                         label="Times entered Dangerzone"
-                                        defaultValue={`${attedent.xpData._numDangerzone} / ${attedent.xpData.balloonValues.length} = ${attedent.xpData._numDangerzone / xp.numberOfTrials}`}
+                                        defaultValue={`${attendant.xpData._numDangerzone} / ${attendant.xpData.balloonValues.length} = ${attendant.xpData._numDangerzone / xp.numberOfTrials}`}
                                         InputProps={{ readOnly: true }} />
                                     <TextField variant="standard" fullWidth sx={{ my: 2 }}
                                         label="Trial n Dangerzone reset"
-                                        defaultValue={JSON.stringify(attedent.xpData._dangerZoneSpeedReset)}
+                                        defaultValue={JSON.stringify(attendant.xpData._dangerZoneSpeedReset)}
                                         InputProps={{ readOnly: true }} />
                                     <TextField variant="standard" fullWidth sx={{ my: 2 }}
                                         label="Trial n Dangerzone reset % chance"
-                                        defaultValue={JSON.stringify(attedent.xpData.chances)}
+                                        defaultValue={JSON.stringify(attendant.xpData.chances)}
                                         InputProps={{ readOnly: true }} />
                                     <TextField variant="standard" fullWidth sx={{ my: 2 }}
                                         label="Trial n Dangerzone reset expected"
-                                        defaultValue={JSON.stringify(attedent.xpData._dangerZoneResetCalc)}
+                                        defaultValue={JSON.stringify(attendant.xpData._dangerZoneResetCalc)}
                                         InputProps={{ readOnly: true }} />
                                 </TabPanel>
                                 <TabPanel value="2">
+                                    <AttendentInfo attendant={attendant} />
                                 </TabPanel>
                             </TabContext>
                         </>}
