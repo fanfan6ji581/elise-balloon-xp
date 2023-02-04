@@ -76,18 +76,16 @@ const Attendents = ({ xp }) => {
         });
 
         for (let i = 0; i < formData.count; i++) {
-            const { xpData, xpRecord } = generateBalloonData(xp);
+            const data = generateBalloonData(xp);
 
-            const attendant = {
+            const attendant = Object.assign({}, data, {
                 username: `guest${zeroPad(maxGuestIndex + i + 1, 2)}`,
                 password: Math.random().toString(36).slice(-6),
                 created: Date.now(),
                 xp_alias: xp.alias,
                 xp_id: xp.id,
-                xpData,
-                xpRecord,
                 xpConfig: xp,
-            }
+            });
             const ref = doc(collection(db, "attendant"));
             batch.set(ref, attendant);
         }

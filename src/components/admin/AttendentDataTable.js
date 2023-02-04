@@ -13,13 +13,13 @@ const columns = [
     { field: 'reaction', headerName: 'Reaction ms', width: 100 },
     { field: 'choice', headerName: 'choice', width: 100 },
     { field: 'outcome', headerName: '$ outcome', valueFormatter: p => `$ ${p.value}`, width: 100 },
-    { field: 'sumOutcome', headerName: '$ accumulate', valueFormatter: p => `$ ${p.value}`, width: 100 },
-    { field: 'pickedOutcome', headerName: '$ picked', valueFormatter: p => `$ ${p.value || 0}`, width: 100 },
+    { field: 'pickedOutcome', headerName: '$ picked', valueFormatter: p => `${p.value ? `$${p.value}` : '-'}`, width: 100 },
+    { field: 'sumOutcome', headerName: '$ accumulate', valueFormatter: p => `${p.value ? `$${p.value}` : '-'}`, width: 100 },
 ];
 
 const AttendentDataTable = ({ attedent }) => {
-    const { xpData, xpRecord } = attedent;
-    const rows = extractXpData(xpData, xpRecord);
+    debugger
+    const rows = extractXpData(attedent);
 
     const csvOptions = { fileName: `${attedent.xp_alias}-${attedent.username}` };
 

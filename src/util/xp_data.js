@@ -107,13 +107,17 @@ function generateBalloonData(xp) {
             missHistory: Array.from({ length: xp.numberOfTrials }).fill(false),
             choiceHistory: Array.from({ length: xp.numberOfTrials }).fill(0),
             outcomeHistory: Array.from({ length: xp.numberOfTrials }).fill(0),
-            sumOutcomeHistory: Array.from({ length: xp.numberOfTrials }).fill(0),
-            pickedOutcomeHistory: Array.from({ length: xp.numberOfTrials }).fill(0),
-        }
+        },
+        pickedOutcomeIndexes: [],
     };
 }
 
-function extractXpData(xpData, xpRecord) {
+function extractXpData(attendant) {
+    const {
+        xpData,
+        xpRecord,
+        pickedOutcomeIndexes,
+    } = attendant;
     const rows = []
     const {
         balloonValues,
@@ -129,7 +133,13 @@ function extractXpData(xpData, xpRecord) {
     } = xpRecord;
 
     let sum = 0;
-    const sumOutcomeHistory = outcomeHistory.map(v => sum = sum + v);
+    const sumOutcomeHistory = outcomeHistory.map((v, i) => {
+        if (pickedOutcomeIndexes.includes(i)) {
+            sum = sum + v
+            return sum;
+        }
+        return 0;
+    });
 
     for (let i = 0; i < balloonValues.length; i++) {
         rows.push({
@@ -142,8 +152,8 @@ function extractXpData(xpData, xpRecord) {
             choice: choiceHistory[i],
             miss: missHistory[i],
             outcome: outcomeHistory[i],
+            pickedOutcome: pickedOutcomeIndexes.includes(i) ? outcomeHistory[i] : 0,
             sumOutcome: sumOutcomeHistory[i],
-            // pickedOutcome: pickedOutcomeHistory[i],
         })
     }
     return rows;

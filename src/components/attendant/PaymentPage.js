@@ -1,83 +1,76 @@
 import { useSelector } from "react-redux";
 import { outcomeHistory } from "../../slices/gameSlice";
 import { loginAttendant } from "../../slices/attendantSlice";
-import { Container, Grid, Button, Typography } from "@mui/material";
-import { useEffect, useRef, useState } from "react";
-import { Winwheel } from "../winwheel/Winwheel";
-import wheelConfig from "../winwheel/WheelConfig";
+import { Container, Grid, Typography, CircularProgress } from "@mui/material";
+import { useEffect, useState } from "react";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
+import db from "../../database/firebase";
 
-export default function PaymentScreen() {
+const shuffle = (array) => {
+    array.sort(() => Math.random() - 0.5);
+}
+
+export default function PaymentPage() {
     const outcomeHistoryS = useSelector(outcomeHistory);
     const loginAttendantS = useSelector(loginAttendant);
     const { xpConfig } = loginAttendantS;
+    const [earning, setEarning] = useState(null);
 
     const moneyFromTrials = outcomeHistoryS.reduce((a, b) => a + b, 0);
-    const earnings = moneyFromTrials - xpConfig.thresholdValue;
 
-    const [spinning, setSpinning] = useState(false);
-    const [wheelEarnings, setWheelEarnings] = useState(0);
-    const winwheel = useRef(null);
+    const calculateFinalOutcomes = async () => {
+        const attendantRef = doc(db, "attendant", loginAttendantS.id);
+        const docSnap = await getDoc(attendantRef);
+        if (!docSnap.exists()) {
+            return;
+        }
 
-    const alertPrize = (segment) => {
-        setWheelEarnings(segment.value);
+        const attendant = docSnap.data();
+        let { xpRecord, pickedOutcomeIndexes } = attendant;
+        const { outcomeHistory } = xpRecord;
+
+        // check if pickedOutcomeIndexes is calculated already
+        const isCalculated = pickedOutcomeIndexes && pickedOutcomeIndexes.length != 0;
+        if (!isCalculated) {
+            const shuffledIndex = outcomeHistory.map((_, idx) => (idx));
+            shuffle(shuffledIndex);
+            const length = Math.round(xpConfig.numberOfTrials * xpConfig.percentageEarning / 100);
+            const pickedIndex = shuffledIndex.slice(0, length);
+            pickedOutcomeIndexes = pickedIndex.sort((a, b) => a - b);
+            await updateDoc(attendantRef, { pickedOutcomeIndexes });
+        }
+
+        const sumEarning = pickedOutcomeIndexes.reduce((a, b) => a + outcomeHistory[b], 0);
+        const earning = Math.max(0, Math.min(150, sumEarning));
+        setEarning(earning);
     }
 
     useEffect(() => {
-        winwheel.current = new Winwheel(wheelConfig(alertPrize, 0), true);
+        calculateFinalOutcomes();
     }, [])
 
     return (
         <Container maxWidth="md">
             <Grid container spacing={2} justifyContent="center">
-                <Grid item xs={12} sx={{ textAlign: 'center' }}>
-                    <Typography variant="h3" align="center" sx={{ m: 5 }}>Game over!</Typography>
+                <Grid item xs={2} />
+                <Grid item xs={8} sx={{ textAlign: 'center' }}>
+                    <Typography variant="h3" align="center" sx={{ my: 5 }}>
+                        Game over!
+                    </Typography>
 
-                    {(earnings <= 0 && wheelEarnings <= 0) &&
-                        <>
-                            <Typography variant="body1" sx={{ m: 2 }}> Your net accumulated outcomes in the task are -${-earnings}</Typography>
-                            <Typography variant="body1" sx={{ m: 2 }}> Sorry! However, to thank you for your participation in this research project,
-                                we wish to invite you to participate in a wheel of fortune lottery in which you can only win money</Typography>
+                    <Typography variant="body1" sx={{ my: 3 }}>
+                        The game is over. The computer just randomly selected {xpConfig.percentageEarning}%
+                        of the trials you played and computed your net accumulated outcomes at these trials.
+                    </Typography>
 
-                            <div className="the_wheel">
-                                <canvas id="canvas" height={434} width={434} className="the_canvas">
-                                    <p style={{ color: 'white' }} align="center">Sorry, your browser doesn't support canvas. Please try another.</p>
-                                </canvas>
-                            </div>
+                    {!earning && <CircularProgress />}
 
-                            <Button variant="contained" disabled={spinning} sx={{ m: 2 }} onClick={() => {
-                                winwheel.current.startAnimation()
-                                setSpinning(true)
-                            }}>Spin</Button>
-                        </>
-                    }
-
-                    {(earnings <= 0 && wheelEarnings > 0) &&
-                        <>
-                            <Typography variant="body1" sx={{ m: 2 }}>
-                                Lucky you, you’ve just won ${wheelEarnings} at the wheel of fortune! Your net final outcomes in the experiment are thus ${wheelEarnings}.
-                            </Typography>
-                            <Typography variant="body1" sx={{ m: 2 }}>
-                                Note that you will further receive $5 (the show-up reward), and your earnings at the pre-game test.
-                            </Typography>
-                            <Typography variant="body1" sx={{ m: 2 }}>
-                                Thanks again for your participation! The experimenter is going to proceed to the payment procedure very soon, thanks for your patience.
-                            </Typography>
-                        </>
-                    }
-
-                    {earnings > 0 &&
-                        <>
-                            <Typography variant="body1" sx={{ m: 2 }}>
-                                Your net accumulated outcomes in the task are <b>${moneyFromTrials}</b>, the threshold of task is <b>${xpConfig.thresholdValue}</b>, so your earnings are ${earnings}.
-                            </Typography>
-                            <Typography variant="body1" sx={{ m: 2 }}>
-                                Congratulations! The experimenter is going to proceed to the payment procedure very soon, thanks for your patience.
-                            </Typography>
-                        </>
-                    }
-
+                    {earning &&
+                        <Typography variant="body1" sx={{ my: 3 }}>
+                            Your earnings are <b>${earning}</b>. Please wait, the experimenter will come shortly.
+                        </Typography>}
                 </Grid>
             </Grid>
-        </Container>
+        </Container >
     )
 }
