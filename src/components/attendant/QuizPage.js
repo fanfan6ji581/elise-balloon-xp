@@ -123,7 +123,7 @@ const QuizPage = () => {
     }
 
     const onKeyDown = (e) => {
-        if (e.ctrlKey && e.key === 'n') {
+        if (e.ctrlKey && e.key === 'm') {
             navigate(`/xp/${alias}/strategy`);
         }
     }

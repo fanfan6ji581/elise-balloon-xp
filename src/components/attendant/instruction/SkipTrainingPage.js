@@ -9,7 +9,7 @@ const SkipTraining = () => {
     const navigate = useNavigate();
 
     const onKeyDown = (e) => {
-        if (e.ctrlKey && e.key === 'n') {
+        if (e.ctrlKey && e.key === 'm') {
             navigate(`/xp/${alias}/quiz`);
         }
     }
