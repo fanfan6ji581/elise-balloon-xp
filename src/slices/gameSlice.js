@@ -73,6 +73,13 @@ const gameSlice = createSlice({
             state.xpData = xpData;
             state.xpConfig = xpConfig;
         },
+        reset: (state, action) => {
+            state.trialIndex = -1;
+            state.choiceHistory = [];
+            state.outcomeHistory = [];
+            state.missHistory = [];
+            state.reactionHistory = [];
+        },
         onLogin: (state, action) => {
             const { xpData, xpRecord, xpConfig } = action.payload
             const {
@@ -95,7 +102,7 @@ const gameSlice = createSlice({
 
 export const { recordMulResp, setProgressStartTime,
     setTimerProgress, nextTrial, onLogin, onLoginTraining,
-    setShowMoneyOutcome } = gameSlice.actions;
+    setShowMoneyOutcome, reset } = gameSlice.actions;
 
 export const trialIndex = (state) => state.game.trialIndex;
 export const showAfterClickDelay = (state) => state.game.showAfterClickDelay;
