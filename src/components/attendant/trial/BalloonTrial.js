@@ -112,7 +112,11 @@ const BalloonTrial = ({ isTrainingMode }) => {
         }
         // when finished go to next page
         if (trialIndexS >= xpConfig.numberOfTrials) {
-            navigate(`/xp/${alias}/payment`)
+            if (isTrainingMode) {
+                navigate(`/xp/${alias}/quiz`)
+            } else {
+                navigate(`/xp/${alias}/payment`)
+            }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [trialIndexS, choiceHistoryS, outcomeHistoryS, missHistoryS, reactionHistoryS])
