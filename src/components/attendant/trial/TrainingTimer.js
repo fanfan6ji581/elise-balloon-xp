@@ -12,7 +12,7 @@ const TrainingTimer = () => {
     };
 
     const onComplete = () => {
-        navigate(`/xp/${alias}/skip-training`);
+        navigate(`/xp/${alias}/quiz`);
     }
 
     return (
