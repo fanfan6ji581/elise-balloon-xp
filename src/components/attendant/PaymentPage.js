@@ -1,5 +1,4 @@
 import { useSelector } from "react-redux";
-import { outcomeHistory } from "../../slices/gameSlice";
 import { loginAttendant } from "../../slices/attendantSlice";
 import { Container, Grid, Typography, CircularProgress } from "@mui/material";
 import { useEffect, useState } from "react";
@@ -11,12 +10,9 @@ const shuffle = (array) => {
 }
 
 export default function PaymentPage() {
-    const outcomeHistoryS = useSelector(outcomeHistory);
     const loginAttendantS = useSelector(loginAttendant);
     const { xpConfig } = loginAttendantS;
     const [earning, setEarning] = useState(null);
-
-    const moneyFromTrials = outcomeHistoryS.reduce((a, b) => a + b, 0);
 
     const calculateFinalOutcomes = async () => {
         const attendantRef = doc(db, "attendant", loginAttendantS.id);
@@ -30,7 +26,7 @@ export default function PaymentPage() {
         const { outcomeHistory } = xpRecord;
 
         // check if pickedOutcomeIndexes is calculated already
-        const isCalculated = pickedOutcomeIndexes && pickedOutcomeIndexes.length != 0;
+        const isCalculated = pickedOutcomeIndexes && pickedOutcomeIndexes.length !== 0;
         if (!isCalculated) {
             const shuffledIndex = outcomeHistory.map((_, idx) => (idx));
             shuffle(shuffledIndex);
@@ -47,6 +43,7 @@ export default function PaymentPage() {
 
     useEffect(() => {
         calculateFinalOutcomes();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (

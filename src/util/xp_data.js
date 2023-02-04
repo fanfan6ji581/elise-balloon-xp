@@ -82,7 +82,7 @@ function generateBalloonData(xp) {
     for (let i = 1; i < xp.numberOfTrials - 1; i++) {
         if (balloonValues[i] * balloonValues[i - 1] < 0 &&
             balloonSpeed[i - 1] === 0 &&
-            balloonValues[i] * balloonValues[i + 1] < 0) {
+            aberration[i - 1] === 0) {
             aberration[i] = 1
         }
         if (balloonValues[i] * balloonValues[i - 1] < 0 &&
