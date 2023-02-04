@@ -21,7 +21,7 @@ const Instruction3Page = () => {
             </Typography>
 
             <Box textAlign="center" sx={{ my: 3 }}>
-                <Button component={Link} variant="contained" size="large" to={`/xp/${alias}/instruction3`}>GO TO TRAINING</Button>
+                <Button component={Link} variant="contained" size="large" to={`/xp/${alias}/training`}>GO TO TRAINING</Button>
             </Box>
             <Box textAlign="center" sx={{ my: 3 }}>
                 <Button color="warning" component={Link} variant="contained" size="large" to={`/xp/${alias}/skip-training`}>SKIP TRAINING</Button>
