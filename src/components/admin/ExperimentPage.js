@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import { collection, getDocs, query, where, doc, updateDoc } from "firebase/firestore";
 import db from "../../database/firebase";
 import ExperimentConfig from './ExperimentConfig';
-import Attedents from './Attedents';
+import Attendants from './Attendants';
 import { Link } from 'react-router-dom';
 
 const Experiment = () => {
@@ -82,7 +82,7 @@ const Experiment = () => {
                                     <ExperimentConfig xp={xp} setXp={setXp} />
                                 </TabPanel>
                                 <TabPanel value="2">
-                                    <Attedents xp={xp} />
+                                    <Attendants xp={xp} />
                                 </TabPanel>
                             </TabContext>
                         </Box>

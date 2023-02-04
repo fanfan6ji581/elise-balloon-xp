@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 import { Container, Grid, Typography, Alert, TextField, Box, Tab } from "@mui/material";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { Link, useParams } from 'react-router-dom';
-import AttendentDataTable from "./AttendentDataTable";
-import AttendentInfo from "./AttendentInfo";
+import AttendantDataTable from "./AttendantDataTable";
+import AttendantInfo from "./AttendantInfo";
 
 const Attendent = () => {
     const [attendant, setAttendent] = useState([]);
@@ -68,7 +68,7 @@ const Attendent = () => {
                                     </TabList>
                                 </Box>
                                 <TabPanel value="1">
-                                    <AttendentDataTable attendant={attendant} />
+                                    <AttendantDataTable attendant={attendant} />
                                     <br />
                                     <TextField variant="standard" fullWidth sx={{ my: 2 }}
                                         label="Number of abberations"
@@ -92,7 +92,7 @@ const Attendent = () => {
                                         InputProps={{ readOnly: true }} />
                                 </TabPanel>
                                 <TabPanel value="2">
-                                    <AttendentInfo attendant={attendant} />
+                                    <AttendantInfo attendant={attendant} />
                                 </TabPanel>
                             </TabContext>
                         </>}

@@ -5,14 +5,14 @@ import db from "../../database/firebase";
 import { useEffect, useState } from "react";
 import {
     Grid, Typography, IconButton, Button, Tooltip,
-    Dialog, DialogActions, DialogContent, DialogContentText,
+    Dialog, DialogActions, DialogContent,
 } from "@mui/material";
 import { Visibility as VisibilityIcon, Delete as DeleteIcon, Login as LoginIcon, FileDownload } from '@mui/icons-material';
 import { DataGrid } from '@mui/x-data-grid';
 import moment from 'moment';
 import { generateBalloonData } from '../../util/xp_data'
 import { Link, useParams } from 'react-router-dom';
-import AttendentsInfo from './AttendentsInfo';
+import AttendantsInfo from './AttendantsInfo';
 
 const zeroPad = (num, places) => String(num).padStart(places, '0')
 
@@ -147,7 +147,7 @@ const Attendants = ({ xp }) => {
 
             <Dialog maxWidth="lg" fullWidth="true" open={dialogOpen} onClose={() => setDialogOpen(false)}>
                 <DialogContent>
-                    <AttendentsInfo attendants={attendants} />
+                    <AttendantsInfo attendants={attendants} />
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={() => setDialogOpen(false)}>Close</Button>
