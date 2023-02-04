@@ -3,12 +3,16 @@ import validator from "@rjsf/validator-ajv8";
 import { getDocs, doc, writeBatch, collection, query, where } from "firebase/firestore";
 import db from "../../database/firebase";
 import { useEffect, useState } from "react";
-import { Grid, Typography, IconButton, Button, Tooltip } from "@mui/material";
-import { Visibility as VisibilityIcon, Delete as DeleteIcon, Login as LoginIcon } from '@mui/icons-material';
+import {
+    Grid, Typography, IconButton, Button, Tooltip,
+    Dialog, DialogActions, DialogContent, DialogContentText,
+} from "@mui/material";
+import { Visibility as VisibilityIcon, Delete as DeleteIcon, Login as LoginIcon, FileDownload } from '@mui/icons-material';
 import { DataGrid } from '@mui/x-data-grid';
 import moment from 'moment';
 import { generateBalloonData } from '../../util/xp_data'
 import { Link, useParams } from 'react-router-dom';
+import AttendentsInfo from './AttendentsInfo';
 
 const zeroPad = (num, places) => String(num).padStart(places, '0')
 
@@ -26,10 +30,11 @@ const schema = {
     ]
 };
 
-const Attendents = ({ xp }) => {
+const Attendants = ({ xp }) => {
     const { alias } = useParams();
-    const [attendants, setAttendents] = useState([]);
+    const [attendants, setAttendants] = useState([]);
     const [selectionModel, setSelectionModel] = useState([]);
+    const [dialogOpen, setDialogOpen] = useState(false);
 
     const columns = [
         { field: 'username', headerName: 'Username', width: 150 },
@@ -59,10 +64,10 @@ const Attendents = ({ xp }) => {
     const fetchAttendants = async () => {
         const snapshot = await getDocs(query(collection(db, "attendant"), where("xp_alias", "==", alias)));
         const attendants = snapshot.docs.map(d => (Object.assign({ id: d.id }, d.data())));
-        setAttendents(attendants);
+        setAttendants(attendants);
     };
 
-    const onCreateAttendents = async ({ formData }, e) => {
+    const onCreateAttendants = async ({ formData }, e) => {
         e.preventDefault();
         if (formData.count <= 0) {
             return;
@@ -132,14 +137,25 @@ const Attendents = ({ xp }) => {
                         }} />
 
                     <Button variant="contained" disabled={!selectionModel.length} onClick={onDeleteAttdendants}><DeleteIcon /> Delete</Button>
+                    <Button variant="contained" sx={{ mx: 3 }} onClick={() => setDialogOpen(true)}><FileDownload /> See Response</Button>
                 </Grid>
                 <Grid item xs={2}>
                     <Typography>Add more attendants</Typography>
-                    <Form schema={schema} onSubmit={onCreateAttendents} validator={validator} />
+                    <Form schema={schema} onSubmit={onCreateAttendants} validator={validator} />
                 </Grid>
             </Grid>
+
+            <Dialog maxWidth="lg" fullWidth="true" open={dialogOpen} onClose={() => setDialogOpen(false)}>
+                <DialogContent>
+                    <AttendentsInfo attendants={attendants} />
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={() => setDialogOpen(false)}>Close</Button>
+                </DialogActions>
+            </Dialog>
+
         </>
     )
 }
 
-export default Attendents
+export default Attendants
