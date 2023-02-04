@@ -130,7 +130,9 @@ const DashboardPage = () => {
             afkTimeout: 2000,
             afkTimeoutCost: 1,
             numberOfTrials: 400,
-            thresholdValue: 100
+            percentageEarning: 50,
+            youtubeVideoId1: '2g811Eo7K8U',
+            youtubeVideoId2: '2g811Eo7K8U',
         };
         const resp = await addDoc(collection(db, "xp"), xp);
         xp.id = resp.id;

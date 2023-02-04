@@ -63,11 +63,19 @@ const schema = {
             "title": "Number of trials T",
             // "default": 400
         },
-        "thresholdValue": {
+        "percentageEarning": {
             "type": "integer",
-            "title": "Threshold value for payment rule",
+            "title": "Percentage of trials for earnings",
             // "default": 100
-        }
+        },
+        "youtubeVideoId1": {
+            "type": "string",
+            "title": "Youtube video Id for instruction page 1", 
+        },
+        "youtubeVideoId2": {
+            "type": "string",
+            "title": "Youtube video Id for instruction page 2", 
+        },
     }
 };
 
