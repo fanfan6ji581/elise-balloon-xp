@@ -8,7 +8,7 @@ import { Visibility as VisibilityIcon, Delete as DeleteIcon, Login as LoginIcon 
 import { DataGrid } from '@mui/x-data-grid';
 import moment from 'moment';
 import { generateBalloonData } from '../../util/xp_data'
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 const zeroPad = (num, places) => String(num).padStart(places, '0')
 
@@ -27,6 +27,7 @@ const schema = {
 };
 
 const Attendents = ({ xp }) => {
+    const { alias } = useParams();
     const [attedents, setAttendents] = useState([]);
     const [selectionModel, setSelectionModel] = useState([]);
 
@@ -56,7 +57,7 @@ const Attendents = ({ xp }) => {
     ];
 
     const fetchAttendants = async () => {
-        const snapshot = await getDocs(query(collection(db, "attendant"), where("xp_alias", "==", xp.alias)));
+        const snapshot = await getDocs(query(collection(db, "attendant"), where("xp_alias", "==", alias)));
         const attendants = snapshot.docs.map(d => (Object.assign({ id: d.id }, d.data())));
         setAttendents(attendants);
     };

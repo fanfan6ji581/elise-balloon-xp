@@ -127,12 +127,13 @@ const DashboardPage = () => {
             costToSwitch: 1,
             choiceDelay: 0,
             outcomeShowTime: 2000,
-            afkTimeout: 2000,
+            afkTimeout: 4000,
             afkTimeoutCost: 1,
             numberOfTrials: 400,
             percentageEarning: 50,
             youtubeVideoId1: '2g811Eo7K8U',
             youtubeVideoId2: '2g811Eo7K8U',
+            enablePlaying: false,
         };
         const resp = await addDoc(collection(db, "xp"), xp);
         xp.id = resp.id;
