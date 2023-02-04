@@ -50,8 +50,8 @@ export default function PaymentPage() {
 
     return (
         <Container maxWidth="md">
-            <Grid container spacing={2} justifyContent="center">
-                <Grid item xs={2} />
+            <Grid container justifyContent="center">
+                <Grid item xs={1} />
                 <Grid item xs={8} sx={{ textAlign: 'center' }}>
                     <Typography variant="h3" align="center" sx={{ my: 5 }}>
                         Game over!
