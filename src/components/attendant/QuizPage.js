@@ -46,8 +46,8 @@ const QuizPage = () => {
         mcq4: `You lose ${xpConfig.afkTimeoutCost} every time you do not reply within the imparted ${xpConfig.afkTimeout / 1000} sec`,
         mcq5: 'Win of $2',
         mcq6: 'Win of $2',
-        mcq7: 'It can switch; if that occurs, you know that the value will return to its current value next trial (this is “an aberration”)',
-        mcq8: 'If you play well you can earn up to $150, but if you don’t, you may end up with nothing but the show-up $5. In other words, your earnings in this experiment will be highly contingent on how well you play the game.',
+        mcq7: `It can switch; if that occurs, you know that the value will return to its current value next trial (this is "an aberration")`,
+        mcq8: `If you play well you can earn up to $150, but if you don't, you may end up with nothing but the show-up $5. In other words, your earnings in this experiment will be highly contingent on how well you play the game.`,
     }
 
     const fetchAttdendantAnswer = async () => {
@@ -95,21 +95,21 @@ const QuizPage = () => {
     const onSubmit = async (e) => {
         e.preventDefault();
         switch (true) {
-            case mcq1 === undefined:
+            case mcq1 === 0:
                 return window.alert("Please fill question #1");
-            case mcq2 === undefined:
+            case mcq2 === 0:
                 return window.alert("Please fill question #2");
-            case mcq3 === undefined:
+            case mcq3 === 0:
                 return window.alert("Please fill question #3");
-            case mcq4 === undefined:
+            case mcq4 === 0:
                 return window.alert("Please fill question #4");
-            case mcq5 === undefined:
+            case mcq5 === 0:
                 return window.alert("Please fill question #5");
-            case mcq6 === undefined:
+            case mcq6 === 0:
                 return window.alert("Please fill question #6");
-            case mcq7 === undefined:
+            case mcq7 === 0:
                 return window.alert("Please fill question #7");
-            case mcq8 === undefined:
+            case mcq8 === 0:
                 return window.alert("Please fill question #8");
             default:
                 break;
