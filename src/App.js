@@ -12,7 +12,8 @@ import AttendentPage from "./components/admin/AttendentPage";
 
 import AttendantLayout from "./components/attendant/Layout";
 import LoginPage from "./components/attendant/LoginPage";
-import BalloonTrialPage from "./components/attendant/trial/BalloonTrialPage";
+import TrialPage from "./components/attendant/trial/TrialPage";
+import TrialTrainingPage from "./components/attendant/trial/TrialTrainingPage";
 import PaymentPage from "./components/attendant/PaymentPage";
 import Instruction1Page from "./components/attendant/instruction/Instruction1Page";
 import Instruction2Page from "./components/attendant/instruction/Instruction2Page";
@@ -30,7 +31,8 @@ function App() {
                         <Routes>
                             <Route path="/" element={<AttendantLayout />}>
                                 <Route path="xp/:alias/login/:username?/:password?" element={<LoginPage />} />
-                                <Route path="xp/:alias/trial" element={<BalloonTrialPage />} />
+                                <Route path="xp/:alias/trial" element={<TrialPage />} />
+                                <Route path="xp/:alias/training" element={<TrialTrainingPage />} />
                                 <Route path="xp/:alias/payment" element={<PaymentPage />} />
                                 <Route path="xp/:alias/instruction1" element={<Instruction1Page />} />
                                 <Route path="xp/:alias/instruction2" element={<Instruction2Page />} />

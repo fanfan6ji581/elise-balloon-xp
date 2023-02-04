@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { generateBalloonData } from '../util/xp_data';
 
 const initialState = {
     trialIndex: 0,
@@ -65,6 +66,13 @@ const gameSlice = createSlice({
             state.timerProgress = 0;
             state.trialIndex++;
         },
+        onLoginTraining: (state, action) => {
+            const { xpConfig } = action.payload
+            // random generated xpData
+            const { xpData } = generateBalloonData(xpConfig);
+            state.xpData = xpData;
+            state.xpConfig = xpConfig;
+        },
         onLogin: (state, action) => {
             const { xpData, xpRecord, xpConfig } = action.payload
             const {
@@ -86,7 +94,8 @@ const gameSlice = createSlice({
 });
 
 export const { recordMulResp, setProgressStartTime,
-    setTimerProgress, nextTrial, onLogin, setShowMoneyOutcome } = gameSlice.actions;
+    setTimerProgress, nextTrial, onLogin, onLoginTraining,
+    setShowMoneyOutcome } = gameSlice.actions;
 
 export const trialIndex = (state) => state.game.trialIndex;
 export const showAfterClickDelay = (state) => state.game.showAfterClickDelay;

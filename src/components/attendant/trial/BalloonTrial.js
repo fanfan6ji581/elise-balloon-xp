@@ -6,6 +6,7 @@ import {
     trialIndex, timerProgress, showMoneyOutcome, showAfterClickDelay,
     setTimerProgress, recordMulResp, onLogin, setProgressStartTime,
     choiceHistory, outcomeHistory, missHistory, reactionHistory,
+    onLoginTraining,
 } from "../../../slices/gameSlice";
 import { login } from "../../../slices/attendantSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,7 +17,7 @@ import ValueChart from "./ValueChart";
 import { doc, updateDoc } from "firebase/firestore";
 import db from "../../../database/firebase";
 
-const BalloonTrialPage = () => {
+const BalloonTrial = ({ isTrainingMode }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { alias } = useParams();
@@ -47,6 +48,10 @@ const BalloonTrialPage = () => {
     }
 
     const storeToDB = async () => {
+        // do nothing in training mode
+        if (isTrainingMode) {
+            return;
+        }
         const attendantRef = doc(db, "attendant", loginAttendantS.id);
         const xpRecord = {
             trialIndex: trialIndexS,
@@ -62,7 +67,12 @@ const BalloonTrialPage = () => {
 
     useEffect(() => {
         // fetch Login attdendant detail every time
-        dispatch(onLogin(loginAttendantS));
+        if (isTrainingMode) {
+            dispatch(onLoginTraining(loginAttendantS));
+        } else {
+            dispatch(onLogin(loginAttendantS));
+        }
+
         restartGameTimer();
         return () => {
             clearInterval(timerInterval.current);
@@ -100,7 +110,8 @@ const BalloonTrialPage = () => {
             reactionHistoryS[trialIndexS]) {
             storeToDB();
         }
-        if (trialIndexS === xpConfig.numberOfTrials) {
+        // when finished go to next page
+        if (trialIndexS >= xpConfig.numberOfTrials) {
             navigate(`/xp/${alias}/payment`)
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -110,7 +121,9 @@ const BalloonTrialPage = () => {
         <Container maxWidth="lg">
             <Grid container justifyContent="center">
                 <Grid item xs={12}>
-                    <Typography variant="h5" align="center" sx={{ mt: 2, mb: 1 }}>Trial: {trialIndexS + 1}/{xpConfig.numberOfTrials}</Typography >
+                    <Typography variant="h5" align="center" sx={{ mt: 2, mb: 1 }}>
+                        {isTrainingMode && <>Training</>} Trial: {trialIndexS + 1}/{xpConfig.numberOfTrials}
+                    </Typography >
                     <TrialTimerProgress />
                     <Grid container>
                         <Grid item xs={12}>
@@ -123,7 +136,6 @@ const BalloonTrialPage = () => {
                         <Grid item xs={5}>
                             <PickBalloon xpData={xpData} xpConfig={xpConfig} />
                         </Grid>
-                        {/* <Grid item xs={2} /> */}
 
                         <Grid item xs={7}>
                             <ValueChart xpData={xpData} />
@@ -135,4 +147,4 @@ const BalloonTrialPage = () => {
     )
 }
 
-export default BalloonTrialPage
+export default BalloonTrial
