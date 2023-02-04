@@ -21,7 +21,7 @@ const TrainingTimer = () => {
                 <Container maxWidth="lg" sx={{ mt: 3 }}>
                     <Grid container alignItems="center">
                         <Grid item xs={6}>
-                            <Typography variant="body1" textAlign="right">
+                            <Typography variant="body1" textAlign="right" sx={{mr: 1}}>
                                 Training time left:
                             </Typography>
                         </Grid>
