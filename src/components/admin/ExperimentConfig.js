@@ -68,6 +68,10 @@ const schema = {
             "title": "Percentage of trials for earnings",
             // "default": 100
         },
+        "trainingSessionSeconds": {
+            "type": "integer",
+            "title": "Seconds of how long the training session last (default is 120 seconds, 2 min)",
+        },
         "youtubeVideoId1": {
             "type": "string",
             "title": "Youtube video Id for instruction page 1", 
