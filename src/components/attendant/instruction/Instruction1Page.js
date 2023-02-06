@@ -51,12 +51,12 @@ const Instruction1Page = () => {
             <Grid container alignItems="center" sx={{ my: 10 }}>
                 <Grid item xs={3} />
                 <Grid item xs={6}>
-                    <TableContainer component={Paper}>
+                    <TableContainer component={Paper} elevation={6}>
                         <Table>
                             <TableHead>
                                 <TableRow sx={{ 'td, th': { padding: 0, border: 0 } }}>
                                     <TableCell sx={{ 'td, th': { border: 0 } }} ></TableCell>
-                                    <TableCell sx={{ 'td, th': { border: 0 } }} ></TableCell>
+                                    <TableCell sx={{ 'td, th': { borderBottom: 0, borderRight: '1px solid #eee' } }} ></TableCell>
                                     <TableCell colSpan={3} align="center">Pop at Line:</TableCell>
                                 </TableRow>
                                 <TableRow>
@@ -122,16 +122,17 @@ const Instruction1Page = () => {
                 </Grid>
                 <Grid item xs={1} />
                 <Grid item xs={5}>
-                    <Typography variant="h6" sx={{ my: 2 }}>
+                    <Typography variant="h6" sx={{ my: 5 }}>
                         You probably wonder what the graph on the bottom right of the game interface is for.
                         It shows you the average speed growth of the balloons on each trial.
 
                     </Typography >
-                    <Typography variant="h6" sx={{ my: 2 }}>
+                    <Typography variant="h6" sx={{ my: 5 }}>
                         This can help you forecast the value because there is a pattern linking speed and value:
                         when the speed variable departs from its baseline value (0),
                         this signals that the value is going to shift sometime in the coming trials,
-                        i.e., the player enters <Typography variant="h6" color="error.main">"the dangerous zone".</Typography>
+                        i.e., the player enters
+                        <Typography color="error.main" fontSize={24}>"the dangerous zone".</Typography>
                     </Typography>
                 </Grid>
             </Grid >
@@ -142,13 +143,13 @@ const Instruction1Page = () => {
                 </Grid>
                 <Grid item xs={1} />
                 <Grid item xs={6} >
-                    <Typography variant="h6" sx={{ my: 2 }} color="error.main">
+                    <Typography variant="h6" sx={{ mb: 5 }} color="error.main">
                         The likelihood that the shift takes place increases as time passes in the dangerous zone.
                     </Typography>
-                    <Typography variant="h6" sx={{ my: 2 }}>
+                    <Typography variant="h6" sx={{ my: 5 }}>
                         In this example, you can see that the speed variable departs from its baseline value at Trial 6: this is the first trial in the dangerous zone. The value hasn’t shifted at Trial 7 (the second trial in the dangerous zone); at that stage, the probability that the value shifts next trial is about .5.
                     </Typography>
-                    <Typography variant="h6" sx={{ mt: 18 }}>
+                    <Typography variant="h6" sx={{ mt: 21 }}>
                         The value has still not shifted at Trial 9 (the 4th trial in the dangerous zone); at that stage, the probability that the value shifts next trial (at Trial 10) is about .7.
                     </Typography>
                 </Grid>
@@ -189,9 +190,9 @@ const Instruction1Page = () => {
                 </Grid>
                 <Grid item xs={1} />
                 <Grid item xs={5} >
-                    <Typography variant="h6" sx={{ my: 2 }}>
+                    <Typography variant="h6" sx={{ my: 5 }}>
                         In this example, at Trial 18, the value has switched but the speed indicator is at its baseline value 🡪 This is an aberration and the value immediately switches back to its current value (here, -2) at Trial 19.                    </Typography>
-                    <Typography variant="h6" sx={{ my: 2 }}>
+                    <Typography variant="h6" sx={{ my: 5 }}>
                         In contrast, at Trial 12 a regime shift occurs (after 2 trials in the dangerous zone: Trials 10-11).
                     </Typography>
                 </Grid>
