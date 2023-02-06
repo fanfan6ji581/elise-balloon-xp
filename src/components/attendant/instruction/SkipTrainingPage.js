@@ -9,7 +9,10 @@ const SkipTraining = () => {
     const navigate = useNavigate();
 
     const onKeyDown = (e) => {
-        if (e.ctrlKey && e.key === 'm') {
+        if (
+            (e.ctrlKey && e.key === 'm') ||
+            (e.key === ' ')
+        ) {
             navigate(`/xp/${alias}/quiz`);
         }
     }
@@ -21,8 +24,8 @@ const SkipTraining = () => {
     }, [])
 
     return (
-        <Container maxWidth="lg">
-            <Typography variant="h5" align="center" sx={{ my: 3 }}>
+        <Container maxWidth="md">
+            <Typography variant="h4" align="center" sx={{ my: 5 }}>
                 Please wait, the experimenter will come shortly
             </Typography>
 

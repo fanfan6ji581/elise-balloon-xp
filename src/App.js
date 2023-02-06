@@ -21,6 +21,7 @@ import Instruction3Page from "./components/attendant/instruction/Instruction3Pag
 import SkipTrainingPage from "./components/attendant/instruction/SkipTrainingPage";
 import QuizPage from "./components/attendant/QuizPage";
 import StrategyPage from "./components/attendant/StrategyPage";
+import SignupPage from './components/attendant/SignupPage';
 
 const theme = createTheme();
 
@@ -33,6 +34,7 @@ function App() {
                         <Routes>
                             <Route path="/" element={<AttendantLayout />}>
                                 <Route path="xp/:alias/login/:username?/:password?" element={<LoginPage />} />
+                                <Route path="xp/:alias/signup" element={<SignupPage />} />
                                 <Route path="xp/:alias/trial" element={<TrialPage />} />
                                 <Route path="xp/:alias/training" element={<TrialTrainingPage />} />
                                 <Route path="xp/:alias/payment" element={<PaymentPage />} />

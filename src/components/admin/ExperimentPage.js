@@ -36,7 +36,7 @@ const Experiment = () => {
 
     const onSwitchEnablePlaying = async (e, val) => {
         const xpRef = doc(db, "xp", xp.id);
-        await updateDoc(xpRef, {enablePlaying: val});
+        await updateDoc(xpRef, { enablePlaying: val });
         setEnablePlayng(val);
         if (val) {
             window.alert('Game play has been enabled');
@@ -55,6 +55,9 @@ const Experiment = () => {
             <Grid container justifyContent="space-between">
                 <Grid item>
                     <Typography variant='h4'>Experiment <b>{alias}</b>
+                        <Tooltip title="Experiment Sign up">
+                            <IconButton component={Link} to={`/xp/${alias}/signup`} target="_blank"><LoginIcon /></IconButton>
+                        </Tooltip>
                         <Tooltip title="Experiment Login">
                             <IconButton component={Link} to={`/xp/${alias}/login`} target="_blank"><LoginIcon /></IconButton>
                         </Tooltip>
