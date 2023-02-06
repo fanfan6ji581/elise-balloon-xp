@@ -18,6 +18,7 @@ import PaymentPage from "./components/attendant/PaymentPage";
 import Instruction1Page from "./components/attendant/instruction/Instruction1Page";
 import Instruction2Page from "./components/attendant/instruction/Instruction2Page";
 import Instruction3Page from "./components/attendant/instruction/Instruction3Page";
+import Instruction4Page from "./components/attendant/instruction/Instruction4Page";
 import SkipTrainingPage from "./components/attendant/instruction/SkipTrainingPage";
 import QuizPage from "./components/attendant/QuizPage";
 import StrategyPage from "./components/attendant/StrategyPage";
@@ -42,6 +43,7 @@ function App() {
                                 <Route path="xp/:alias/instruction1" element={<Instruction1Page />} />
                                 <Route path="xp/:alias/instruction2" element={<Instruction2Page />} />
                                 <Route path="xp/:alias/instruction3" element={<Instruction3Page />} />
+                                <Route path="xp/:alias/instruction4" element={<Instruction4Page />} />
                                 <Route path="xp/:alias/skip-training" element={<SkipTrainingPage />} />
                                 <Route path="xp/:alias/quiz" element={<QuizPage />} />
                                 <Route path="xp/:alias/strategy" element={<StrategyPage />} />

@@ -16,7 +16,7 @@ const BalloonTrialTrainingPage = () => {
 
     const onKeyDown = (e) => {
         if (e.key === ' ') {
-            navigate(`/xp/${alias}/instruction3`);
+            navigate(`/xp/${alias}/instruction4`);
         }
     }
 
