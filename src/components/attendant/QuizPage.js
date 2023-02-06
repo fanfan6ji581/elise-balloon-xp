@@ -1,5 +1,5 @@
 import {
-    Container, Box, Typography, Button, Alert,
+    Container, Box, Typography, Button, Alert, Grid,
     FormControlLabel, RadioGroup, Radio, Backdrop, CircularProgress,
     Dialog, DialogActions, DialogContent, DialogContentText,
 } from "@mui/material";
@@ -23,6 +23,7 @@ const QuizPage = () => {
     const [mcq6, setMcq6] = useState(0);
     const [mcq7, setMcq7] = useState(0);
     const [mcq8, setMcq8] = useState(0);
+    const [mcq, setMcq] = useState(Array.from({ length: 8 }).fill(0));
     const [correction, setCorrection] = useState({});
     const [disableForm, setDisableForm] = useState(false);
     const [dialogOpen, setDialogOpen] = useState(false);
@@ -30,7 +31,7 @@ const QuizPage = () => {
 
     const solution = {
         mcq1: 2,
-        mcq2: 2,
+        mcq2: 1,
         mcq3: 2,
         mcq4: 2,
         mcq5: 3,
@@ -144,92 +145,132 @@ const QuizPage = () => {
             </Typography>
 
             <Alert variant="outlined" icon={false} severity="info" sx={{ my: 3 }}>
-                <Typography variant="body1">
-                    Please focus on the following quiz which is to check your understanding of the game before you start to play. Your quizAnswers will be recorded and replying incorrectly to several questions may lead to your exclusion from the experiment, so please be very careful.
+                <Typography variant="h5">
+                    <b>Please focus on the following quiz which is to check your understanding of the game before you start to play. Your answers will be recorded and replying incorrectly to several questions may lead to your exclusion from the experiment, so please be very careful.</b>
                 </Typography>
-                <Typography variant="body1" sx={{ mt: 2 }}>
-                    If you find the wording of a question unclear, please make sure you seek clarification with the experimenter before you answer, to avoid any penalty.
+                <Typography variant="h5" sx={{ mt: 3 }}>
+                    <b>If you find the wording of a question unclear, please make sure you seek clarification with the experimenter before you answer, to avoid any penalty.</b>
                 </Typography>
             </Alert>
 
             <form onSubmit={onSubmit}>
-                <Typography variant="h6" sx={{ mt: 3 }}>
+                <Typography variant="h5" sx={{ mt: 3 }}>
                     1. The probability that the value switches in the first trial of the dangerous zone is above .5 (more than 50% chance that it will happen).
                 </Typography>
                 <RadioGroup sx={{ mx: 3 }} >
                     {
                         ["True", "False", "It depends on the trials"].map((v, idx) =>
                             <Fragment key={idx}>
-                                <FormControlLabel
-                                    control={<Radio disabled={disableForm}
-                                        value={idx + 1}
-                                        checked={mcq1 === idx + 1}
-                                        onChange={() => setMcq1(idx + 1)} />}
-                                    label={v} />
+                                <Grid container alignItems="center">
+                                    <Grid item>
+                                        <FormControlLabel
+                                            control={<Radio disabled={disableForm}
+                                                value={idx + 1}
+                                                checked={mcq1 === idx + 1}
+                                                onChange={() => setMcq1(idx + 1)} />}
+                                            label={v} />
+                                    </Grid>
+                                    {
+                                        disableForm &&
+                                        solution.mcq1 === idx + 1 &&
+                                        <Grid item>
+                                            <Alert severity="success">{solutionText.mcq1}</Alert>
+                                        </Grid>
+                                    }
+                                </Grid>
                             </Fragment>
                         )
                     }
                 </RadioGroup>
-                {correction.mcq1 && <Alert severity="error">{correction.mcq1}</Alert>}
 
-                <Typography variant="h6" sx={{ mt: 3 }}>
+                <Typography variant="h5" sx={{ mt: 3 }}>
                     2. The probability that the value switches in the second trial of the dangerous zone is just below .5 (almost 50% chance that it will happen).
                 </Typography>
                 <RadioGroup sx={{ mx: 3 }} >
                     {
                         ["True", "False", "It depends on the trials"].map((v, idx) =>
                             <Fragment key={idx}>
-                                <FormControlLabel
-                                    control={<Radio disabled={disableForm}
-                                        value={idx + 1}
-                                        checked={mcq2 === idx + 1}
-                                        onChange={() => setMcq2(idx + 1)} />}
-                                    label={v} />
+                                <Grid container alignItems="center">
+                                    <Grid item>
+                                        <FormControlLabel
+                                            control={<Radio disabled={disableForm}
+                                                value={idx + 1}
+                                                checked={mcq2 === idx + 1}
+                                                onChange={() => setMcq2(idx + 1)} />}
+                                            label={v} />
+                                    </Grid>
+                                    {
+                                        disableForm &&
+                                        solution.mcq2 === idx + 1 &&
+                                        <Grid item>
+                                            <Alert severity="success">{solutionText.mcq2}</Alert>
+                                        </Grid>
+                                    }
+                                </Grid>
                             </Fragment>
                         )
                     }
                 </RadioGroup>
-                {correction.mcq2 && <Alert severity="error">{correction.mcq2}</Alert>}
 
-                <Typography variant="h6" sx={{ mt: 3 }}>
+                <Typography variant="h5" sx={{ mt: 3 }}>
                     3. The probability that the value switches in the third trial of the dangerous zone is above .5 (more than 50% chance that it will happen).
                 </Typography>
                 <RadioGroup sx={{ mx: 3 }} >
                     {
                         ["True", "False", "It depends on the trials"].map((v, idx) =>
                             <Fragment key={idx}>
-                                <FormControlLabel
-                                    control={<Radio disabled={disableForm}
-                                        value={idx + 1}
-                                        checked={mcq3 === idx + 1}
-                                        onChange={() => setMcq3(idx + 1)} />}
-                                    label={v} />
+                                <Grid container alignItems="center">
+                                    <Grid item>
+                                        <FormControlLabel
+                                            control={<Radio disabled={disableForm}
+                                                value={idx + 1}
+                                                checked={mcq3 === idx + 1}
+                                                onChange={() => setMcq3(idx + 1)} />}
+                                            label={v} />
+                                    </Grid>
+                                    {
+                                        disableForm &&
+                                        solution.mcq3 === idx + 1 &&
+                                        <Grid item>
+                                            <Alert severity="success">{solutionText.mcq3}</Alert>
+                                        </Grid>
+                                    }
+                                </Grid>
                             </Fragment>
                         )
                     }
                 </RadioGroup>
-                {correction.mcq3 && <Alert severity="error">{correction.mcq3}</Alert>}
 
-                <Typography variant="h6" sx={{ mt: 3 }}>
+                <Typography variant="h5" sx={{ mt: 3 }}>
                     4. If I so not reply within the imparted time, I proceed to the next trial without any penalty.
                 </Typography>
                 <RadioGroup sx={{ mx: 3 }} >
                     {
                         ["True", "False"].map((v, idx) =>
                             <Fragment key={idx}>
-                                <FormControlLabel
-                                    control={<Radio disabled={disableForm}
-                                        value={idx + 1}
-                                        checked={mcq4 === idx + 1}
-                                        onChange={() => setMcq4(idx + 1)} />}
-                                    label={v} />
+                                <Grid container alignItems="center">
+                                    <Grid item>
+                                        <FormControlLabel
+                                            control={<Radio disabled={disableForm}
+                                                value={idx + 1}
+                                                checked={mcq4 === idx + 1}
+                                                onChange={() => setMcq4(idx + 1)} />}
+                                            label={v} />
+                                    </Grid>
+                                    {
+                                        disableForm &&
+                                        solution.mcq4 === idx + 1 &&
+                                        <Grid item>
+                                            <Alert severity="success">{solutionText.mcq4}</Alert>
+                                        </Grid>
+                                    }
+                                </Grid>
                             </Fragment>
                         )
                     }
                 </RadioGroup>
-                {correction.mcq4 && <Alert severity="error">{correction.mcq4}</Alert>}
 
-                <Typography variant="h6" sx={{ mt: 3 }}>
+                <Typography variant="h5" sx={{ mt: 3 }}>
                     5. Say at Trial 3 I pop the balloon at line 1, and the value at Trial 4 is $2. In this case my
                     payoff is:
                 </Typography>
@@ -237,74 +278,114 @@ const QuizPage = () => {
                     {
                         ["Win of $4", "Loss of $4", "Win of $2", "Loss of $2"].map((v, idx) =>
                             <Fragment key={idx}>
-                                <FormControlLabel
-                                    control={<Radio disabled={disableForm}
-                                        value={idx + 1}
-                                        checked={mcq5 === idx + 1}
-                                        onChange={() => setMcq5(idx + 1)} />}
-                                    label={v} />
+                                <Grid container alignItems="center">
+                                    <Grid item>
+                                        <FormControlLabel
+                                            control={<Radio disabled={disableForm}
+                                                value={idx + 1}
+                                                checked={mcq5 === idx + 1}
+                                                onChange={() => setMcq5(idx + 1)} />}
+                                            label={v} />
+                                    </Grid>
+                                    {
+                                        disableForm &&
+                                        solution.mcq5 === idx + 1 &&
+                                        <Grid item>
+                                            <Alert severity="success">{solutionText.mcq5}</Alert>
+                                        </Grid>
+                                    }
+                                </Grid>
                             </Fragment>
                         )
                     }
                 </RadioGroup>
-                {correction.mcq5 && <Alert severity="error">{correction.mcq5}</Alert>}
 
-                <Typography variant="h6" sx={{ mt: 3 }}>
+                <Typography variant="h5" sx={{ mt: 3 }}>
                     6. Say at Trial 3 I pop the balloon at line -1, and the value at Trial 4 is -$2. In this case my payoff is:
                 </Typography>
                 <RadioGroup sx={{ mx: 3 }} >
                     {
                         ["Win of $4", "Loss of $4", "Win of $2", "Loss of $2"].map((v, idx) =>
                             <Fragment key={idx}>
-                                <FormControlLabel
-                                    control={<Radio disabled={disableForm}
-                                        value={idx + 1}
-                                        checked={mcq6 === idx + 1}
-                                        onChange={() => setMcq6(idx + 1)} />}
-                                    label={v} />
+                                <Grid container alignItems="center">
+                                    <Grid item>
+                                        <FormControlLabel
+                                            control={<Radio disabled={disableForm}
+                                                value={idx + 1}
+                                                checked={mcq6 === idx + 1}
+                                                onChange={() => setMcq1(idx + 1)} />}
+                                            label={v} />
+                                    </Grid>
+                                    {
+                                        disableForm &&
+                                        solution.mcq6 === idx + 1 &&
+                                        <Grid item>
+                                            <Alert severity="success">{solutionText.mcq6}</Alert>
+                                        </Grid>
+                                    }
+                                </Grid>
                             </Fragment>
                         )
                     }
                 </RadioGroup>
-                {correction.mcq6 && <Alert severity="error">{correction.mcq6}</Alert>}
 
-                <Typography variant="h6" sx={{ mt: 3 }}>
+                <Typography variant="h5" sx={{ mt: 3 }}>
                     7. The value cannot switch if the speed indicator is at its baseline value.
                 </Typography>
                 <RadioGroup sx={{ mx: 3 }} >
                     {
                         ["True", "False"].map((v, idx) =>
                             <Fragment key={idx}>
-                                <FormControlLabel
-                                    control={<Radio disabled={disableForm}
-                                        value={idx + 1}
-                                        checked={mcq7 === idx + 1}
-                                        onChange={() => setMcq7(idx + 1)} />}
-                                    label={v} />
+                                <Grid container alignItems="center">
+                                    <Grid item xs={2}>
+                                        <FormControlLabel
+                                            control={<Radio disabled={disableForm}
+                                                value={idx + 1}
+                                                checked={mcq7 === idx + 1}
+                                                onChange={() => setMcq7(idx + 1)} />}
+                                            label={v} />
+                                    </Grid>
+                                    {
+                                        disableForm &&
+                                        solution.mcq7 === idx + 1 &&
+                                        <Grid item xs={10}>
+                                            <Alert severity="success">{solutionText.mcq7}</Alert>
+                                        </Grid>
+                                    }
+                                </Grid>
                             </Fragment>
                         )
                     }
                 </RadioGroup>
-                {correction.mcq7 && <Alert severity="error">{correction.mcq7}</Alert>}
 
-                <Typography variant="h6" sx={{ mt: 3 }}>
+                <Typography variant="h5" sx={{ mt: 3 }}>
                     8. I can expect to leave the lab with $25 on average.
                 </Typography>
                 <RadioGroup sx={{ mx: 3 }} >
                     {
                         ["True", "False"].map((v, idx) =>
                             <Fragment key={idx}>
-                                <FormControlLabel
-                                    control={<Radio disabled={disableForm}
-                                        value={idx + 1}
-                                        checked={mcq8 === idx + 1}
-                                        onChange={() => setMcq8(idx + 1)} />}
-                                    label={v} />
+                                <Grid container alignItems="center">
+                                    <Grid item xs={2}>
+                                        <FormControlLabel
+                                            control={<Radio disabled={disableForm}
+                                                value={idx + 1}
+                                                checked={mcq8 === idx + 1}
+                                                onChange={() => setMcq8(idx + 1)} />}
+                                            label={v} />
+                                    </Grid>
+                                    {
+                                        disableForm &&
+                                        solution.mcq8 === idx + 1 &&
+                                        <Grid item xs={10}>
+                                            <Alert severity="success">{solutionText.mcq8}</Alert>
+                                        </Grid>
+                                    }
+                                </Grid>
                             </Fragment>
                         )
                     }
                 </RadioGroup>
-                {correction.mcq8 && <Alert severity="error">{correction.mcq8}</Alert>}
 
                 <Box textAlign="center" sx={{ my: 3 }}>
                     <Button disabled={disableForm} type="submit" variant="contained" size="large">Submit</Button>
