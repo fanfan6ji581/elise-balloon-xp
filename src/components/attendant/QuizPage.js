@@ -140,7 +140,7 @@ const QuizPage = () => {
 
     return (
         <Container maxWidth="md">
-            <Typography variant="h5" align="center" sx={{ my: 3 }}>
+            <Typography variant="h4" align="center" sx={{ my: 3 }}>
                 Pre-Game Quiz
             </Typography>
 

@@ -26,19 +26,19 @@ const StrategyPage = () => {
 
     return (
         <Container maxWidth="md">
-            <Typography variant="h5" align="center" sx={{ my: 3 }}>
+            <Typography variant="h4" align="center" sx={{ my: 3 }}>
                 Have you devised a strategy on how to play the game, and if you have, how confident are you that it's gonna work?
             </Typography>
 
             <Grid container>
                 <Grid item xs={6}>
-                    <Typography variant="h6" align="center" sx={{ my: 5 }}><b>I don't have a strategy</b></Typography>
+                    <Typography variant="h5" align="center" sx={{ my: 5 }}><b>I don't have a strategy</b></Typography>
                     <Box textAlign="center">
                         <FormControlLabel control={<Radio value="1" checked={strategy === 1} onChange={() => setStrategy(1)} />} />
                     </Box>
                 </Grid>
                 <Grid item xs={6}>
-                    <Typography variant="h6" align="center" sx={{ my: 5 }}><b>I do have a strategy</b></Typography>
+                    <Typography variant="h5" align="center" sx={{ my: 5 }}><b>I do have a strategy</b></Typography>
                     <Grid container justifyContent="space-between" spacing={2}>
                         <Grid item xs>
                             <Box textAlign="center">
