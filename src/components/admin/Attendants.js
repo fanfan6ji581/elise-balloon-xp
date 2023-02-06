@@ -145,7 +145,7 @@ const Attendants = ({ xp }) => {
                 </Grid>
             </Grid>
 
-            <Dialog maxWidth="lg" fullWidth="true" open={dialogOpen} onClose={() => setDialogOpen(false)}>
+            <Dialog maxWidth="lg" fullWidth={true} open={dialogOpen} onClose={() => setDialogOpen(false)}>
                 <DialogContent>
                     <AttendantsInfo attendants={attendants} />
                 </DialogContent>

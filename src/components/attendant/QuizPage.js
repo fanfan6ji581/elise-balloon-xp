@@ -356,7 +356,7 @@ const QuizPage = () => {
                                             control={<Radio disabled={disableForm}
                                                 value={idx + 1}
                                                 checked={mcq6 === idx + 1}
-                                                onChange={() => setMcq1(idx + 1)} />}
+                                                onChange={() => setMcq6(idx + 1)} />}
                                             label={v} />
                                     </Grid>
                                     {

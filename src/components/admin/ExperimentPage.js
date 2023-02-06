@@ -1,8 +1,7 @@
 import {
-    Container, Grid, Alert, Typography, Box, Tab, Tooltip,
-    IconButton, FormGroup, FormControlLabel, Switch
+    Container, Grid, Alert, Typography, Box, Tab,
+    FormGroup, FormControlLabel, Switch, Button
 } from "@mui/material";
-import { Login as LoginIcon } from '@mui/icons-material';
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { useParams } from "react-router-dom"
 import { useEffect, useState } from "react";
@@ -55,12 +54,8 @@ const Experiment = () => {
             <Grid container justifyContent="space-between">
                 <Grid item>
                     <Typography variant='h4'>Experiment <b>{alias}</b>
-                        <Tooltip title="Experiment Sign up">
-                            <IconButton component={Link} to={`/xp/${alias}/signup`} target="_blank"><LoginIcon /></IconButton>
-                        </Tooltip>
-                        <Tooltip title="Experiment Login">
-                            <IconButton component={Link} to={`/xp/${alias}/login`} target="_blank"><LoginIcon /></IconButton>
-                        </Tooltip>
+                        <Button sx={{ mx: 1 }} variant="outlined" component={Link} to={`/xp/${alias}/signup`} target="_blank"> Attendant Sign up</Button>
+                        <Button sx={{ mx: 1 }} variant="outlined" component={Link} to={`/xp/${alias}/login`} target="_blank"> Attendant Login</Button>
                     </Typography >
                 </Grid>
                 <Grid item>
@@ -92,7 +87,7 @@ const Experiment = () => {
                     }
                 </Grid>
             </Grid>
-        </Container>
+        </Container >
     )
 }
 

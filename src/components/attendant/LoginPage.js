@@ -36,10 +36,12 @@ const LoginPage = () => {
             "username": {
                 "type": "string",
                 "default": username,
+                "title": "Email"
             },
             "password": {
                 "type": "string",
                 "default": password,
+                "title": "Password"
             }
         },
         required: [
