@@ -22,6 +22,7 @@ import SkipTrainingPage from "./components/attendant/instruction/SkipTrainingPag
 import QuizPage from "./components/attendant/QuizPage";
 import StrategyPage from "./components/attendant/StrategyPage";
 import SignupPage from './components/attendant/SignupPage';
+import StartGamePage from './components/attendant/StartGamePage';
 
 const theme = createTheme();
 
@@ -44,6 +45,7 @@ function App() {
                                 <Route path="xp/:alias/skip-training" element={<SkipTrainingPage />} />
                                 <Route path="xp/:alias/quiz" element={<QuizPage />} />
                                 <Route path="xp/:alias/strategy" element={<StrategyPage />} />
+                                <Route path="xp/:alias/start-game" element={<StartGamePage />} />
                             </Route>
                             <Route path="/admin" element={<AdminLayout />}>
                                 <Route path="login" element={<AdminLoginPage />} />

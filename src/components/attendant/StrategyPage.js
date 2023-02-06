@@ -21,7 +21,7 @@ const StrategyPage = () => {
         setLoadingOpen(true);
         const attendantRef = doc(db, "attendant", loginAttendantS.id);
         await updateDoc(attendantRef, { strategy });
-        navigate(`/xp/${alias}/trial`);
+        navigate(`/xp/${alias}/start-game`);
     }
 
     return (
