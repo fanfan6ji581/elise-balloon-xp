@@ -174,7 +174,7 @@ const Instruction1Page = () => {
                 <Grid item xs={1} />
                 <Grid item xs={3} >
                     <Typography align="center" >
-                        <WarningAmberIcon color="warning" sx={{ fontSize: 64 }} />
+                        <WarningAmberIcon color="warning" sx={{ fontSize: 128 }} />
                     </Typography>
                 </Grid>
                 <Grid item xs={8} >
