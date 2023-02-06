@@ -3,6 +3,7 @@ import {
     FormControlLabel, RadioGroup, Radio, Backdrop, CircularProgress,
     Dialog, DialogActions, DialogContent, DialogContentText,
 } from "@mui/material";
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import { useNavigate, useParams } from "react-router-dom"
 import { loginAttendant } from "../../slices/attendantSlice";
 import { useSelector } from "react-redux";
@@ -23,7 +24,6 @@ const QuizPage = () => {
     const [mcq6, setMcq6] = useState(0);
     const [mcq7, setMcq7] = useState(0);
     const [mcq8, setMcq8] = useState(0);
-    const [mcq, setMcq] = useState(Array.from({ length: 8 }).fill(0));
     const [correction, setCorrection] = useState({});
     const [disableForm, setDisableForm] = useState(false);
     const [dialogOpen, setDialogOpen] = useState(false);
@@ -161,7 +161,7 @@ const QuizPage = () => {
                     {
                         ["True", "False", "It depends on the trials"].map((v, idx) =>
                             <Fragment key={idx}>
-                                <Grid container alignItems="center">
+                                <Grid container alignItems="center" sx={{ mb: 1 }}>
                                     <Grid item>
                                         <FormControlLabel
                                             control={<Radio disabled={disableForm}
@@ -175,6 +175,14 @@ const QuizPage = () => {
                                         solution.mcq1 === idx + 1 &&
                                         <Grid item>
                                             <Alert severity="success">{solutionText.mcq1}</Alert>
+                                        </Grid>
+                                    }
+                                    {
+                                        disableForm &&
+                                        correction.mcq1 &&
+                                        mcq1 === idx + 1 &&
+                                        <Grid item>
+                                            <ErrorOutlineIcon color="error" />
                                         </Grid>
                                     }
                                 </Grid>
@@ -206,6 +214,14 @@ const QuizPage = () => {
                                             <Alert severity="success">{solutionText.mcq2}</Alert>
                                         </Grid>
                                     }
+                                    {
+                                        disableForm &&
+                                        correction.mcq2 &&
+                                        mcq2 === idx + 1 &&
+                                        <Grid item>
+                                            <ErrorOutlineIcon color="error" />
+                                        </Grid>
+                                    }
                                 </Grid>
                             </Fragment>
                         )
@@ -235,6 +251,14 @@ const QuizPage = () => {
                                             <Alert severity="success">{solutionText.mcq3}</Alert>
                                         </Grid>
                                     }
+                                    {
+                                        disableForm &&
+                                        correction.mcq3 &&
+                                        mcq3 === idx + 1 &&
+                                        <Grid item>
+                                            <ErrorOutlineIcon color="error" />
+                                        </Grid>
+                                    }
                                 </Grid>
                             </Fragment>
                         )
@@ -262,6 +286,14 @@ const QuizPage = () => {
                                         solution.mcq4 === idx + 1 &&
                                         <Grid item>
                                             <Alert severity="success">{solutionText.mcq4}</Alert>
+                                        </Grid>
+                                    }
+                                    {
+                                        disableForm &&
+                                        correction.mcq4 &&
+                                        mcq4 === idx + 1 &&
+                                        <Grid item>
+                                            <ErrorOutlineIcon color="error" />
                                         </Grid>
                                     }
                                 </Grid>
@@ -294,6 +326,14 @@ const QuizPage = () => {
                                             <Alert severity="success">{solutionText.mcq5}</Alert>
                                         </Grid>
                                     }
+                                    {
+                                        disableForm &&
+                                        correction.mcq5 &&
+                                        mcq5 === idx + 1 &&
+                                        <Grid item>
+                                            <ErrorOutlineIcon color="error" />
+                                        </Grid>
+                                    }
                                 </Grid>
                             </Fragment>
                         )
@@ -321,6 +361,14 @@ const QuizPage = () => {
                                         solution.mcq6 === idx + 1 &&
                                         <Grid item>
                                             <Alert severity="success">{solutionText.mcq6}</Alert>
+                                        </Grid>
+                                    }
+                                    {
+                                        disableForm &&
+                                        correction.mcq6 &&
+                                        mcq6 === idx + 1 &&
+                                        <Grid item>
+                                            <ErrorOutlineIcon color="error" />
                                         </Grid>
                                     }
                                 </Grid>
@@ -352,6 +400,14 @@ const QuizPage = () => {
                                             <Alert severity="success">{solutionText.mcq7}</Alert>
                                         </Grid>
                                     }
+                                    {
+                                        disableForm &&
+                                        correction.mcq7 &&
+                                        mcq7 === idx + 1 &&
+                                        <Grid item>
+                                            <ErrorOutlineIcon color="error" />
+                                        </Grid>
+                                    }
                                 </Grid>
                             </Fragment>
                         )
@@ -379,6 +435,14 @@ const QuizPage = () => {
                                         solution.mcq8 === idx + 1 &&
                                         <Grid item xs={10}>
                                             <Alert severity="success">{solutionText.mcq8}</Alert>
+                                        </Grid>
+                                    }
+                                    {
+                                        disableForm &&
+                                        correction.mcq8 &&
+                                        mcq8 === idx + 1 &&
+                                        <Grid item>
+                                            <ErrorOutlineIcon color="error" />
                                         </Grid>
                                     }
                                 </Grid>
