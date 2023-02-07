@@ -89,7 +89,7 @@ const QuizPage = () => {
         if (diffCount > 1) {
             setDialogOpen(true);
         } else {
-            navigate(`/xp/${alias}/strategy`);
+            navigate(`/xp/${alias}/start-game`);
         }
     }
 
@@ -128,7 +128,7 @@ const QuizPage = () => {
             (e.ctrlKey && e.key === 'm') ||
             e.key === ' '
         ) {
-            navigate(`/xp/${alias}/strategy`);
+            navigate(`/xp/${alias}/start-game`);
         }
     }
 

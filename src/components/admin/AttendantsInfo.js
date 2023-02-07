@@ -4,6 +4,7 @@ import {
 } from '@mui/x-data-grid';
 
 const columns = [
+    { field: 'username', headerName: 'Email', width: 200 },
     { field: 'gender', headerName: 'gender', width: 80 },
     { field: 'age', headerName: 'age', width: 80 },
     { field: 'major', headerName: 'major', width: 150 },
@@ -18,6 +19,33 @@ const columns = [
     { field: 'strategy', headerName: 'strategy', width: 70 },
 ];
 
+const calcuateCorrectness = (attendant) => {
+    if (!attendant.quizAnswers) {
+        return {};
+    }
+    const solution = {
+        mcq1: 2,
+        mcq2: 1,
+        mcq3: 2,
+        mcq4: 2,
+        mcq5: 3,
+        mcq6: 3,
+        mcq7: 2,
+        mcq8: 2,
+    }
+
+    return {
+        mcq1: attendant.quizAnswers.mcq1 === solution.mcq1 ? 1 : 0,
+        mcq2: attendant.quizAnswers.mcq1 === solution.mcq2 ? 1 : 0,
+        mcq3: attendant.quizAnswers.mcq1 === solution.mcq3 ? 1 : 0,
+        mcq4: attendant.quizAnswers.mcq1 === solution.mcq4 ? 1 : 0,
+        mcq5: attendant.quizAnswers.mcq1 === solution.mcq5 ? 1 : 0,
+        mcq6: attendant.quizAnswers.mcq1 === solution.mcq6 ? 1 : 0,
+        mcq7: attendant.quizAnswers.mcq1 === solution.mcq7 ? 1 : 0,
+        mcq8: attendant.quizAnswers.mcq1 === solution.mcq8 ? 1 : 0,
+    }
+}
+
 const AttendentsInfo = ({ attendants }) => {
     const rows = attendants.map(attendant => Object.assign({
         id: attendant.id,
@@ -25,7 +53,7 @@ const AttendentsInfo = ({ attendants }) => {
         age: attendant.age,
         gender: attendant.gender,
         major: attendant.major,
-    }, attendant.quizAnswers, { strategy: attendant.strategy }));
+    }, calcuateCorrectness(attendant), { strategy: attendant.strategy }));
 
     const csvOptions = { fileName: `attendants-info` };
     const CustomToolbar = (props) => (

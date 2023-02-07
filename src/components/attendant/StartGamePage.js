@@ -36,7 +36,7 @@ const SkipTraining = () => {
 
             <Box textAlign="center" sx={{ my: 15 }}>
                 <Button component={Link} variant="contained" size="large"
-                    to={`/xp/${alias}/trial`}
+                    to={`/xp/${alias}/strategy`}
                     disabled={!xp || !xp.enablePlaying}
                 >Start Game</Button>
                 {
