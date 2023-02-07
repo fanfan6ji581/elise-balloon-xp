@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { loginAttendant } from "../../../slices/attendantSlice";
 import {
     trialIndex, onLogin, choiceHistory, outcomeHistory, missHistory, reactionHistory,
-    onLoginTraining, reset
+    onLoginTraining, reset, xpConfigS, xpDataS,
 } from "../../../slices/gameSlice";
 import { login } from "../../../slices/attendantSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -25,7 +25,8 @@ const BalloonTrial = ({ isTrainingMode }) => {
     const outcomeHistoryS = useSelector(outcomeHistory);
     const missHistoryS = useSelector(missHistory);
     const reactionHistoryS = useSelector(reactionHistory);
-    const { xpData, xpConfig } = loginAttendantS;
+    const xpData = useSelector(xpDataS);
+    const xpConfig = useSelector(xpConfigS);
 
     const storeToDB = async () => {
         // do nothing in training mode
@@ -79,7 +80,7 @@ const BalloonTrial = ({ isTrainingMode }) => {
             }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [trialIndexS, choiceHistoryS, outcomeHistoryS, missHistoryS, reactionHistoryS])
+    }, [trialIndexS, choiceHistoryS, outcomeHistoryS, missHistoryS, reactionHistoryS, xpData, xpConfig])
 
     return (
         <Container maxWidth="lg">

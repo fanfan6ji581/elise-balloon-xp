@@ -1,7 +1,7 @@
 import TrainingTimer from './TrainingTimer';
 import BalloonTrial from './BalloonTrial';
 import { loginAttendant } from "../../../slices/attendantSlice";
-import { reset, nextTrial } from "../../../slices/gameSlice";
+import { nextTrial } from "../../../slices/gameSlice";
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -22,7 +22,6 @@ const BalloonTrialTrainingPage = () => {
 
     useEffect(() => {
         document.addEventListener("keydown", onKeyDown, false);
-        dispatch(reset());
         dispatch(nextTrial());
 
         return () => {

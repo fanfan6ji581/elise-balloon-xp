@@ -29,7 +29,7 @@ function generateBalloonData(xp) {
     let lastBalloonValue = 2;
     let lastBalloonSpeed = 0;
     let depthIntoDangerZone = 1;
-    while (balloonValues.length < xp.numberOfTrials) {
+    while (balloonValues.length <= xp.numberOfTrials) {
         let num = 100 * Math.random();
         if (lastBalloonSpeed === 0) {
             // dangerzone chance
@@ -76,10 +76,10 @@ function generateBalloonData(xp) {
     const chances = state._dangerZoneSpeedReset.map(item => (item / sum).toFixed(2));
 
     // calculate aberration and shift
-    const aberration = Array.from({ length: xp.numberOfTrials }).fill(0);
-    const shift = Array.from({ length: xp.numberOfTrials }).fill(0);
+    const aberration = Array.from({ length: xp.numberOfTrials + 1 }).fill(0);
+    const shift = Array.from({ length: xp.numberOfTrials + 1 }).fill(0);
 
-    for (let i = 1; i < xp.numberOfTrials - 1; i++) {
+    for (let i = 1; i <= xp.numberOfTrials; i++) {
         if (balloonValues[i] * balloonValues[i - 1] < 0 &&
             balloonSpeed[i - 1] === 0 &&
             aberration[i - 1] === 0) {
@@ -104,9 +104,9 @@ function generateBalloonData(xp) {
             // data recordings
             trialIndex: -1,
             reactionHistory: Array.from({ length: xp.numberOfTrials }).fill(0),
-            missHistory: Array.from({ length: xp.numberOfTrials }).fill(false),
             choiceHistory: Array.from({ length: xp.numberOfTrials }).fill(0),
             outcomeHistory: Array.from({ length: xp.numberOfTrials }).fill(0),
+            missHistory: Array.from({ length: xp.numberOfTrials }).fill(false),
         },
         pickedOutcomeIndexes: [],
     };
@@ -127,7 +127,6 @@ function extractXpData(attendant) {
     } = xpData;
     const {
         reactionHistory,
-        missHistory,
         choiceHistory,
         outcomeHistory,
     } = xpRecord;
@@ -150,7 +149,6 @@ function extractXpData(attendant) {
             shift: shift[i],
             reaction: reactionHistory[i],
             choice: choiceHistory[i],
-            miss: missHistory[i],
             outcome: outcomeHistory[i],
             pickedOutcome: pickedOutcomeIndexes.includes(i) ? outcomeHistory[i] : null,
             sumOutcome: sumOutcomeHistory[i],

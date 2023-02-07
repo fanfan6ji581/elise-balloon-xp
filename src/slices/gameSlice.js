@@ -29,7 +29,7 @@ const gameSlice = createSlice({
             // keep mul history
             state.choiceHistory[trialIndex] = mul;
             state.missHistory[trialIndex] = missed;
-            let money = xpData.balloonValues[trialIndex] * mul;
+            let money = xpData.balloonValues[trialIndex + 1] * mul;
             // if different with previous one, add up a switch cost
             if (trialIndex > 0) {
                 money -= state.choiceHistory[trialIndex - 1] * mul < 0 ? xpConfig.costToSwitch : 0;
@@ -43,7 +43,6 @@ const gameSlice = createSlice({
             // should show outcome
             if (missed || mul !== 0) {
                 state.showAfterClickDelay = true;
-                // state.showMoneyOutcome = true;
             } else {
                 // when click pass
                 state.timerProgress = 0;
@@ -72,6 +71,13 @@ const gameSlice = createSlice({
             const { xpData } = generateBalloonData(xpConfig);
             state.xpData = xpData;
             state.xpConfig = xpConfig;
+
+            // reset
+            state.trialIndex = -1;
+            state.choiceHistory = [];
+            state.outcomeHistory = [];
+            state.missHistory = [];
+            state.reactionHistory = [];
         },
         reset: (state, action) => {
             state.trialIndex = -1;
@@ -112,5 +118,7 @@ export const choiceHistory = (state) => state.game.choiceHistory;
 export const outcomeHistory = (state) => state.game.outcomeHistory;
 export const missHistory = (state) => state.game.missHistory;
 export const reactionHistory = (state) => state.game.reactionHistory;
+export const xpDataS = (state) => state.game.xpData;
+export const xpConfigS = (state) => state.game.xpConfig;
 
 export default gameSlice.reducer;
