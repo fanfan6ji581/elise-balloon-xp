@@ -10,7 +10,6 @@ import { useSelector } from "react-redux";
 import pickBalloon from '../../../assets/pickBalloon.png';
 import valueHistoryChart from '../../../assets/valueHistoryChart.png';
 import speedHistoryChart from '../../../assets/speedHistoryChart.png';
-import danger1 from '../../../assets/danger1.png';
 import danger2 from '../../../assets/danger2.png';
 import regime from '../../../assets/regime.png';
 import YouTube from 'react-youtube';
@@ -49,15 +48,15 @@ const Instruction1Page = () => {
             </Grid >
             <Divider />
             <Grid container alignItems="center" sx={{ my: 10 }}>
-                <Grid item xs={3} />
-                <Grid item xs={6}>
+                <Grid item xs={1} />
+                <Grid item xs={10}>
                     <TableContainer component={Paper} elevation={6}>
                         <Table>
-                            <TableHead>
-                                <TableRow sx={{ 'td, th': { padding: 0, border: 0 } }}>
+                            <TableHead sx={{fontSize: 24}}>
+                                <TableRow sx={{ 'td, th': { border: 0 } }}>
                                     <TableCell sx={{ 'td, th': { border: 0 } }} ></TableCell>
                                     <TableCell sx={{ 'td, th': { borderBottom: 0, borderRight: '1px solid #eee' } }} ></TableCell>
-                                    <TableCell colSpan={3} align="center">Pop at Line:</TableCell>
+                                    <TableCell colSpan={3} align="center" sx={{fontSize: 20}}>Pop at Line:</TableCell>
                                 </TableRow>
                                 <TableRow>
                                     <TableCell align="center"></TableCell>
@@ -70,7 +69,7 @@ const Instruction1Page = () => {
                             </TableHead>
                             <TableBody>
                                 <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                                    <TableCell rowSpan={4} component="th" width={16}>Stock Value Next Trial</TableCell>
+                                    <TableCell rowSpan={4} component="th" width={200} sx={{fontSize: 20}}>Stock Value Next Trial</TableCell>
                                     <TableCell align="center" sx={{ borderLeft: '1px solid #eee', borderRight: '1px solid #eee' }}>$2</TableCell>
                                     <TableCell align="center">-$4</TableCell>
                                     <TableCell align="center">-$2</TableCell>
@@ -87,17 +86,17 @@ const Instruction1Page = () => {
                             </TableBody>
                         </Table>
                     </TableContainer>
-                    <Typography variant="body1" align="center" sx={{ my: 2 }}>Payoff at each trial</Typography>
+                    {/* <Typography variant="body1" align="center" sx={{ my: 2 }}>Payoff at each trial</Typography> */}
                 </Grid>
-                <Grid item xs={3} />
-
                 <Grid item xs={1} />
+
+                {/* <Grid item xs={1} />
                 <Grid item xs={10} >
                     <Typography variant="h6" sx={{ my: 3 }}>- If you choose to pop the balloon at line 2 and the value next trial turns out to be $2, your payoff at the trial is 2 x $2 = $4 (you win $4). If the value next trial is -$2, your payoff at the trial is 2 x -$2 = -$4 (you lose $4). </Typography>
                     <Typography variant="h6" sx={{ my: 3 }}>- If you pop the balloon at line 1 and the value next trial turns out to be $2, your payoff at the trial is 1 x $2 = $2 (you win $2). If the value next trial is -$2, your payoff at the trial is 1 x -$2 = -$2 (you lose $2).</Typography>
                     <Typography variant="h6" sx={{ my: 3 }}>- If you pop the balloon at line -2 and the value next trial is $2, your payoff at the trial is -2 x $2 = -$4 (you lose $4). If the value next trial is -$2, your payoff at the trial is -2 x -$2 = $4 (you win $4).</Typography>
                     <Typography variant="h6" sx={{ my: 3 }}>- If you pop the balloon at line -1 and the value next trial is $2, your payoff at the trial is -1 x -$2 = -$2 (you lose $2). If the value next trial is -$2, your payoff at the trial is -1 x -$2 = $2 (you win $2).</Typography>
-                </Grid>
+                </Grid> */}
             </Grid >
 
             <Divider />
@@ -123,7 +122,8 @@ const Instruction1Page = () => {
                 <Grid item xs={1} />
                 <Grid item xs={5}>
                     <Typography variant="h6" sx={{ my: 5 }}>
-                        You probably wonder what the graph on the bottom right of the game interface is for.
+                        Now that you've seen the task interface, 
+                        you probably wonder what the graph on the bottom right of the screen is for. 
                         It shows you the average speed growth of the balloons on each trial.
 
                     </Typography >
@@ -139,7 +139,7 @@ const Instruction1Page = () => {
             <Grid container alignItems="" sx={{ my: 10 }}>
                 <Grid item xs={1} />
                 <Grid item xs={4}>
-                    <Box component="img" alt="" src={danger1} sx={{ width: '100%' }} />
+                    <Box component="img" alt="" src={danger2} sx={{ width: '100%' }} />
                 </Grid>
                 <Grid item xs={1} />
                 <Grid item xs={6} >
@@ -149,20 +149,10 @@ const Instruction1Page = () => {
                     <Typography variant="h6" sx={{ my: 5 }}>
                         In this example, you can see that the speed variable departs from its baseline value at Trial 6: this is the first trial in the dangerous zone. The value hasn’t shifted at Trial 7 (the second trial in the dangerous zone); at that stage, the probability that the value shifts next trial is about .5.
                     </Typography>
-                    <Typography variant="h6" sx={{ mt: 21 }}>
+                    <Typography variant="h6" sx={{ my: 5 }}>
                         The value has still not shifted at Trial 9 (the 4th trial in the dangerous zone); at that stage, the probability that the value shifts next trial (at Trial 10) is about .7.
                     </Typography>
-                </Grid>
-            </Grid>
-
-            <Grid container alignItems="center" sx={{ my: 10 }}>
-                <Grid item xs={1} />
-                <Grid item xs={4}>
-                    <Box component="img" alt="" src={danger2} sx={{ width: '100%' }} />
-                </Grid>
-                <Grid item xs={1} />
-                <Grid item xs={6} >
-                    <Typography variant="h6">
+                    <Typography variant="h6" sx={{ my: 5 }}>
                         You can see the shift occurs at Trial 10: the value switches to +2, and the speed indicator reverts to its baseline value.
                     </Typography>
                 </Grid>
@@ -171,10 +161,9 @@ const Instruction1Page = () => {
             <Divider />
 
             <Grid container alignItems="center" sx={{ my: 10 }}>
-                <Grid item xs={1} />
-                <Grid item xs={3} >
+                <Grid item xs={4} >
                     <Typography align="center" >
-                        <WarningAmberIcon color="warning" sx={{ fontSize: 128 }} />
+                        <WarningAmberIcon color="warning" sx={{ fontSize: 256 }} />
                     </Typography>
                 </Grid>
                 <Grid item xs={8} >
