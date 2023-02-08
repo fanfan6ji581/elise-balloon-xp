@@ -52,36 +52,40 @@ const Instruction1Page = () => {
                 <Grid item xs={10}>
                     <TableContainer component={Paper} elevation={6}>
                         <Table>
-                            <TableHead sx={{fontSize: 24}}>
+                            <TableHead sx={{ fontSize: 24 }}>
                                 <TableRow sx={{ 'td, th': { border: 0 } }}>
                                     <TableCell sx={{ 'td, th': { border: 0 } }} ></TableCell>
                                     <TableCell sx={{ 'td, th': { borderBottom: 0, borderRight: '1px solid #eee' } }} ></TableCell>
-                                    <TableCell colSpan={3} align="center" sx={{fontSize: 20}}>Pop at Line:</TableCell>
+                                    <TableCell colSpan={3} align="center" sx={{ fontSize: 20, color: 'primary.main' }}>Pop at Line:</TableCell>
                                 </TableRow>
                                 <TableRow>
                                     <TableCell align="center"></TableCell>
                                     <TableCell align="center"></TableCell>
-                                    <TableCell align="center">-2</TableCell>
-                                    <TableCell align="center">-1</TableCell>
-                                    <TableCell align="center">1</TableCell>
-                                    <TableCell align="center">2</TableCell>
+                                    <TableCell align="center"><Typography variant="h5"><b>-2</b></Typography></TableCell>
+                                    <TableCell align="center"><Typography variant="h5"><b>-1</b></Typography></TableCell>
+                                    <TableCell align="center"><Typography variant="h5"><b>1</b></Typography></TableCell>
+                                    <TableCell align="center"><Typography variant="h5"><b>2</b></Typography></TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
                                 <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                                    <TableCell rowSpan={4} component="th" width={200} sx={{fontSize: 20}}>Stock Value Next Trial</TableCell>
-                                    <TableCell align="center" sx={{ borderLeft: '1px solid #eee', borderRight: '1px solid #eee' }}>$2</TableCell>
-                                    <TableCell align="center">-$4</TableCell>
-                                    <TableCell align="center">-$2</TableCell>
-                                    <TableCell align="center">$2</TableCell>
-                                    <TableCell align="center">$4</TableCell>
+                                    <TableCell rowSpan={4} component="th" width={200} sx={{ fontSize: 20, color: 'primary.main' }}>Stock Value Next Trial</TableCell>
+                                    <TableCell align="center" sx={{ borderLeft: '1px solid #eee', borderRight: '1px solid #eee' }}>
+                                        <Typography variant="h5"><b>$2</b></Typography>
+                                    </TableCell>
+                                    <TableCell align="center"><Typography variant="h5"><b>-$4</b></Typography></TableCell>
+                                    <TableCell align="center"><Typography variant="h5"><b>-$2</b></Typography></TableCell>
+                                    <TableCell align="center"><Typography variant="h5"><b>$2</b></Typography></TableCell>
+                                    <TableCell align="center"><Typography variant="h5"><b>$4</b></Typography></TableCell>
                                 </TableRow>
                                 <TableRow sx={{ '&:last-child td, &:last-child th': { borderBottom: 0 } }}                                >
-                                    <TableCell align="center" sx={{ borderLeft: '1px solid #eee', borderRight: '1px solid #eee' }}>-$2</TableCell>
-                                    <TableCell align="center">$4</TableCell>
-                                    <TableCell align="center">$2</TableCell>
-                                    <TableCell align="center">-$2</TableCell>
-                                    <TableCell align="center">-$4</TableCell>
+                                    <TableCell align="center" sx={{ borderLeft: '1px solid #eee', borderRight: '1px solid #eee' }}>
+                                        <Typography variant="h5"><b>-$2</b></Typography>
+                                    </TableCell>
+                                    <TableCell align="center"><Typography variant="h5"><b>$4</b></Typography></TableCell>
+                                    <TableCell align="center"><Typography variant="h5"><b>$2</b></Typography></TableCell>
+                                    <TableCell align="center"><Typography variant="h5"><b>-$2</b></Typography></TableCell>
+                                    <TableCell align="center"><Typography variant="h5"><b>-$4</b></Typography></TableCell>
                                 </TableRow>
                             </TableBody>
                         </Table>
@@ -122,27 +126,32 @@ const Instruction1Page = () => {
                 <Grid item xs={1} />
                 <Grid item xs={5}>
                     <Typography variant="h6" sx={{ my: 5 }}>
-                        Now that you've seen the task interface, 
-                        you probably wonder what the graph on the bottom right of the screen is for. 
+                        Now that you've seen the task interface,
+                        you probably wonder what the graph on the bottom right of the screen is for.
                         It shows you the average speed growth of the balloons on each trial.
 
                     </Typography >
-                    <Typography variant="h6" sx={{ my: 5 }}>
+                    <Typography variant="h6" sx={{ my: 3 }}>
                         This can help you forecast the value because there is a pattern linking speed and value:
-                        when the speed variable departs from its baseline value (0),
-                        this signals that the value is going to shift sometime in the coming trials,
-                        i.e., the player enters
-                        <Typography color="error.main" fontSize={24}>"the dangerous zone".</Typography>
                     </Typography>
+                    <Box sx={{ borderColor: '#d32f2f!important', border: 3, p: 2, borderRadius: '16px' }}>
+                        <Typography variant="h5" >
+
+                            When the speed variable departs from its baseline value (0),
+                            this signals that the value is going to shift sometime in the coming trials,
+                            i.e., the player enters
+                            <Typography color="error.main" fontSize={28}>
+                                <b>"the dangerous zone".</b>
+                            </Typography>
+                        </Typography>
+                    </Box>
                 </Grid>
             </Grid >
-            <Grid container alignItems="" sx={{ my: 10 }}>
-                <Grid item xs={1} />
-                <Grid item xs={4}>
+            <Grid container alignItems="center" sx={{ my: 10 }}>
+                <Grid item xs={6}>
                     <Box component="img" alt="" src={danger2} sx={{ width: '100%' }} />
                 </Grid>
-                <Grid item xs={1} />
-                <Grid item xs={6} >
+                <Grid item xs={6} sx={{pl: 3}}>
                     <Typography variant="h6" sx={{ mb: 5 }} color="error.main">
                         The likelihood that the shift takes place increases as time passes in the dangerous zone.
                     </Typography>

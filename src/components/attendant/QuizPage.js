@@ -1,7 +1,6 @@
 import {
     Container, Box, Typography, Button, Alert, Grid,
     FormControlLabel, RadioGroup, Radio, Backdrop, CircularProgress,
-    Dialog, DialogActions, DialogContent, DialogContentText,
 } from "@mui/material";
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import { useNavigate, useParams } from "react-router-dom"
@@ -26,7 +25,6 @@ const QuizPage = () => {
     const [mcq8, setMcq8] = useState(0);
     const [correction, setCorrection] = useState({});
     const [disableForm, setDisableForm] = useState(false);
-    const [dialogOpen, setDialogOpen] = useState(false);
     const [loadingOpen, setLoadingOpen] = useState(true);
 
     const solution = {
@@ -86,9 +84,7 @@ const QuizPage = () => {
         setDisableForm(true);
         setCorrection(correction);
 
-        if (diffCount > 1) {
-            setDialogOpen(true);
-        } else {
+        if (diffCount === 0) {
             navigate(`/xp/${alias}/start-game`);
         }
     }
@@ -455,25 +451,14 @@ const QuizPage = () => {
                 </RadioGroup>
 
                 <Box textAlign="center" sx={{ my: 3 }}>
-                    <Button disabled={disableForm} type="submit" variant="contained" size="large">Submit</Button>
+                    {!disableForm &&
+                        <Button disabled={disableForm} type="submit" variant="contained" size="large">Submit</Button>
+                    }
+                    {disableForm &&
+                        <Typography variant="h4" sx={{ my: 5 }}>Please wait, the experimenter will come shortly.</Typography>
+                    }
                 </Box>
             </form>
-
-            <Dialog
-                open={dialogOpen}
-                onClose={() => setDialogOpen(false)}
-                aria-labelledby="alert-dialog-title"
-                aria-describedby="alert-dialog-description"
-            >
-                <DialogContent>
-                    <DialogContentText id="alert-dialog-description">
-                        Please wait, the experimenter will come shortly.
-                    </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={() => setDialogOpen(false)}>Dismiss</Button>
-                </DialogActions>
-            </Dialog>
 
             <Backdrop
                 sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}

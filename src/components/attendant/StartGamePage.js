@@ -32,8 +32,6 @@ const SkipTraining = () => {
                 Ready to Start?
             </Typography>
 
-
-
             <Box textAlign="center" sx={{ my: 15 }}>
                 <Button component={Link} variant="contained" size="large"
                     to={`/xp/${alias}/strategy`}
@@ -41,10 +39,9 @@ const SkipTraining = () => {
                 >Start Game</Button>
                 {
                     xp && !xp.enablePlaying &&
-                    <Typography variant="h6" align="center">Waiting for experimenter to enble the game.</Typography>
+                    <Typography variant="h6" align="center" sx={{my: 5}}>Waiting for experimenter to enable the game.</Typography>
                 }
             </Box>
-
         </Container >
     )
 }

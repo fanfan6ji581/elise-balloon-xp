@@ -27,7 +27,7 @@ const TrialPage = () => {
         <>
             {
                 xp && !xp.enablePlaying &&
-                <Typography variant="h5" align="center" sx={{ my: 5 }}>Waiting for experimenter to enble the game.</Typography>
+                <Typography variant="h5" align="center" sx={{ my: 5 }}>Waiting for experimenter to enable the game.</Typography>
             }
 
             {
