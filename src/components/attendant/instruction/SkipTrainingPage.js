@@ -7,7 +7,7 @@ import { useEffect } from "react"
 const SkipTraining = () => {
     const { alias } = useParams();
     const navigate = useNavigate();
-
+    
     const onKeyDown = (e) => {
         if (
             (e.ctrlKey && e.key === 'm') ||

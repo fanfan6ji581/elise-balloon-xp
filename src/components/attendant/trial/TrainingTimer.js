@@ -1,19 +1,12 @@
 import { Container, Grid, Typography } from "@mui/material";
-import { useNavigate, useParams } from "react-router-dom";
 import Countdown from 'react-countdown';
 
-const TrainingTimer = ({ trainingSessionSeconds }) => {
-    const { alias } = useParams()
-    const navigate = useNavigate();
+const TrainingTimer = ({ trainingSessionSeconds, onFinish }) => {
     const zeroPad = (num, places) => String(num).padStart(places, '0')
 
     const renderer = ({ minutes, seconds, completed }) => {
         return <span>{zeroPad(minutes, 2)}:{zeroPad(seconds, 2)}</span>;
     };
-
-    const onComplete = () => {
-        navigate(`/xp/${alias}/quiz`);
-    }
 
     return (
         <>
@@ -26,7 +19,7 @@ const TrainingTimer = ({ trainingSessionSeconds }) => {
                             </Typography>
                         </Grid>
                         <Grid item xs={6}>
-                            <Countdown date={Date.now() + trainingSessionSeconds * 1000} renderer={renderer} onComplete={onComplete} />
+                            <Countdown date={Date.now() + trainingSessionSeconds * 1000} renderer={renderer} onComplete={onFinish} />
                         </Grid>
                     </Grid>
                 </Container>

@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import { Fragment, useEffect, useState } from "react";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import db from "../../database/firebase";
+import { Link } from 'react-router-dom';
 
 const QuizPage = () => {
     const { alias } = useParams();
@@ -452,7 +453,10 @@ const QuizPage = () => {
 
                 <Box textAlign="center" sx={{ my: 3 }}>
                     {!disableForm &&
-                        <Button disabled={disableForm} type="submit" variant="contained" size="large">Submit</Button>
+                        <>
+                            <Button component={Link} to={`/xp/${alias}/instruction1`} sx={{ mx: 3 }} variant="outlined" size="large">Back to Instruction</Button>
+                            <Button disabled={disableForm} type="submit" variant="contained" size="large">Submit</Button>
+                        </>
                     }
                     {disableForm &&
                         <Typography variant="h4" sx={{ my: 5 }}>Please wait, the experimenter will come shortly.</Typography>

@@ -5,8 +5,11 @@ import { useEffect, useState } from 'react';
 import { loginAttendant } from "../../../slices/attendantSlice";
 import { useSelector } from "react-redux";
 import { Typography } from "@mui/material";
+import { useNavigate, useParams } from "react-router-dom";
 
 const TrialPage = () => {
+    const { alias } = useParams();
+    const navigate = useNavigate();
     const loginAttendantS = useSelector(loginAttendant);
     const [xp, setXp] = useState(null);
 
@@ -16,6 +19,10 @@ const TrialPage = () => {
         if (docSnap.exists()) {
             setXp(docSnap.data());
         }
+    }
+
+    const onFinish = () => {
+        navigate(`/xp/${alias}/payment`)
     }
 
     useEffect(() => {
@@ -32,7 +39,7 @@ const TrialPage = () => {
 
             {
                 xp && xp.enablePlaying &&
-                <BalloonTrial />
+                <BalloonTrial onFinish={onFinish} />
             }
         </>
     )

@@ -1,5 +1,4 @@
 import { Container, Box, Grid, Typography } from "@mui/material";
-import { useNavigate, useParams } from "react-router-dom"
 import { useEffect } from "react";
 import { loginAttendant } from "../../../slices/attendantSlice";
 import {
@@ -15,10 +14,8 @@ import ValueChart from "./ValueChart";
 import { doc, updateDoc } from "firebase/firestore";
 import db from "../../../database/firebase";
 
-const BalloonTrial = ({ isTrainingMode }) => {
+const BalloonTrial = ({ isTrainingMode, onFinish }) => {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const { alias } = useParams();
     const loginAttendantS = useSelector(loginAttendant);
     const trialIndexS = useSelector(trialIndex);
     const choiceHistoryS = useSelector(choiceHistory);
@@ -71,13 +68,9 @@ const BalloonTrial = ({ isTrainingMode }) => {
                 storeToDB();
             }
         }
-        // when finished go to next page
+
         if (trialIndexS >= xpConfig.numberOfTrials) {
-            if (isTrainingMode) {
-                navigate(`/xp/${alias}/quiz`)
-            } else {
-                navigate(`/xp/${alias}/payment`)
-            }
+            onFinish();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [trialIndexS, choiceHistoryS, outcomeHistoryS, missHistoryS, reactionHistoryS, xpData, xpConfig])

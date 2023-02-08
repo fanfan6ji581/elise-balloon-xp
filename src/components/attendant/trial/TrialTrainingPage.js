@@ -5,19 +5,26 @@ import { nextTrial } from "../../../slices/gameSlice";
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { doc, updateDoc } from "firebase/firestore";
+import db from "../../../database/firebase";
 
 const BalloonTrialTrainingPage = () => {
     const { alias } = useParams();
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const loginAttendantS = useSelector(loginAttendant);
-    const { xpConfig } = loginAttendantS;
-    const { trainingSessionSeconds } = xpConfig;
+    const { trainingSessionSeconds } = loginAttendantS.xpConfig;
 
     const onKeyDown = (e) => {
         if (e.key === ' ') {
             navigate(`/xp/${alias}/instruction4`);
         }
+    }
+
+    const onFinish = async () => {
+        const attendantRef = doc(db, "attendant", loginAttendantS.id);
+        await updateDoc(attendantRef, { isTrained: true });
+        navigate(`/xp/${alias}/quiz`)
     }
 
     useEffect(() => {
@@ -32,8 +39,8 @@ const BalloonTrialTrainingPage = () => {
 
     return (
         <>
-            <BalloonTrial isTrainingMode={true} />
-            <TrainingTimer trainingSessionSeconds={trainingSessionSeconds} />
+            <BalloonTrial isTrainingMode={true} onFinish={onFinish} />
+            <TrainingTimer trainingSessionSeconds={trainingSessionSeconds} onFinish={onFinish} />
         </>
     )
 }
