@@ -140,8 +140,16 @@ function extractXpData(attendant) {
         return null;
     });
 
+    const mcqs = calcuateCorrectness(attendant);
+
     for (let i = 0; i < balloonValues.length; i++) {
-        rows.push({
+        rows.push(Object.assign({
+            username: attendant.username,
+            strategy: attendant.strategy,
+            gender: attendant.gender,
+            age: attendant.age,
+            major: attendant.major,
+        }, mcqs, {
             id: i + 1,
             value: balloonValues[i],
             speed: balloonSpeed[i],
@@ -152,9 +160,36 @@ function extractXpData(attendant) {
             outcome: outcomeHistory[i],
             pickedOutcome: pickedOutcomeIndexes.includes(i) ? outcomeHistory[i] : null,
             sumOutcome: sumOutcomeHistory[i],
-        })
+        }))
     }
     return rows;
 }
 
-export { generateBalloonData, extractXpData };
+const calcuateCorrectness = (attendant) => {
+    if (!attendant.quizAnswers) {
+        return {};
+    }
+    const solution = {
+        mcq1: 2,
+        mcq2: 1,
+        mcq3: 2,
+        mcq4: 2,
+        mcq5: 3,
+        mcq6: 3,
+        mcq7: 2,
+        mcq8: 2,
+    }
+
+    return {
+        mcq1: attendant.quizAnswers.mcq1 === solution.mcq1 ? 1 : 0,
+        mcq2: attendant.quizAnswers.mcq1 === solution.mcq2 ? 1 : 0,
+        mcq3: attendant.quizAnswers.mcq1 === solution.mcq3 ? 1 : 0,
+        mcq4: attendant.quizAnswers.mcq1 === solution.mcq4 ? 1 : 0,
+        mcq5: attendant.quizAnswers.mcq1 === solution.mcq5 ? 1 : 0,
+        mcq6: attendant.quizAnswers.mcq1 === solution.mcq6 ? 1 : 0,
+        mcq7: attendant.quizAnswers.mcq1 === solution.mcq7 ? 1 : 0,
+        mcq8: attendant.quizAnswers.mcq1 === solution.mcq8 ? 1 : 0,
+    }
+}
+
+export { generateBalloonData, extractXpData, calcuateCorrectness };

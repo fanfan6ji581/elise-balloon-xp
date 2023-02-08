@@ -2,6 +2,7 @@ import {
     DataGrid, GridToolbarDensitySelector,
     GridToolbarContainer, GridToolbarExportContainer, GridCsvExportMenuItem
 } from '@mui/x-data-grid';
+import { calcuateCorrectness } from '../../util/xp_data';
 import { useParams } from 'react-router-dom';
 
 const columns = [
@@ -19,33 +20,6 @@ const columns = [
     { field: 'mcq8', headerName: 'mcq8', width: 50 },
     { field: 'strategy', headerName: 'strategy', width: 70 },
 ];
-
-const calcuateCorrectness = (attendant) => {
-    if (!attendant.quizAnswers) {
-        return {};
-    }
-    const solution = {
-        mcq1: 2,
-        mcq2: 1,
-        mcq3: 2,
-        mcq4: 2,
-        mcq5: 3,
-        mcq6: 3,
-        mcq7: 2,
-        mcq8: 2,
-    }
-
-    return {
-        mcq1: attendant.quizAnswers.mcq1 === solution.mcq1 ? 1 : 0,
-        mcq2: attendant.quizAnswers.mcq1 === solution.mcq2 ? 1 : 0,
-        mcq3: attendant.quizAnswers.mcq1 === solution.mcq3 ? 1 : 0,
-        mcq4: attendant.quizAnswers.mcq1 === solution.mcq4 ? 1 : 0,
-        mcq5: attendant.quizAnswers.mcq1 === solution.mcq5 ? 1 : 0,
-        mcq6: attendant.quizAnswers.mcq1 === solution.mcq6 ? 1 : 0,
-        mcq7: attendant.quizAnswers.mcq1 === solution.mcq7 ? 1 : 0,
-        mcq8: attendant.quizAnswers.mcq1 === solution.mcq8 ? 1 : 0,
-    }
-}
 
 const AttendentsInfo = ({ attendants }) => {
     const { alias } = useParams();
