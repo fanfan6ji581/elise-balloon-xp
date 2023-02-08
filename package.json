@@ -41,6 +41,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "debug": "gh-pages -h",
+    "lint": "eslint",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
