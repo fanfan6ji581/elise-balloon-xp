@@ -245,8 +245,8 @@ const Instruction1Page = () => {
               // backgroundColor: 'red',
               width: 10,
               height: 10,
-              top: 190,
-              left: 470,
+              top: 192,
+              left: 463,
             }} ref={box2}></div>
           </Box>
         </Grid>
