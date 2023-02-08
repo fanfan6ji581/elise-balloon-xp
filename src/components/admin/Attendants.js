@@ -76,8 +76,8 @@ const Attendants = ({ xp }) => {
         const batch = writeBatch(db);
         let maxGuestIndex = 0;
         attendants.forEach((att, i) => {
-            const index = parseInt(att.username.replace('guest', ''));
-            maxGuestIndex = Math.max(maxGuestIndex, index);
+            const index = parseInt(att.username.replace('guest', '')) || 0;
+            maxGuestIndex = Math.max(maxGuestIndex, index, attendants.length);
         });
 
         for (let i = 0; i < formData.count; i++) {
