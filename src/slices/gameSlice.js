@@ -79,6 +79,8 @@ const gameSlice = createSlice({
             state.reactionHistory = [];
             state.trialIndex = 0;
             state.timerProgress = 0;
+            state.showAfterClickDelay = false;
+            state.showMoneyOutcome = false;
         },
         reset: (state) => {
             state.trialIndex = -1;
@@ -86,6 +88,9 @@ const gameSlice = createSlice({
             state.outcomeHistory = [];
             state.missHistory = [];
             state.reactionHistory = [];
+            state.showAfterClickDelay = false;
+            state.showMoneyOutcome = false;
+            state.timerProgress = 0;
         },
         onLogin: (state, action) => {
             const { xpData, xpRecord, xpConfig } = action.payload
@@ -96,6 +101,7 @@ const gameSlice = createSlice({
                 missHistory,
                 reactionHistory,
             } = xpRecord;
+            console.log(`trialIndex is ${trialIndex}`)
             state.trialIndex = trialIndex + 1;
             state.choiceHistory = choiceHistory;
             state.outcomeHistory = outcomeHistory;
@@ -104,6 +110,8 @@ const gameSlice = createSlice({
             state.xpData = xpData;
             state.xpConfig = xpConfig;
             state.timerProgress = 0;
+            state.showAfterClickDelay = false;
+            state.showMoneyOutcome = false;
         },
     },
 });

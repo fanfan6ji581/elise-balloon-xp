@@ -89,7 +89,6 @@ const BalloonTrial = ({ isTrainingMode, onFinish }) => {
     outcomeHistoryS,
     missHistoryS,
     reactionHistoryS,
-    xpData,
     xpConfig,
   ]);
 
