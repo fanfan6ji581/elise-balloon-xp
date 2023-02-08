@@ -66,7 +66,7 @@ const Instruction4Page = () => {
             <Box textAlign="center" sx={{ my: 10 }}>
                 <Button component={Link} variant="outlined" size="large"
                     sx={{ width: 240, padding: 3 }}
-                    to={`/xp/${alias}/instruction1`}>Back to instruction</Button>
+                    to={`/xp/${alias}/instruction3`}>prev</Button>
             </Box>
 
             <Backdrop

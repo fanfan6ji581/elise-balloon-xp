@@ -94,7 +94,7 @@ const Instruction1Page = () => {
                   <TableCell
                     colSpan={3}
                     align="center"
-                    sx={{ fontSize: 20, color: "primary.main" }}
+                    sx={{ fontSize: 20 }}
                   >
                     Pop at Line:
                   </TableCell>
