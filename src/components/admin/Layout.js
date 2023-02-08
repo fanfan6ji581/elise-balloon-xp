@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import AdminAppBar from './AdminAppBar';
 import { loginAdmin } from "../../slices/adminSlice";
+import { useEffect } from "react";
 
 const Layout = () => {
   const location = useLocation();
