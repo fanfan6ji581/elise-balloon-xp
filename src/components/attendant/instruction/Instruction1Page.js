@@ -278,7 +278,7 @@ const Instruction1Page = () => {
             </Typography>
           </Box>
         </Grid>
-        <Xarrow start={box1} end={box2} color="#d32f2f" curveness={false}/>
+        <Xarrow start={box1} end={box2} color="#d32f2f" curveness={0}/>
       </Grid>
       <Grid container alignItems="center" sx={{ my: 10 }}>
         <Grid item xs={6}>
