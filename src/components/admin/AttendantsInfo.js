@@ -2,6 +2,7 @@ import {
     DataGrid, GridToolbarDensitySelector,
     GridToolbarContainer, GridToolbarExportContainer, GridCsvExportMenuItem
 } from '@mui/x-data-grid';
+import { useParams } from 'react-router-dom';
 
 const columns = [
     { field: 'username', headerName: 'Email', width: 200 },
@@ -47,6 +48,7 @@ const calcuateCorrectness = (attendant) => {
 }
 
 const AttendentsInfo = ({ attendants }) => {
+    const { alias } = useParams();
     const rows = attendants.map(attendant => Object.assign({
         id: attendant.id,
         username: attendant.username,
@@ -55,7 +57,7 @@ const AttendentsInfo = ({ attendants }) => {
         major: attendant.major,
     }, calcuateCorrectness(attendant), { strategy: attendant.strategy }));
 
-    const csvOptions = { fileName: `attendants-info` };
+    const csvOptions = { fileName: `${alias}-attendant-choices` };
     const CustomToolbar = (props) => (
         <GridToolbarContainer {...props}>
             <GridToolbarDensitySelector />
