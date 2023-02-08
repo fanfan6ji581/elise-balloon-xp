@@ -23,11 +23,15 @@ import speedHistoryChart from "../../../assets/speedHistoryChart.png";
 import danger2 from "../../../assets/danger2.png";
 import regime from "../../../assets/regime.png";
 import video1 from "../../../assets/video1.mp4";
+import Xarrow from "react-xarrows";
+import { useRef } from "react";
 
 const Instruction1Page = () => {
   const { alias } = useParams();
   const loginAttendantS = useSelector(loginAttendant);
   const { xpConfig } = loginAttendantS;
+  const box1 = useRef(null);
+  const box2 = useRef(null);
 
   return (
     <Container maxWidth="lg">
@@ -54,15 +58,14 @@ const Instruction1Page = () => {
         </Grid>
       </Grid>
       <Grid container alignItems="center" sx={{ my: 10 }}>
-        <Grid item xs={6} alignContent="center">
+        <Grid item xs={7} alignContent="center">
           <Box
             component="img"
             alt=""
             src={valueHistoryChart}
-            sx={{ width: "100%" }}
+            sx={{ width: "100%", ml: -5 }}
           />
         </Grid>
-        <Grid item xs={1} />
         <Grid item xs={5}>
           <Typography variant="h6" sx={{ my: 5 }}>
             If you choose to pop the balloon, you win money if you pop in the
@@ -207,7 +210,6 @@ const Instruction1Page = () => {
           </TableContainer>
         </Grid>
         <Grid item xs={1} />
-
       </Grid>
 
       <Divider />
@@ -221,7 +223,7 @@ const Instruction1Page = () => {
         </Grid>
         <Grid item xs={2} />
         <Grid item xs={8}>
-          <video width="100%" controls styles={{objecFit: 'fill'}}>
+          <video width="100%" controls styles={{ objecFit: 'fill' }}>
             <source src={video1} type="video/mp4" />
           </video>
         </Grid>
@@ -230,19 +232,27 @@ const Instruction1Page = () => {
       <Divider />
 
       <Grid container alignItems="center" sx={{ my: 10 }}>
-        <Grid item xs={6} alignContent="center">
-          <Box
-            component="img"
-            alt=""
-            src={speedHistoryChart}
-            sx={{ width: "100%" }}
-          />
+        <Grid item xs={7} alignContent="center">
+          <Box sx={{ position: 'relative'}}>
+            <Box
+              component="img"
+              alt=""
+              src={speedHistoryChart}
+              sx={{ height: 244, ml: -20 }}
+            />
+            <div style={{
+              position: "absolute",
+              // backgroundColor: 'red',
+              width: 10,
+              height: 10,
+              top: 190,
+              left: 470,
+            }} ref={box2}></div>
+          </Box>
         </Grid>
-        <Grid item xs={1} />
         <Grid item xs={5}>
-          <Typography variant="h6" sx={{ my: 5 }}>
-            Now that you've seen the task interface, you probably wonder what
-            the graph on the bottom right of the screen is for. It shows you the
+          <Typography variant="h6" sx={{ my: 3 }}>
+            The graph on the bottom right of the screen shows you the
             average speed growth of the balloons on each trial.
           </Typography>
           <Typography variant="h6" sx={{ my: 3 }}>
@@ -256,6 +266,7 @@ const Instruction1Page = () => {
               p: 2,
               borderRadius: "16px",
             }}
+            ref={box1}
           >
             <Typography variant="h5">
               When the speed variable departs from its baseline value (0), this
@@ -267,6 +278,7 @@ const Instruction1Page = () => {
             </Typography>
           </Box>
         </Grid>
+        <Xarrow start={box1} end={box2} color="#d32f2f" curveness={false}/>
       </Grid>
       <Grid container alignItems="center" sx={{ my: 10 }}>
         <Grid item xs={6}>
