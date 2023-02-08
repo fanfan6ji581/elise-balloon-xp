@@ -131,7 +131,7 @@ const Attendants = ({ xp }) => {
                             sorting:
                             {
                                 sortModel: [{
-                                    field: 'username'
+                                    field: 'created'
                                 }]
                             }
                         }} />

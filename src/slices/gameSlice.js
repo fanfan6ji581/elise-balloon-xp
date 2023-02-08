@@ -73,13 +73,14 @@ const gameSlice = createSlice({
             state.xpConfig = xpConfig;
 
             // reset
-            state.trialIndex = -1;
             state.choiceHistory = [];
             state.outcomeHistory = [];
             state.missHistory = [];
             state.reactionHistory = [];
+            state.trialIndex = 0;
+            state.timerProgress = 0;
         },
-        reset: (state, action) => {
+        reset: (state) => {
             state.trialIndex = -1;
             state.choiceHistory = [];
             state.outcomeHistory = [];
@@ -102,6 +103,7 @@ const gameSlice = createSlice({
             state.reactionHistory = reactionHistory;
             state.xpData = xpData;
             state.xpConfig = xpConfig;
+            state.timerProgress = 0;
         },
     },
 });

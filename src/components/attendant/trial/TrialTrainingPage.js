@@ -1,16 +1,14 @@
 import TrainingTimer from './TrainingTimer';
 import BalloonTrial from './BalloonTrial';
 import { loginAttendant } from "../../../slices/attendantSlice";
-import { reset, nextTrial } from "../../../slices/gameSlice";
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { doc, updateDoc } from "firebase/firestore";
 import db from "../../../database/firebase";
 
 const BalloonTrialTrainingPage = () => {
     const { alias } = useParams();
-    const dispatch = useDispatch();
     const navigate = useNavigate();
     const loginAttendantS = useSelector(loginAttendant);
     const { trainingSessionSeconds } = loginAttendantS.xpConfig;
@@ -29,8 +27,6 @@ const BalloonTrialTrainingPage = () => {
 
     useEffect(() => {
         document.addEventListener("keydown", onKeyDown, false);
-        dispatch(reset());
-        dispatch(nextTrial());
 
         return () => {
             document.removeEventListener("keydown", onKeyDown, false);
