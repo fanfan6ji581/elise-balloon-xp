@@ -22,10 +22,10 @@ import valueHistoryChart from "../../../assets/valueHistoryChart.png";
 import speedHistoryChart from "../../../assets/speedHistoryChart.png";
 import danger2 from "../../../assets/danger2.png";
 import regime from "../../../assets/regime.png";
-// import video1 from "../../../assets/video1-mid.mp4";
+import video1 from "../../../assets/video1.mp4";
 import Xarrow from "react-xarrows";
 import { useRef } from "react";
-import YouTube from 'react-youtube';
+// import YouTube from 'react-youtube';
 
 const Instruction1Page = () => {
   const { alias } = useParams();
@@ -223,10 +223,10 @@ const Instruction1Page = () => {
         </Grid>
         <Grid item xs={2} />
         <Grid item xs={8}>
-          <YouTube videoId="7NWvhfjGAVY" opts={{ width: '100%', height: 500 }} />
-          {/* <video width="100%" controls styles={{ objecFit: 'fill' }}>
+          {/* <YouTube videoId="7NWvhfjGAVY" opts={{ width: '100%', height: 500 }} /> */}
+          <video width="100%" controls styles={{ objecFit: 'fill' }}>
             <source src={video1} type="video/mp4" />
-          </video> */}
+          </video>
         </Grid>
       </Grid>
 
