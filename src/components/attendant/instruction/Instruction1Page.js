@@ -32,7 +32,6 @@ const Instruction1Page = () => {
   const { xpConfig } = loginAttendantS;
   const box1 = useRef(null);
   const box2 = useRef(null);
-
   return (
     <Container maxWidth="lg">
       <Typography variant="h4" align="center" sx={{ my: 5 }}>
