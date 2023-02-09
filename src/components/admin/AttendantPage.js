@@ -72,11 +72,11 @@ const Attendent = () => {
                                     <br />
                                     <TextField variant="standard" fullWidth sx={{ my: 2 }}
                                         label="Number of abberations"
-                                        defaultValue={`${attendant.xpData._numAbberations} / ${attendant.xpData.balloonValues.length} = ${attendant.xpData._numAbberations / xp.numberOfTrials}`}
+                                        defaultValue={`${attendant.xpData._numAbberations} / ${xp.numberOfTrials} = ${attendant.xpData._numAbberations / xp.numberOfTrials}`}
                                         InputProps={{ readOnly: true }} />
                                     <TextField variant="standard" fullWidth sx={{ my: 2 }}
                                         label="Times entered Dangerzone"
-                                        defaultValue={`${attendant.xpData._numDangerzone} / ${attendant.xpData.balloonValues.length} = ${attendant.xpData._numDangerzone / xp.numberOfTrials}`}
+                                        defaultValue={`${attendant.xpData._numDangerzone} / ${xp.numberOfTrials} = ${attendant.xpData._numDangerzone / xp.numberOfTrials}`}
                                         InputProps={{ readOnly: true }} />
                                     <TextField variant="standard" fullWidth sx={{ my: 2 }}
                                         label="Trial n Dangerzone reset"
