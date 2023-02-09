@@ -22,7 +22,7 @@ import valueHistoryChart from "../../../assets/valueHistoryChart.png";
 import speedHistoryChart from "../../../assets/speedHistoryChart.png";
 import danger2 from "../../../assets/danger2.png";
 import regime from "../../../assets/regime.png";
-import video1 from "../../../assets/video1.mp4";
+import video1 from "../../../assets/video1-mid.mp4";
 import Xarrow from "react-xarrows";
 import { useRef } from "react";
 
