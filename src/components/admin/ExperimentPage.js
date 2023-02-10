@@ -54,7 +54,7 @@ const Experiment = () => {
             <Grid container justifyContent="space-between">
                 <Grid item>
                     <Typography variant='h4'>Experiment <b>{alias}</b>
-                        <Button sx={{ mx: 1 }} variant="outlined" component={Link} to={`/xp/${alias}/signup`} target="_blank"> Attendant Sign up</Button>
+                        <Button sx={{ ml: 3 }} variant="outlined" component={Link} to={`/xp/${alias}/signup`} target="_blank"> Attendant Sign up</Button>
                         <Button sx={{ mx: 1 }} variant="outlined" component={Link} to={`/xp/${alias}/login`} target="_blank"> Attendant Login</Button>
                     </Typography >
                 </Grid>
