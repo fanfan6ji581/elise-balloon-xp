@@ -4,13 +4,14 @@ import { getDocs, doc, writeBatch, collection, query, where } from "firebase/fir
 import db from "../../database/firebase";
 import { useEffect, useState } from "react";
 import {
-    Grid, Typography, IconButton, Button, Tooltip,
-    Dialog, DialogActions, DialogContent,
+    Grid, Typography, IconButton, Button, Tooltip, Divider,
+    Dialog, DialogActions, DialogContent, Backdrop, CircularProgress
 } from "@mui/material";
 import { Visibility as VisibilityIcon, Delete as DeleteIcon, Login as LoginIcon, FileDownload } from '@mui/icons-material';
 import { DataGrid } from '@mui/x-data-grid';
 import moment from 'moment';
 import { generateBalloonData } from '../../util/xp_data'
+import { generateZip } from '../../util/generate_zip'
 import { Link, useParams } from 'react-router-dom';
 import AttendantsInfo from './AttendantsInfo';
 
@@ -35,6 +36,7 @@ const Attendants = ({ xp }) => {
     const [attendants, setAttendants] = useState([]);
     const [selectionModel, setSelectionModel] = useState([]);
     const [dialogOpen, setDialogOpen] = useState(false);
+    const [loadingOpen, setLoadingOpen] = useState(true);
 
     const columns = [
         { field: 'username', headerName: 'Username', width: 150 },
@@ -65,6 +67,7 @@ const Attendants = ({ xp }) => {
         const snapshot = await getDocs(query(collection(db, "attendant"), where("xp_alias", "==", alias)));
         const attendants = snapshot.docs.map(d => (Object.assign({ id: d.id }, d.data())));
         setAttendants(attendants);
+        setLoadingOpen(false);
     };
 
     const onCreateAttendants = async ({ formData }, e) => {
@@ -113,6 +116,12 @@ const Attendants = ({ xp }) => {
         await fetchAttendants();
     };
 
+    const onDownloadZip = async (e) => {
+        setLoadingOpen(true);
+        await generateZip(attendants, xp);
+        setLoadingOpen(false);
+    }
+
     useEffect(() => {
         fetchAttendants();
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -120,8 +129,16 @@ const Attendants = ({ xp }) => {
 
     return (
         <>
+            <Backdrop
+                sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                open={loadingOpen}
+                onClick={() => setLoadingOpen(false)}
+            >
+                <CircularProgress color="inherit" />
+            </Backdrop>
+
             <Grid container spacing={2}>
-                <Grid item xs={10}>
+                <Grid item xs={9}>
                     <DataGrid autoHeight rows={attendants} columns={columns}
                         checkboxSelection
                         disableSelectionOnClick
@@ -136,12 +153,15 @@ const Attendants = ({ xp }) => {
                             }
                         }} />
 
-                    <Button variant="contained" disabled={!selectionModel.length} onClick={onDeleteAttdendants}><DeleteIcon /> Delete</Button>
-                    <Button variant="contained" sx={{ mx: 3 }} onClick={() => setDialogOpen(true)}><FileDownload /> See Response</Button>
+                    <Button variant="contained" sx={{ mx: 3 }} disabled={!selectionModel.length} onClick={onDeleteAttdendants}><DeleteIcon /> Delete</Button>
                 </Grid>
-                <Grid item xs={2}>
+                <Grid item xs={3}>
                     <Typography>Add more attendants</Typography>
                     <Form schema={schema} onSubmit={onCreateAttendants} validator={validator} />
+
+                    <Divider sx={{ my: 5 }} />
+                    <Button variant="outlined" sx={{ my: 1, width: '100%' }} onClick={() => setDialogOpen(true)}><VisibilityIcon sx={{mx: 1}}/> View Responses</Button>
+                    <Button variant="outlined" sx={{ my: 1, width: '100%' }} onClick={onDownloadZip}><FileDownload sx={{mx: 1}}/> Download CSV zip</Button>
                 </Grid>
             </Grid>
 
@@ -153,6 +173,7 @@ const Attendants = ({ xp }) => {
                     <Button onClick={() => setDialogOpen(false)}>Close</Button>
                 </DialogActions>
             </Dialog>
+
 
         </>
     )

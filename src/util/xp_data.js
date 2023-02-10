@@ -103,7 +103,7 @@ function generateBalloonData(xp) {
         xpRecord: {
             // data recordings
             trialIndex: -1,
-            reactionHistory: Array.from({ length: xp.numberOfTrials }).fill(0),
+            reactionHistory: Array.from({ length: xp.numberOfTrials }).fill(null),
             choiceHistory: Array.from({ length: xp.numberOfTrials }).fill(0),
             outcomeHistory: Array.from({ length: xp.numberOfTrials }).fill(0),
             missHistory: Array.from({ length: xp.numberOfTrials }).fill(false),
@@ -132,7 +132,7 @@ function extractXpData(attendant) {
     } = xpRecord;
 
     let sum = 0;
-    const sumOutcomeHistory = outcomeHistory.map((v, i) => {
+    const accumulateOutcomeHistory = outcomeHistory.map((v, i) => {
         if (pickedOutcomeIndexes.includes(i)) {
             sum = sum + v
             return sum;
@@ -143,24 +143,29 @@ function extractXpData(attendant) {
     const mcqs = calcuateCorrectness(attendant);
 
     for (let i = 0; i < balloonValues.length; i++) {
-        rows.push(Object.assign({
-            username: attendant.username,
-            strategy: attendant.strategy,
-            gender: attendant.gender,
-            age: attendant.age,
-            major: attendant.major,
-        }, mcqs, {
-            id: i + 1,
-            value: balloonValues[i],
-            speed: balloonSpeed[i],
-            aberration: aberration[i],
-            shift: shift[i],
-            reaction: reactionHistory[i],
-            choice: choiceHistory[i],
-            outcome: outcomeHistory[i],
-            pickedOutcome: pickedOutcomeIndexes.includes(i) ? outcomeHistory[i] : null,
-            sumOutcome: sumOutcomeHistory[i],
-        }))
+        rows.push(Object.assign(
+            {
+                id: i + 1,
+                value: balloonValues[i],
+                speed: balloonSpeed[i],
+                aberration: aberration[i],
+                shift: shift[i],
+                reaction: reactionHistory[i],
+                choice: choiceHistory[i],
+                outcome: outcomeHistory[i],
+                pickedOutcome: pickedOutcomeIndexes.includes(i) ? outcomeHistory[i] : null,
+                accumulateOutcome: accumulateOutcomeHistory[i],
+            },
+            {
+                username: attendant.username,
+                gender: attendant.gender,
+                age: attendant.age,
+                major: attendant.major,
+            }, mcqs,
+            {
+                strategy: attendant.strategy,
+            }
+        ))
     }
     return rows;
 }

@@ -29,7 +29,7 @@ const columns = [
     width: 80,
   },
   {
-    field: "sumOutcome",
+    field: "accumulateOutcome",
     headerName: "Accumulate$",
     valueFormatter: (p) => `${p.value != null ? `$${p.value}` : "-"}`,
     width: 100,
