@@ -34,6 +34,9 @@ const gameSlice = createSlice({
             if (trialIndex > 0) {
                 money -= state.choiceHistory[trialIndex - 1] * mul < 0 ? xpConfig.costToSwitch : 0;
             }
+            if (missed) {
+                money = -xpConfig.afkTimeoutCost;
+            }
             state.outcomeHistory[trialIndex] = money;
 
             if (!missed) {
@@ -101,7 +104,6 @@ const gameSlice = createSlice({
                 missHistory,
                 reactionHistory,
             } = xpRecord;
-            console.log(`trialIndex is ${trialIndex}`)
             state.trialIndex = trialIndex + 1;
             state.choiceHistory = choiceHistory;
             state.outcomeHistory = outcomeHistory;
