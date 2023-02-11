@@ -160,7 +160,7 @@ const Attendants = ({ xp }) => {
                     <Form schema={schema} onSubmit={onCreateAttendants} validator={validator} />
 
                     <Divider sx={{ my: 5 }} />
-                    <Button variant="outlined" sx={{ my: 1, width: '100%' }} onClick={() => setDialogOpen(true)}><VisibilityIcon sx={{mx: 1}}/> View Responses</Button>
+                    <Button variant="outlined" sx={{ my: 1, width: '100%' }} onClick={() => setDialogOpen(true)}><VisibilityIcon sx={{mx: 1}}/> View mcq Responses</Button>
                     <Button variant="outlined" sx={{ my: 1, width: '100%' }} onClick={onDownloadZip}><FileDownload sx={{mx: 1}}/> Download CSV zip</Button>
                 </Grid>
             </Grid>

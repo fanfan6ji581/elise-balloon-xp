@@ -8,7 +8,6 @@ import {
 import { extractXpData } from "../../util/xp_data";
 
 const columns = [
-  { field: "username", headerName: "User", width: 150 },
   { field: "id", headerName: "Trial #", width: 60 },
   { field: "value", headerName: "Value", width: 60 },
   { field: "speed", headerName: "Speed", width: 60 },
