@@ -53,16 +53,16 @@ export default function PaymentPage() {
             <Grid container justifyContent="center">
                 <Grid item xs={1} />
                 <Grid item xs={8} sx={{ textAlign: 'center' }}>
-                    <Typography variant="h3" align="center" sx={{ my: 5 }}>
+                    <Typography variant="h4" align="center" sx={{ my: 5 }}>
                         Game over!
                     </Typography>
 
-                    <Typography variant="body1" sx={{ my: 3 }}>
+                    <Typography variant="body1" sx={{ my: 5 }}>
                         The game is over. The computer just randomly selected {xpConfig.percentageEarning}%
                         of the trials you played and computed your net accumulated outcomes at these trials.
                     </Typography>
 
-                    <Typography variant="body1" sx={{ my: 3 }}>
+                    <Typography variant="body1" sx={{ my: 5 }}>
                         Your earnings are <b>${earning}</b>. Please wait, the experimenter will come shortly.
                     </Typography>
 

@@ -2,33 +2,35 @@ import {
     Container, Box, Grid, Typography, Button,
 } from "@mui/material";
 import { Link, useParams } from "react-router-dom"
-import { loginAttendant } from "../../../slices/attendantSlice";
-import { useSelector } from "react-redux";
-import YouTube from 'react-youtube';
+import video2 from "../../../assets/video2.mp4";
 
 const Instruction2Page = () => {
     const { alias } = useParams();
-    const loginAttendantS = useSelector(loginAttendant);
-    const { xpConfig } = loginAttendantS;
 
     return (
-        <Container maxWidth="md">
-            <Typography variant="h4" align="center" sx={{ my: 5 }}>
-                Here is a short demo that summarises the essentials of the game for you.
-            </Typography>
+        <Container maxWidth="lg">
+            <Grid container>
+                <Grid item xs={12}>
 
-            <Grid container alignItems="center" sx={{ my: 5 }}>
-                <Grid item xs={1} />
-                <Grid item xs={10}>
-                    <YouTube videoId={xpConfig.youtubeVideoId2} opts={{ width: '100%', height: 500 }} />
+                    <Typography variant="h4" align="center" sx={{ my: 5 }}>
+                        Here is a short demo that summarises the essentials of the game for you.
+                    </Typography>
+
+                    <Grid container alignItems="center" sx={{ my: 5 }}>
+                        <Grid item xs={1} />
+                        <Grid item xs={10}>
+                            <video width="100%" controls muted styles={{ objecFit: 'fill' }}>
+                                <source src={video2} type="video/mp4" />
+                            </video>
+                        </Grid>
+                    </Grid>
+
+                    <Box textAlign="center" sx={{ my: 10 }}>
+                        <Button component={Link} variant="contained" size="large" to={`/xp/${alias}/instruction1`} sx={{ mx: 2 }}>Prev</Button>
+                        <Button component={Link} variant="contained" size="large" to={`/xp/${alias}/instruction3`} sx={{ mx: 2 }}>Next</Button>
+                    </Box>
                 </Grid>
             </Grid>
-
-
-            <Box textAlign="center" sx={{ my: 10 }}>
-                <Button component={Link} variant="contained" size="large" to={`/xp/${alias}/instruction1`} sx={{ mx: 2 }}>Prev</Button>
-                <Button component={Link} variant="contained" size="large" to={`/xp/${alias}/instruction3`} sx={{ mx: 2 }}>Next</Button>
-            </Box>
         </Container >
     )
 }

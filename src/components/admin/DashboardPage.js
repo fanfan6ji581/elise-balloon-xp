@@ -132,8 +132,6 @@ const DashboardPage = () => {
             numberOfTrials: 400,
             percentageEarning: 50,
             trainingSessionSeconds: 120,
-            youtubeVideoId1: '2g811Eo7K8U',
-            youtubeVideoId2: '2g811Eo7K8U',
             enablePlaying: false,
         };
         const resp = await addDoc(collection(db, "xp"), xp);

@@ -451,7 +451,7 @@ const QuizPage = () => {
                     }
                 </RadioGroup>
 
-                <Box textAlign="center" sx={{ my: 3 }}>
+                <Box textAlign="center" sx={{ py: 3 }}>
                     {!disableForm &&
                         <>
                             <Button component={Link} to={`/xp/${alias}/instruction1`} sx={{ mx: 3 }} variant="outlined" size="large">Back to Instruction</Button>
@@ -462,6 +462,8 @@ const QuizPage = () => {
                         <Typography variant="h4" sx={{ my: 5 }}>Please wait, the experimenter will come shortly.</Typography>
                     }
                 </Box>
+
+                <br />
             </form>
 
             <Backdrop

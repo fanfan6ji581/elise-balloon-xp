@@ -28,11 +28,11 @@ const SkipTraining = () => {
 
     return (
         <Container maxWidth="md">
-            <Typography variant="h4" align="center" sx={{ my: 5 }}>
+            <Typography variant="h4" align="center" sx={{ py: 5 }}>
                 Ready to Start?
             </Typography>
 
-            <Box textAlign="center" sx={{ my: 15 }}>
+            <Box textAlign="center" sx={{ py: 15 }}>
                 <Button component={Link} variant="contained" size="large"
                     to={`/xp/${alias}/strategy`}
                     disabled={!xp || !xp.enablePlaying}

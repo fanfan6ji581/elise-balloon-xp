@@ -72,14 +72,6 @@ const schema = {
             "type": "integer",
             "title": "Seconds of how long the training session last (default is 120 seconds, 2 min)",
         },
-        "youtubeVideoId1": {
-            "type": "string",
-            "title": "Youtube video Id for instruction page 1", 
-        },
-        "youtubeVideoId2": {
-            "type": "string",
-            "title": "Youtube video Id for instruction page 2", 
-        },
     }
 };
 

@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import AdminAppBar from './AdminAppBar';
 import { loginAdmin } from "../../slices/adminSlice";
+import { CssBaseline } from '@mui/material';
 
 const Layout = () => {
   const location = useLocation();
@@ -15,6 +16,7 @@ const Layout = () => {
   }
   return (
     <>
+      <CssBaseline />
       <AdminAppBar />
       <Outlet />
     </>

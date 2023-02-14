@@ -7,6 +7,7 @@ import {
 import { useSelector } from "react-redux";
 import { loginAttendant } from "../../slices/attendantSlice";
 import { useEffect } from "react";
+import { CssBaseline } from '@mui/material';
 
 const Layout = () => {
   const { alias } = useParams();
@@ -31,6 +32,7 @@ const Layout = () => {
 
   return (
     <>
+      <CssBaseline />
       <Outlet />
     </>
   );

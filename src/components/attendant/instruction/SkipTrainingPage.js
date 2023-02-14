@@ -25,10 +25,9 @@ const SkipTraining = () => {
 
     return (
         <Container maxWidth="md">
-            <Typography variant="h4" align="center" sx={{ my: 5 }}>
+            <Typography variant="h4" align="center" sx={{ py: 5 }}>
                 Please wait, the experimenter will come shortly
             </Typography>
-
         </Container >
     )
 }

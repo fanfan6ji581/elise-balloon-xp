@@ -1,4 +1,4 @@
-import { Container, Box, Typography, Button, Backdrop, CircularProgress, } from "@mui/material";
+import { Container, Box, Typography, Button, Backdrop, CircularProgress, Grid, } from "@mui/material";
 import { Link, useParams } from "react-router-dom"
 import { loginAttendant } from "../../../slices/attendantSlice";
 import { useSelector } from "react-redux";
@@ -31,43 +31,48 @@ const Instruction4Page = () => {
 
     return (
         <Container maxWidth="md">
-            <Typography variant="h4" align="center" sx={{ my: 5 }}>
-                Ready to Play?
-            </Typography>
+            <Grid container textAlign="center">
+                <Grid item xs={12}>
 
-            <Typography variant="h6" align="center" sx={{ my: 5 }}>
-                Remember that if you play well, you have fair chances to win the maximal amount ($150). However, the game is hard, and its pace is quick: you have only {xpConfig.afkTimeout / 1000} seconds to make your decision on each trial. If you do not reply within the imparted time,
-                you lose ${xpConfig.afkTimeoutCost} and move to the next trial. Have a short training session to learn how to play the game!
-            </Typography>
+                    <Typography variant="h4" align="center" sx={{ my: 5 }}>
+                        Ready to Play?
+                    </Typography>
 
-            <Box textAlign="center" sx={{ my: 10 }}>
-                <Button component={Link} variant="contained" size="large"
-                    sx={{ width: 240, padding: 3 }}
-                    to={`/xp/${alias}/training`}>GO TO TRAINING</Button>
-            </Box>
-            {
-                attendant && !attendant.isTrained &&
-                <Box textAlign="center" sx={{ my: 10 }}>
-                    <Button color="warning" component={Link} variant="contained" size="large"
-                        sx={{ width: 240, padding: 3 }}
-                        to={`/xp/${alias}/skip-training`}>SKIP TRAINING</Button>
-                </Box>
-            }
+                    <Typography variant="h6" align="center" sx={{ my: 5 }}>
+                        Remember that if you play well, you have fair chances to win the maximal amount ($150). However, the game is hard, and its pace is quick: you have only {xpConfig.afkTimeout / 1000} seconds to make your decision on each trial. If you do not reply within the imparted time,
+                        you lose ${xpConfig.afkTimeoutCost} and move to the next trial. Have a short training session to learn how to play the game!
+                    </Typography>
 
-            {
-                attendant && attendant.isTrained &&
-                <Box textAlign="center" sx={{ my: 10 }}>
-                    <Button  color="warning" component={Link} variant="outlined" size="large"
-                        sx={{ width: 240, padding: 3 }}
-                        to={`/xp/${alias}/quiz`}>SKIP TRAINING</Button>
-                </Box>
-            }
+                    <Box textAlign="center" sx={{ my: 10 }}>
+                        <Button component={Link} variant="contained" size="large"
+                            sx={{ width: 240, padding: 3 }}
+                            to={`/xp/${alias}/training`}>GO TO TRAINING</Button>
+                    </Box>
+                    {
+                        attendant && !attendant.isTrained &&
+                        <Box textAlign="center" sx={{ my: 10 }}>
+                            <Button color="warning" component={Link} variant="contained" size="large"
+                                sx={{ width: 240, padding: 3 }}
+                                to={`/xp/${alias}/skip-training`}>SKIP TRAINING</Button>
+                        </Box>
+                    }
 
-            <Box textAlign="center" sx={{ my: 10 }}>
-                <Button component={Link} variant="outlined" size="large"
-                    sx={{ width: 240, padding: 3 }}
-                    to={`/xp/${alias}/instruction3`}>prev</Button>
-            </Box>
+                    {
+                        attendant && attendant.isTrained &&
+                        <Box textAlign="center" sx={{ my: 10 }}>
+                            <Button color="warning" component={Link} variant="outlined" size="large"
+                                sx={{ width: 240, padding: 3 }}
+                                to={`/xp/${alias}/quiz`}>SKIP TRAINING</Button>
+                        </Box>
+                    }
+
+                    <Box textAlign="center" >
+                        <Button component={Link} variant="outlined" size="large"
+                            sx={{ width: 240, padding: 3 }}
+                            to={`/xp/${alias}/instruction3`}>prev</Button>
+                    </Box>
+                </Grid>
+            </Grid>
 
             <Backdrop
                 sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
