@@ -22,6 +22,9 @@ const Instruction2Page = () => {
                             <video width="100%" controls muted styles={{ objecFit: 'fill' }}>
                                 <source src={video2} type="video/mp4" />
                             </video>
+                            <Typography variant="body2" align="center">
+                                no sound here, please ignore background noise
+                            </Typography>
                         </Grid>
                     </Grid>
 
