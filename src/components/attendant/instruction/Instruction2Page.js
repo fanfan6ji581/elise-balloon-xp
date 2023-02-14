@@ -11,9 +11,8 @@ const Instruction2Page = () => {
         <Container maxWidth="lg">
             <Grid container>
                 <Grid item xs={12}>
-
                     <Typography variant="h4" align="center" sx={{ my: 5 }}>
-                        Here is a short demo that summarises the essentials of the game for you.
+                        Quick summary:
                     </Typography>
 
                     <Grid container alignItems="center" sx={{ my: 5 }}>
@@ -22,9 +21,6 @@ const Instruction2Page = () => {
                             <video width="100%" controls muted styles={{ objecFit: 'fill' }}>
                                 <source src={video2} type="video/mp4" />
                             </video>
-                            <Typography variant="body2" align="center">
-                                no sound here, please ignore background noise
-                            </Typography>
                         </Grid>
                     </Grid>
 
