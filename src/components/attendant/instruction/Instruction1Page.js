@@ -337,7 +337,7 @@ const Instruction1Page = () => {
             <Grid item xs={5}>
               <Typography variant="h6" sx={{ my: 5 }}>
                 In this example, at Trial 18, the value has switched but the speed
-                indicator is at its baseline value 🡪 This is an aberration and the
+                indicator is at its baseline value. This is an aberration and the
                 value immediately switches back to its current value (here, -2) at
                 Trial 19.{" "}
               </Typography>
