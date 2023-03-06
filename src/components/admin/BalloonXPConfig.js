@@ -4,7 +4,7 @@ import { updateDoc, doc } from "firebase/firestore";
 import db from "../../database/firebase";
 
 const schema = {
-    // "title": "Configure random system",
+    "title": "Configure balloon XP",
     "description": "",
     "type": "object",
     "required": [
@@ -50,7 +50,7 @@ const schema = {
         },
         "outcomeShowTime": {
             "type": "integer",
-            "title": "Outcome stage, millisecond showing the ouput result, 2000 ms = 2 sec",
+            "title": "Outcome stage, millisecond showing the output result, 2000 ms = 2 sec",
             // "default": 2
         },
         "afkTimeoutCost": {
@@ -87,7 +87,7 @@ const uiSchema = {
     }
 }
 
-const ExperimentConfig = ({ xp, setXp }) => {
+const BalloonXPConfig = ({ xp, setXp }) => {
     const onSaveConfig = async ({ formData }, e) => {
         e.preventDefault();
         const xpDocRef = doc(db, "xp", formData.id);
@@ -107,4 +107,4 @@ const ExperimentConfig = ({ xp, setXp }) => {
     )
 }
 
-export default ExperimentConfig
+export default BalloonXPConfig

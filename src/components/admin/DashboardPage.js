@@ -3,6 +3,7 @@ import { Container, Grid, Typography, IconButton, Divider, Tooltip } from "@mui/
 import { Visibility as VisibilityIcon, Delete as DeleteIcon, Lock, LockOpen } from '@mui/icons-material';
 import { collection, getDocs, deleteDoc, doc, addDoc, query, where, writeBatch, updateDoc } from "firebase/firestore";
 import db from "../../database/firebase";
+import { addPretask, deletePretask, createPretask } from "../../database/pretask";
 import { DataGrid } from '@mui/x-data-grid';
 import Form from '@rjsf/mui';
 import validator from "@rjsf/validator-ajv8";
@@ -36,10 +37,14 @@ const DashboardPage = () => {
                     });
                     await batch.commit();
 
+                    // delete pretask
+                    await deletePretask(xp.alias);
+
                     // delete xp
                     const xpDocRef = doc(db, "xp", xp.id)
                     await deleteDoc(xpDocRef);
                     setXps(xps.filter(x => x.id !== xp.id))
+
                 }
                 const onLock = async (e) => {
                     e.stopPropagation();
@@ -134,11 +139,15 @@ const DashboardPage = () => {
             trainingSessionSeconds: 120,
             enablePlaying: false,
         };
+
         const resp = await addDoc(collection(db, "xp"), xp);
         xp.id = resp.id;
         setXps([...xps, xp]);
-    };
 
+        // create a pretask as well
+        const pretask = createPretask(formData.alias);
+        await addPretask(pretask);
+    };
 
     useEffect(() => {
         fetchXPs();
