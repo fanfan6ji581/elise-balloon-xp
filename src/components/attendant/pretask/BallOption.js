@@ -15,13 +15,14 @@ export default function BallOption({ type, winQty, lossQty, winCash, lossCash, l
         <Global
             styles={css`
                 .card {
-                    background-color: #fff
+                    background-color: #fff;
+                    cursor: pointer;
                 }
                 .card:hover {
-                    background-color: rgba(229, 228, 226, 0.4)
+                    background-color: rgba(229, 228, 226, 0.4);
                 }
                 .card.cardactive {
-                    background-color: rgba(100, 149, 237, 0.25)
+                    background-color: rgba(100, 149, 237, 0.25);
                 }
             `}
         />
