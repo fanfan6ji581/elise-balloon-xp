@@ -21,7 +21,7 @@ export default class BubbleChart extends Component {
 
         window.addEventListener("resize", this.handleResize);
         this.setState({
-            color: d3.scaleOrdinal(["#597EF7", "#9254DE"])
+            color: d3.scaleOrdinal(["rgba(54, 162, 235, 1)", "rgba(75, 192, 192, 1)"])
         });
         this.simulation = d3.forceSimulation();
         let tempData = _.cloneDeep(data);
@@ -91,6 +91,7 @@ export default class BubbleChart extends Component {
                     .y(height * 0.5)
             )
             .force("charge", d3.forceManyBody().strength(-15));
+        this.simulation.tick(50)
 
         let nodeg = d3
             .select(node)
@@ -162,27 +163,28 @@ export default class BubbleChart extends Component {
                     return d.color;
                 } else {
                     if (d.type === "a") {
-                        return "#597EF7";
+                        return "rgba(54, 162, 235, 1)";
                     } else {
-                        return "#9254DE";
+                        return "rgba(75, 192, 192, 1)";
                     }
                 }
             })
             .attr("fill-opacity", (d) => {
-                if (d.rad) {
-                    let opacity = d.rad.toFixed(2);
-                    if (opacity >= 1) {
-                        return opacity;
-                    } else if (opacity < 1 && opacity > 0.4) {
-                        return 0.8;
-                    } else if (opacity < 0.4 && opacity > 0.04) {
-                        return 0.6;
-                    } else {
-                        return 0.5;
-                    }
-                } else {
-                    return 1;
-                }
+                // if (d.rad) {
+                //     let opacity = d.rad.toFixed(2);
+                //     if (opacity >= 1) {
+                //         return opacity;
+                //     } else if (opacity < 1 && opacity > 0.4) {
+                //         return 0.8;
+                //     } else if (opacity < 0.4 && opacity > 0.04) {
+                //         return 0.6;
+                //     } else {
+                //         return 0.5;
+                //     }
+                // } else {
+                //     return 1;
+                // }
+                return 0.75
             })
             .attr("cx", (d) => {
                 return d.x;
@@ -302,7 +304,7 @@ export default class BubbleChart extends Component {
                 style={{
                     height: this.props.height,
                     width: this.props.width,
-                    // border: "1px solid #000000"
+                    border: "1px solid #000000",
                     margin: "auto",
                 }}
             >

@@ -1,80 +1,41 @@
-import React from 'react';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import { Pie } from 'react-chartjs-2';
-import ChartDataLabels from "../../../lib/datalabel";
-import Box from '@mui/material/Box';
+import { React, useState } from "react";
+import { Box, Typography } from '@mui/material';
+import { makeStyles } from '@mui/styles'
+import BallOptionChart from "./BallOptionChart"
 
-ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels,);
-
-const plugins = [
-    ChartDataLabels,
-]
-
-export default function BallOption({ winQty, lossQty, winCash, lossCash }) {
-    const winRatio = Math.round(5 * winQty / 100);
-    const lossRatio = Math.round(5 * lossQty / 100) || 1;
-
-    const data = {
-        // labels: ['Red', 'Blue'],
-        datasets: [
-            {
-                label: 'count',
-                data: [winQty, lossQty],
-                backgroundColor: [
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(255, 99, 132, 0.2)',
-                ],
-                borderColor: [
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(255, 99, 132, 1)',
-                ],
-                borderWidth: 1,
-            },
-        ],
-    };
-    const options = {
-        layout: {
-            padding: 30,
+const useStyles = makeStyles({
+    card: {
+        backgroundColor: '#fff',
+        '&:hover': {
+            backgroundColor: 'rgba(229, 228, 226, 0.4)',
         },
-        plugins: {
-            datalabels: {
-                // color: 'pink',
-                font: {
-                    size: 20
-                },
-                labels: {
-                    title: {
-                        font: {
-                            // weight: 'bold'
-                        }
-                    },
-                    value: {
-                        // color: 'red'
-                    }
-                },
-                formatter: function (val, context) {
-                    if (context.dataIndex === 0) {
-                        return `win $${winCash}|${winRatio}`;
-                    } else {
-                        return `lose -$${-lossCash}|${lossRatio}`;
-                    }
-                }
-            },
-            tooltip: {
-                callbacks: {
-                    label: function(context) {
-                        if (context.dataIndex === 0) {
-                            return `Blue count: ${context.parsed}`
-                        } else {
-                            return `Purple count: ${context.parsed}`
-                        }
-                    }
-                }
-            }
-        },
+    },
+    cardactive: {
+        backgroundColor: 'rgba(100, 149, 237, 0.25)!important',
+    }
+})
+
+export default function BallOption({ type, winQty, lossQty, winCash, lossCash, label }) {
+    const classes = useStyles()
+    const [active, setActive] = useState(false)
+
+    const onClick = () => {
+        setActive(!active);
     }
 
-    return <Box sx={{ p: 3 }}>
-        <Pie data={data} options={options} plugins={plugins} />
+    return <Box sx={{ p: 1, }}>
+        <Box className={`${classes.card} ${active ? classes.cardactive : ''}`} onClick={() => onClick()}>
+            <BallOptionChart
+                type={type}
+                winQty={winQty}
+                lossQty={lossQty}
+                winCash={winCash}
+                lossCash={lossCash}
+            />
+
+            <Box sx={{ textAlign: 'center' }}>
+                <Typography variant="h4">{label}</Typography>
+            </Box>
+        </Box>
     </Box>
 }

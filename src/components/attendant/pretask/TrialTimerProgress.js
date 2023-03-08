@@ -2,14 +2,13 @@ import { LinearProgress } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import {
   timerProgress,
-  recordMulResp,
+  // recordMulResp,
   showMoneyOutcome,
   showAfterClickDelay,
   setProgressStartTime,
-  // eslint-disable-next-line no-unused-vars
   setTimerProgress,
-  xpConfigS,
-} from "../../../slices/gameSlice";
+  pretask,
+} from "../../../slices/pretaskSlice";
 import { useRef, useEffect } from "react";
 
 export default function TrialTimer() {
@@ -18,18 +17,18 @@ export default function TrialTimer() {
   const progressStartTime = useRef(0);
   const showMoneyOutcomeS = useSelector(showMoneyOutcome);
   const showAfterClickDelayS = useSelector(showAfterClickDelay);
-  const xpConfig = useSelector(xpConfigS);
+  const pretaskS = useSelector(pretask);
   const timerInterval = useRef(null);
 
   const restartGameTimer = () => {
     clearInterval(timerInterval.current);
     progressStartTime.current = Date.now();
     dispatch(setProgressStartTime(progressStartTime.current));
-    // timerInterval.current = setInterval(() => {
-    //   const timePassed = Date.now() - progressStartTime.current;
-    //   const progress = Math.round((timePassed * 100) / xpConfig.afkTimeout);
-    //   dispatch(setTimerProgress(progress));
-    // }, 30);
+    timerInterval.current = setInterval(() => {
+      const timePassed = Date.now() - progressStartTime.current;
+      const progress = Math.round((timePassed * 100) / pretaskS.afkTimeout);
+      dispatch(setTimerProgress(progress));
+    }, 30);
   };
 
   useEffect(() => {
@@ -52,13 +51,13 @@ export default function TrialTimer() {
   useEffect(() => {
     if (timerProgressS >= 100) {
       clearInterval(timerInterval.current);
-      dispatch(recordMulResp({ mul: 0, missed: true }));
+      // dispatch(recordMulResp({ mul: 0, missed: true }));
     }
     if (timerProgressS === 0) {
       restartGameTimer();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [timerProgressS, xpConfig]);
+  }, [timerProgressS]);
 
   return (
     <LinearProgress

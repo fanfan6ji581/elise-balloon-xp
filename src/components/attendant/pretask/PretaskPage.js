@@ -1,7 +1,6 @@
 import {
   Container, Box, Grid, Typography,
   Backdrop, CircularProgress, Button,
-  FormControlLabel, Checkbox
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import {
@@ -25,6 +24,10 @@ const PretaskPage = ({ isTrainingMode, onFinish }) => {
   const { alias } = useParams()
   const [pretask, setPretask] = useState(null);
   const [loadingOpen, setLoadingOpen] = useState(true);
+  // const [betA, setBetA] = useState(false);
+  // const [betB, setBetB] = useState(false);
+  // const [betSkip, setBetSkip] = useState(false);
+
 
   // const loginAttendantS = useSelector(loginAttendant);
   const trialIndexS = useSelector(trialIndex);
@@ -48,7 +51,7 @@ const PretaskPage = ({ isTrainingMode, onFinish }) => {
   // const storeToDB = async () => {
 
   // };
-  const onclick = () => {
+  const onSubmit = () => {
     dispatch(next());
   }
 
@@ -93,38 +96,34 @@ const PretaskPage = ({ isTrainingMode, onFinish }) => {
                   <Jar totalQty={pretask.totalQty} ballAQty={ballAQtyS[trialIndexS]} />
                 </Grid>
 
-                <Grid container alignItems="center">
+                <Grid container alignItems="center" sx={{ mt: 1 }}>
                   <Grid item xs={4}>
-                    <BallOption winQty={ballAQtyS[trialIndexS]}
+                    <BallOption
+                      type="a"
+                      winQty={ballAQtyS[trialIndexS]}
                       lossQty={pretask.totalQty - ballAQtyS[trialIndexS]}
                       winCash={pretask.ballAWin}
                       lossCash={pretask.ballALose}
+                      label="Bet Blue"
                     />
-                    <Box sx={{ textAlign: 'center' }}>
-                      <FormControlLabel control={<Checkbox />} label="Bet blue" align="center" />
-                    </Box>
                   </Grid>
                   <Grid item xs={4}>
                     <BallOption
+                      type="b"
                       winQty={pretask.totalQty - ballAQtyS[trialIndexS]}
                       lossQty={ballAQtyS[trialIndexS]}
                       winCash={pretask.ballBWin}
                       lossCash={pretask.ballBLose}
+                      label="Bet Green"
                     />
-                    <Box sx={{ textAlign: 'center' }}>
-                      <FormControlLabel control={<Checkbox />} label="Bet purple" align="center" />
-                    </Box>
                   </Grid>
                   <Grid item xs={4}>
                     <BallOptionSkip />
-                    <Box sx={{ textAlign: 'center' }}>
-                      <FormControlLabel control={<Checkbox />} label="Skip" align="center" />
-                    </Box>
                   </Grid>
                 </Grid>
               </Grid>
             </Grid>
-            <Button variant="contained" onClick={() => onclick()} sx={{ mt: 3 }}>Submit</Button>
+            <Button variant="contained" onClick={() => onSubmit()} sx={{ mt: 3 }}>Submit</Button>
           </Grid>
         </Container>
       }

@@ -23,7 +23,7 @@ export default function Jar({ ballAQty, totalQty }) {
 
   return (
     <>
-      <BubbleChart data={JSON.parse(JSON.stringify(data))} height={500} width={700} />
+      <BubbleChart data={JSON.parse(JSON.stringify(data))} height={450} width={600} />
     </>
   );
 }

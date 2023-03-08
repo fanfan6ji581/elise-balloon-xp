@@ -74,5 +74,6 @@ export const choiceHistory = (state) => state.pretask.choiceHistory;
 export const outcomeHistory = (state) => state.pretask.outcomeHistory;
 export const missHistory = (state) => state.pretask.missHistory;
 export const reactionHistory = (state) => state.pretask.reactionHistory;
+export const pretask = (state) => state.pretask.pretask;
 
 export default pretaskSlice.reducer;
