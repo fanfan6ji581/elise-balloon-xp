@@ -41,7 +41,6 @@ const Experiment = () => {
             const pretask = await getPretask(alias);
             setPretask(pretask)
         } catch (error) {
-            debugger
             setErrorMsg(error.message)
         }
     }

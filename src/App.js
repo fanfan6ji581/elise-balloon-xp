@@ -24,6 +24,8 @@ import QuizPage from "./components/attendant/QuizPage";
 import StrategyPage from "./components/attendant/StrategyPage";
 import SignupPage from './components/attendant/SignupPage';
 import StartGamePage from './components/attendant/StartGamePage';
+import PretaskPage from './components/attendant/pretask/PretaskPage';
+
 
 const theme = createTheme();
 
@@ -48,6 +50,7 @@ function App() {
                                 <Route path="xp/:alias/quiz" element={<QuizPage />} />
                                 <Route path="xp/:alias/strategy" element={<StrategyPage />} />
                                 <Route path="xp/:alias/start-game" element={<StartGamePage />} />
+                                <Route path="xp/:alias/pretask" element={<PretaskPage />} />
                             </Route>
                             <Route path="/admin" element={<AdminLayout />}>
                                 <Route path="login" element={<AdminLoginPage />} />

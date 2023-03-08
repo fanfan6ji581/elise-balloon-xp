@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import adminSlice from "../slices/adminSlice";
 import gameSlice from "../slices/gameSlice";
+import pretaskSlice from "../slices/pretaskSlice";
 import attendantSlice from "../slices/attendantSlice";
 
 export const store = configureStore({
@@ -8,6 +9,7 @@ export const store = configureStore({
     admin: adminSlice,
     attendant: attendantSlice,
     game: gameSlice,
+    pretask: pretaskSlice,
   },
 });
 
