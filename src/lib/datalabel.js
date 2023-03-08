@@ -525,10 +525,12 @@ function drawTextLine(ctx, text, cfg) {
     const img = texts[0].startsWith('win') ? window.document.getElementById('profitImg') :
       window.document.getElementById('lossImg')
     // lee changed
-    ctx.drawImage(
-      img
-      , x - imageWidth / 2,
-      y - imageWidth / 2, imageWidth, imageWidth);
+    if (img) {
+      ctx.drawImage(
+        img
+        , x - imageWidth / 2,
+        y - imageWidth / 2, imageWidth, imageWidth);
+    }
 
 
     ctx.fillText(texts[0], x + imageWidth / 2, y, w);
