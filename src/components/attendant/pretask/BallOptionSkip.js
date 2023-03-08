@@ -41,6 +41,9 @@ export default function BallOptionSkip({ winQty, lossQty, winCash, lossCash }) {
                     return `get $0`;
                 }
             },
+            tooltip: {
+                enabled: false,
+            }
         },
     }
 

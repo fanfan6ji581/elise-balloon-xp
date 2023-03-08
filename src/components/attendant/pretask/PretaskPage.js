@@ -83,8 +83,8 @@ const PretaskPage = ({ isTrainingMode, onFinish }) => {
               <TrialTimerProgress />
               <Grid container>
                 <Grid item xs={12}>
-                  <Box sx={{ height: 64, my: 1 }}>
-                    outcome box
+                  <Box sx={{ height: 64, my: 1, textAlign: 'center' }}>
+                    TODO: display money outcome here
                   </Box>
                 </Grid>
               </Grid>
@@ -124,7 +124,7 @@ const PretaskPage = ({ isTrainingMode, onFinish }) => {
                 </Grid>
               </Grid>
             </Grid>
-            <Button variant="contained" onClick={() => onclick()} sx={{mt: 3}}>Submit</Button>
+            <Button variant="contained" onClick={() => onclick()} sx={{ mt: 3 }}>Submit</Button>
           </Grid>
         </Container>
       }

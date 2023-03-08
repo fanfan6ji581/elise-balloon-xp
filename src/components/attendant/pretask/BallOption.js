@@ -60,6 +60,17 @@ export default function BallOption({ winQty, lossQty, winCash, lossCash }) {
                     }
                 }
             },
+            tooltip: {
+                callbacks: {
+                    label: function(context) {
+                        if (context.dataIndex === 0) {
+                            return `Blue count: ${context.parsed}`
+                        } else {
+                            return `Purple count: ${context.parsed}`
+                        }
+                    }
+                }
+            }
         },
     }
 
