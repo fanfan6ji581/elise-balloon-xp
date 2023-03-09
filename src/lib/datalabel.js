@@ -530,8 +530,8 @@ function drawTextLine(ctx, text, cfg) {
       //     imageWidth, imageWidth);
       // }
 
-      const trendUpImg = window.document.getElementById('trendUpImg')
-      const trendDownImg = window.document.getElementById('trendDownImg')
+      // const trendUpImg = window.document.getElementById('trendUpImg')
+      // const trendDownImg = window.document.getElementById('trendDownImg')
       const outcomeProfitsImg = window.document.getElementById('outcomeProfitsImg')
       const outcomeLossImg = window.document.getElementById('outcomeLossImg')
 
