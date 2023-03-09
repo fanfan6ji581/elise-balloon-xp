@@ -101,12 +101,12 @@ const Pretask = ({ isTraining }) => {
               <TrialTimerProgress pretask={pretask} />
               <Grid container>
                 <Grid item xs={12}>
-                  <Box sx={{ height: 0, my: 5, textAlign: 'center' }}>
+                  <Box sx={{ height: 0, my: 0, textAlign: 'center' }}>
                     <MoneyOutcome pretask={pretask} />
                   </Box>
                 </Grid>
               </Grid>
-              <Grid container alignItems="center">
+              <Grid container alignItems="center" sx={{mt: 5}}>
                 <Grid item xs={12}>
                   <Jar totalQty={pretask.totalQty} ballAQty={ballAQtyS[trialIndexS]} />
                 </Grid>

@@ -28,6 +28,7 @@ export default function Jar({ ballAQty, totalQty }) {
     <>
       <div style={{
         height: '450px',
+        minHeight: '450px',
         width: '370px',
         margin: 'auto',
         border: '3px solid #000',
@@ -64,8 +65,6 @@ export default function Jar({ ballAQty, totalQty }) {
           })}
         </div>
       </div>
-
-      {/* <BubbleChart data={JSON.parse(JSON.stringify(data))} height={450} width={600} /> */}
     </>
   );
 }
