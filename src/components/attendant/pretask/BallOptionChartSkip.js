@@ -17,10 +17,10 @@ export default function BallOptionSkip() {
                 label: 'count',
                 data: [100],
                 backgroundColor: [
-                    'rgba(80, 80, 80, 0.2)',
+                    '#efefef',
                 ],
                 borderColor: [
-                    'rgba(80, 80, 80, 1)',
+                    '#efefef',
                 ],
                 borderWidth: 1,
             },
