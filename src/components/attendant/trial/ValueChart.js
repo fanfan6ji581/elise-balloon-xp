@@ -76,6 +76,11 @@ export default function ValueChart({ xpData }) {
                 suggestedMin: -2
             },
         },
+        plugins: {
+            datalabels: {
+                display: false,
+            },
+        }
     };
 
     const options2 = {
@@ -93,6 +98,11 @@ export default function ValueChart({ xpData }) {
                 suggestedMax: 20
             },
         },
+        plugins: {
+            datalabels: {
+                display: false,
+            },
+        }
     };
     return (
         <>

@@ -496,7 +496,6 @@ function textGeometry(rect, align, font) {
 }
 
 function drawTextLine(ctx, text, cfg) {
-  debugger
   var shadow = ctx.shadowBlur;
   var stroked = cfg.stroked;
   var x = rasterize(cfg.x);
