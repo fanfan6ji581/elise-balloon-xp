@@ -24,7 +24,7 @@ export default function Jar({ ballAQty, totalQty }) {
   return (
     <>
       <div style={{
-        height: '500px',
+        height: '480px',
         width: '420px',
         margin: 'auto',
         border: '2px solid #000',
@@ -33,7 +33,7 @@ export default function Jar({ ballAQty, totalQty }) {
         alignItems: 'end',
       }}>
         <div style={{
-          height: '480px',
+          height: '420px',
           width: '420px',
           display: 'flex',
           padding: '8px',
