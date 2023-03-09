@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
-import coins from '../../../assets/coins.png';
-import coinsdown from '../../../assets/coinsdown.png';
+import outcome_loss from '../../../assets/outcome_loss.png';
+import outcome_profits from '../../../assets/outcome_profits.png';
 import { motion } from "framer-motion";
 import { Box, Typography, CardMedia, CardContent } from "@mui/material";
 import {
@@ -57,7 +57,7 @@ export default function MoneyOutcome({ pretask }) {
                     <CardMedia
                         component="img"
                         sx={{ width: 64, height: 64 }}
-                        src={(moneyEarned < 0 || missedTrial) ? coinsdown : coins}
+                        src={(moneyEarned < 0 || missedTrial) ? outcome_loss : outcome_profits}
                         alt="coins" />
                     <CardContent>
                         <Typography variant="h5" align="center">
