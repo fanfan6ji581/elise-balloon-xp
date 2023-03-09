@@ -50,6 +50,7 @@ export default function Jar({ ballAQty, totalQty }) {
                 height: '36px',
                 margin: '1px 2px',
                 borderRadius: '50%',
+                border: '1px #333 solid',
                 backgroundColor: ball.type === 'a' ? 'rgba(54, 162, 235, 1)' : 'rgba(75, 192, 192, 1)',
                 position: 'relative',
                 top: `${Math.round(Math.random() * 4) - 2}px`,
