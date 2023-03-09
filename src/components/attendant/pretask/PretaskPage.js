@@ -123,7 +123,7 @@ const PretaskPage = ({ isTrainingMode, onFinish }) => {
                 </Grid>
               </Grid>
             </Grid>
-            <Button variant="contained" onClick={() => onSubmit()} sx={{ mt: 3 }}>Submit</Button>
+            <Button variant="contained" onClick={() => onSubmit()} sx={{ my: 3 }}>Submit</Button>
           </Grid>
         </Container>
       }
