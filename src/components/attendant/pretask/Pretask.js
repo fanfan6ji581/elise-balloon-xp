@@ -23,6 +23,7 @@ import trendDownImg from "../../../assets/trend_down.png";
 import trendUpImg from "../../../assets/trend_up.png";
 import outcomeLossImg from "../../../assets/outcome_loss.png";
 import outcomeProfitsImg from "../../../assets/outcome_profits.png";
+import laughingImg from "../../../assets/laughing.png";
 import MoneyOutcome from "./MoneyOutcome";
 
 const Pretask = ({ isTraining }) => {
@@ -85,7 +86,8 @@ const Pretask = ({ isTraining }) => {
       <img id="coinImg" src={coinImg} alt="coin" style={{ display: 'none' }} />
       <img id="trendUpImg" src={trendUpImg} alt="coin" style={{ display: 'none' }} />
       <img id="trendDownImg" src={trendDownImg} alt="coin" style={{ display: 'none' }} />
-
+      <img id="laughingImg" src={laughingImg} alt="coin" style={{ display: 'none' }} />
+      
       <Backdrop
         sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={loadingOpen}>

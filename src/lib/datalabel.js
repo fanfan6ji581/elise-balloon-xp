@@ -518,56 +518,57 @@ function drawTextLine(ctx, text, cfg) {
     if (texts.length === 2) {
       const coinCount = parseInt(texts[0].replace(/[^\d]/g, ''))
       const imageSize = texts[1];
-      let imageWidth = 32 + parseInt(imageSize) * 6
-
-      // const img = texts[0].startsWith('win') ? window.document.getElementById('profitImg') :
-      //   window.document.getElementById('lossImg')
-      // if (img) {
-      //   ctx.drawImage(
-      //     img
-      //     , x + w / 2 - imageWidth / 2,
-      //     y - 1.2 * imageWidth,
-      //     imageWidth, imageWidth);
-      // }
+      let imageWidth = 32 + parseInt(imageSize) * (coinCount === 5 ? 7 : 6)
 
       // const trendUpImg = window.document.getElementById('trendUpImg')
-      // const trendDownImg = window.document.getElementById('trendDownImg')
-      const outcomeProfitsImg = window.document.getElementById('outcomeProfitsImg')
-      const outcomeLossImg = window.document.getElementById('outcomeLossImg')
-
-      for (let i = 0; i < coinCount - 1; i++) {
+      const trendDownImg = window.document.getElementById('trendDownImg')
+      const laughingImg = window.document.getElementById('laughingImg')
+      
+      for (let i = 0; i < coinCount; i++) {
         const coinImg = window.document.getElementById('coinImg')
         if (coinImg) {
           ctx.drawImage(
             coinImg
-            , x + w / 2 - imageWidth / 2 - 10 + i * 9,
-            y - 1.2 * imageWidth,
+            , x + w / 2 - imageWidth / 2 - (imageWidth / 3) + i * (imageWidth / 6),
+            y - 1.25 * imageWidth,
             imageWidth, imageWidth);
         }
       }
 
-      // let img = texts[0].startsWith('win') ? trendUpImg : trendDownImg;
-      // ctx.drawImage(
-      //   img
-      //   , x + w / 2 - imageWidth + coinCount * 9,
-      //   y - 2 * imageWidth,
-      //   imageWidth, imageWidth);
+      let img = texts[0].startsWith('win') ? laughingImg : trendDownImg;
+      ctx.drawImage(
+        img
+        , x + w / 2 - imageWidth + coinCount * 9,
+        y + 12,
+        imageWidth * 0.75, imageWidth * 0.75);
 
-      if (texts[0].startsWith('win')) {
-        let img = outcomeProfitsImg;
-        ctx.drawImage(
-          img
-          , x + w / 2 - imageWidth / 2 - 10 + (coinCount - 1) * 9,
-          y - 1.55 * imageWidth,
-          imageWidth * 1.4, imageWidth * 1.4);
-      } else {
-        let img = outcomeLossImg;
-        ctx.drawImage(
-          img
-          , x + w / 2 - imageWidth / 2 - 10 + (coinCount - 1) * 9,
-          y - 1.2 * imageWidth,
-          imageWidth * 1.38, imageWidth * 1.38);
-      }
+      // if (texts[0].startsWith('win')) {
+      //   ctx.fillText(
+      //     "😀"
+      //     , x + w / 2 - imageWidth + coinCount * 9,
+      //     y + 8, 20);
+      // } else {
+      //   ctx.drawImage(
+      //     trendDownImg
+      //     , x + w / 2 - imageWidth + coinCount * 9,
+      //     y + 8,
+      //     imageWidth, imageWidth);
+      // }
+      // if (texts[0].startsWith('win')) {
+      //   let img = outcomeProfitsImg;
+      //   ctx.drawImage(
+      //     img
+      //     , x + w / 2 - imageWidth / 2 - 10 + (coinCount - 1) * 9,
+      //     y - 1.55 * imageWidth,
+      //     imageWidth * 1.4, imageWidth * 1.4);
+      // } else {
+      //   let img = outcomeLossImg;
+      //   ctx.drawImage(
+      //     img
+      //     , x + w / 2 - imageWidth / 2 - 10 + (coinCount - 1) * 9,
+      //     y - 1.2 * imageWidth,
+      //     imageWidth * 1.38, imageWidth * 1.38);
+      // }
 
 
       ctx.fillText(texts[0], x, y, w);
