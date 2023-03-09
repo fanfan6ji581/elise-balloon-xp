@@ -24,17 +24,17 @@ export default function Jar({ ballAQty, totalQty }) {
   return (
     <>
       <div style={{
-        height: '480px',
-        width: '420px',
+        height: '450px',
+        width: '370px',
         margin: 'auto',
-        border: '2px solid #000',
+        border: '3px solid #000',
         borderTop: 'none',
         display: 'flex',
         alignItems: 'end',
       }}>
         <div style={{
-          height: '420px',
-          width: '420px',
+          height: '400px',
+          width: '370px',
           display: 'flex',
           padding: '8px',
           flexWrap: 'wrap-reverse',
@@ -46,8 +46,8 @@ export default function Jar({ ballAQty, totalQty }) {
             return <div
               key={i}
               style={{
-                width: '36px',
-                height: '36px',
+                width: '30px',
+                height: '30px',
                 margin: '1px 2px',
                 borderRadius: '50%',
                 border: '1px #333 solid',

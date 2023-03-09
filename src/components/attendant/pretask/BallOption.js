@@ -27,8 +27,8 @@ export default function BallOption({ type, winQty, lossQty, winCash, lossCash, l
             `}
         />
 
-        <Box sx={{ p: 1, }}>
-            <Box className={`card ${active ? 'cardactive' : ''}`} onClick={() => onClick()}>
+        <Box sx={{ p: 1 }}>
+            <Box sx={{ py: 3 }} className={`card ${active ? 'cardactive' : ''}`} onClick={() => onClick()}>
                 <BallOptionChart
                     type={type}
                     winQty={winQty}
@@ -37,8 +37,8 @@ export default function BallOption({ type, winQty, lossQty, winCash, lossCash, l
                     lossCash={lossCash}
                 />
 
-                <Box sx={{ textAlign: 'center' }}>
-                    <Typography variant="h4">{label}</Typography>
+                <Box sx={{ textAlign: 'center', mt: 3 }}>
+                    <Typography variant="h5">{label}</Typography>
                 </Box>
             </Box>
         </Box>

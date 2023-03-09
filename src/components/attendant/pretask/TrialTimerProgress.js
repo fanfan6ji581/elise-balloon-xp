@@ -2,23 +2,23 @@ import { LinearProgress } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import {
   timerProgress,
-  // recordMulResp,
+  recordChoice,
   showMoneyOutcome,
   showAfterClickDelay,
+  setShowMoneyOutcome,
   setProgressStartTime,
   setTimerProgress,
-  pretask,
 } from "../../../slices/pretaskSlice";
 import { useRef, useEffect } from "react";
 
-export default function TrialTimer() {
+export default function TrialTimer({ pretask }) {
   const dispatch = useDispatch();
   const timerProgressS = useSelector(timerProgress);
   const progressStartTime = useRef(0);
   const showMoneyOutcomeS = useSelector(showMoneyOutcome);
   const showAfterClickDelayS = useSelector(showAfterClickDelay);
-  const pretaskS = useSelector(pretask);
   const timerInterval = useRef(null);
+  const delayLoadingInterval = useRef(null);
 
   const restartGameTimer = () => {
     clearInterval(timerInterval.current);
@@ -26,32 +26,42 @@ export default function TrialTimer() {
     dispatch(setProgressStartTime(progressStartTime.current));
     timerInterval.current = setInterval(() => {
       const timePassed = Date.now() - progressStartTime.current;
-      const progress = Math.round((timePassed * 100) / pretaskS.afkTimeout);
+      const progress = Math.round((timePassed * 100) / pretask.afkTimeout);
       dispatch(setTimerProgress(progress));
     }, 30);
   };
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     return () => {
-      // eslint-disable-next-line react-hooks/exhaustive-deps
       clearInterval(timerInterval.current);
+      clearInterval(delayLoadingInterval.current);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    if (showMoneyOutcomeS || showAfterClickDelayS) {
+    if (showMoneyOutcomeS) {
       // when showing delay or showing money outcome, pause progress bar
       clearInterval(timerInterval.current);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [showMoneyOutcomeS, showAfterClickDelayS]);
+  }, [showMoneyOutcomeS]);
+
+  useEffect(() => {
+    if (showAfterClickDelayS) {
+      delayLoadingInterval.current = setTimeout(() => {
+        dispatch(setShowMoneyOutcome(true));
+      }, pretask.choiceDelay)
+    }
+
+    return () => clearInterval(delayLoadingInterval.current);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [showAfterClickDelayS])
 
   useEffect(() => {
     if (timerProgressS >= 100) {
       clearInterval(timerInterval.current);
-      // dispatch(recordMulResp({ mul: 0, missed: true }));
+      dispatch(recordChoice({ missed: true }));
     }
     if (timerProgressS === 0) {
       restartGameTimer();

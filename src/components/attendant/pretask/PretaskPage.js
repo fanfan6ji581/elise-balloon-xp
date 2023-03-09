@@ -7,7 +7,7 @@ import {
   trialIndex,
   ballAQty,
   reset,
-  next,
+  recordChoice
 } from "../../../slices/pretaskSlice";
 import { useDispatch, useSelector } from "react-redux";
 import TrialTimerProgress from "./TrialTimerProgress";
@@ -18,8 +18,9 @@ import BallOption from "./BallOption"
 import BallOptionSkip from "./BallOptionSkip"
 import profitImg from "../../../assets/profit.png";
 import lossImg from "../../../assets/loss.png";
+import MoneyOutcome from "./MoneyOutcome";
 
-const PretaskPage = ({ isTrainingMode, onFinish }) => {
+const PretaskPage = () => {
   const dispatch = useDispatch();
   const { alias } = useParams()
   const [pretask, setPretask] = useState(null);
@@ -52,7 +53,10 @@ const PretaskPage = ({ isTrainingMode, onFinish }) => {
 
   // };
   const onSubmit = () => {
-    dispatch(next());
+    dispatch(recordChoice({
+      missed: false,
+      choices: [1, 2],
+    }));
   }
 
   useEffect(() => {
@@ -83,11 +87,11 @@ const PretaskPage = ({ isTrainingMode, onFinish }) => {
               <Typography variant="h5" align="center" sx={{ mt: 2, mb: 1 }}>
                 Trial: {trialIndexS + 1}
               </Typography>
-              <TrialTimerProgress />
+              <TrialTimerProgress pretask={pretask} />
               <Grid container>
                 <Grid item xs={12}>
                   <Box sx={{ height: 64, my: 1, textAlign: 'center' }}>
-                    TODO: display money outcome here
+                    <MoneyOutcome pretask={pretask} />
                   </Box>
                 </Grid>
               </Grid>

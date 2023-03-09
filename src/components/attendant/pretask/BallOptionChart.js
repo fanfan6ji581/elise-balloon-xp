@@ -2,7 +2,6 @@ import React from 'react';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
 import ChartDataLabels from "../../../lib/datalabel";
-import Box from '@mui/material/Box';
 
 ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels,);
 
@@ -11,8 +10,8 @@ const plugins = [
 ]
 
 export default function BallOptionChart({ type, winQty, lossQty, winCash, lossCash }) {
-    const winRatio = Math.round(5 * winQty / 100);
-    const lossRatio = Math.round(5 * lossQty / 100) || 1;
+    const winRatio = Math.round(10 * winQty / 100);
+    const lossRatio = Math.round(10 * lossQty / 100) || 1;
 
     const data = {
         datasets: [
@@ -37,7 +36,7 @@ export default function BallOptionChart({ type, winQty, lossQty, winCash, lossCa
             duration: 500,
         },
         layout: {
-            padding: 15,
+            padding: 0,
         },
         plugins: {
             datalabels: {
@@ -66,10 +65,18 @@ export default function BallOptionChart({ type, winQty, lossQty, winCash, lossCa
             tooltip: {
                 callbacks: {
                     label: function (context) {
-                        if (context.dataIndex === 0) {
-                            return `Blue count: ${context.parsed}`
+                        if (type === 'a') {
+                            if (context.dataIndex === 0) {
+                                return `Blue count: ${context.parsed}`
+                            } else {
+                                return `Green count: ${context.parsed}`
+                            }
                         } else {
-                            return `Green count: ${context.parsed}`
+                            if (context.dataIndex === 0) {
+                                return `Green count: ${context.parsed}`
+                            } else {
+                                return `Blue count: ${context.parsed}`
+                            }
                         }
                     }
                 }
@@ -77,7 +84,7 @@ export default function BallOptionChart({ type, winQty, lossQty, winCash, lossCa
         },
     }
 
-    return <Box sx={{ p: 3 }}>
-        <Pie data={data} options={options} plugins={plugins} />
-    </Box>
+    return <>
+        <Pie data={data} options={options} plugins={plugins} style={{ margin: 'auto' }} />
+    </>
 }

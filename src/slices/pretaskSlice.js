@@ -8,9 +8,10 @@ const initialState = {
     showAfterClickDelay: false,
 
     // internal data
-    pretask: null,
+    pretask: {},
     ballAQty: [],
     resetHistory: [],
+    ballPickHistory: [],
     choiceHistory: [],
     outcomeHistory: [],
     missHistory: [],
@@ -23,7 +24,17 @@ const pretaskSlice = createSlice({
     // The `reducers` field lets us define reducers and generate associated actions
     reducers: {
         recordChoice: (state, action) => {
-
+            const { choices, missed } = action.payload
+            state.choiceHistory.push(choices);
+            state.reactionHistory.push(Date.now() - state.progressStartTime);
+            state.missHistory.push(missed);
+            if (missed) {
+                state.outcomeHistory.push(state.pretask.missLose)
+            } else {
+                state.outcomeHistory.push(4);
+            }
+            // show a delay before next game start
+            state.showAfterClickDelay = true;
         },
         setShowMoneyOutcome: (state, action) => {
             state.showMoneyOutcome = action.payload;
@@ -40,6 +51,10 @@ const pretaskSlice = createSlice({
             state.showMoneyOutcome = false;
             state.timerProgress = 0;
             state.trialIndex++;
+            state.ballAQty.push(
+                Math.min(state.pretask.totalQty,
+                    state.ballAQty[state.trialIndex - 1] + state.pretask.x)
+            );
         },
         reset: (state, action) => {
             const pretask = action.payload;
@@ -47,11 +62,6 @@ const pretaskSlice = createSlice({
             state.trialIndex = 0;
             state.ballAQty = [pretask.ballAQty];
         },
-        next: (state, action) => {
-            state.trialIndex += 1;
-            state.ballAQty.push(state.ballAQty[state.trialIndex - 1] + state.pretask.x);
-
-        }
     },
 });
 
@@ -63,6 +73,7 @@ export const {
     setShowMoneyOutcome,
     reset,
     next,
+    recordChoice,
 } = pretaskSlice.actions;
 
 export const trialIndex = (state) => state.pretask.trialIndex;

@@ -517,12 +517,7 @@ function drawTextLine(ctx, text, cfg) {
     // lee changed
     if (texts.length === 2) {
       const imageSize = texts[1];
-      const imageWidth = imageSize === '0' ? 30 :
-        imageSize === '1' ? 36 :
-          imageSize === '2' ? 42 :
-            imageSize === '3' ? 48 :
-              imageSize === '4' ? 54 :
-                60;
+      let imageWidth = 32 + parseInt(imageSize) * 6
 
       const img = texts[0].startsWith('win') ? window.document.getElementById('profitImg') :
         window.document.getElementById('lossImg')
@@ -530,7 +525,8 @@ function drawTextLine(ctx, text, cfg) {
         ctx.drawImage(
           img
           , x + w / 2 - imageWidth / 2,
-          y - 1.375 * imageWidth, imageWidth, imageWidth);
+          y - 1.2 * imageWidth,
+          imageWidth, imageWidth);
       }
       ctx.fillText(texts[0], x, y, w);
     } else {
