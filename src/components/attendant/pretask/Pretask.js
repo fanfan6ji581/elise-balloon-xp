@@ -21,6 +21,8 @@ import lossImg from "../../../assets/loss.png";
 import coinImg from "../../../assets/coin.png";
 import trendDownImg from "../../../assets/trend_down.png";
 import trendUpImg from "../../../assets/trend_up.png";
+import outcomeLossImg from "../../../assets/outcome_loss.png";
+import outcomeProfitsImg from "../../../assets/outcome_profits.png";
 import MoneyOutcome from "./MoneyOutcome";
 
 const Pretask = ({ isTraining }) => {
@@ -77,6 +79,9 @@ const Pretask = ({ isTraining }) => {
     <>
       <img id="profitImg" src={profitImg} alt="coin" style={{ display: 'none' }} />
       <img id="lossImg" src={lossImg} alt="coin" style={{ display: 'none' }} />
+      <img id="coinImg" src={coinImg} alt="coin" style={{ display: 'none' }} />
+      <img id="outcomeLossImg" src={outcomeLossImg} alt="coin" style={{ display: 'none' }} />
+      <img id="outcomeProfitsImg" src={outcomeProfitsImg} alt="coin" style={{ display: 'none' }} />
       <img id="coinImg" src={coinImg} alt="coin" style={{ display: 'none' }} />
       <img id="trendUpImg" src={trendUpImg} alt="coin" style={{ display: 'none' }} />
       <img id="trendDownImg" src={trendDownImg} alt="coin" style={{ display: 'none' }} />
