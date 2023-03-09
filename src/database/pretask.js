@@ -16,7 +16,7 @@ const createPretask = (alias) => ({
     missLose: -1,
     x: 1,
     repeatLimit: 5,
-    outcomeShowTime: 2000,
+    outcomeShowTime: 0,
     afkTimeout: 4000,
     choiceDelay: 0,
 })

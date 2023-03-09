@@ -60,16 +60,6 @@ const schema = {
             "title": "Decision stage, milliseconds that allow attendant to do decision, e.g. 2000 ms = 2 sec",
             "default": 4000
         },
-        "choiceDelay": {
-            "type": "integer",
-            "title": "Delay in milliseconds after submit, 1000 ms = 1 sec",
-            "default": 0
-        },
-        "outcomeShowTime": {
-            "type": "integer",
-            "title": "Outcome stage, millisecond showing the output result, 2000 ms = 2 sec",
-            "default": 0
-        },
     }
 };
 
