@@ -3,7 +3,7 @@ import * as _ from "lodash";
 import { useEffect, useState } from "react";
 
 const blue = '#6495ED';
-const green = '#AFE1AF'
+const green = '#50C878'
 
 export default function Jar({ ballAQty, totalQty }) {
   const getData = () => _.shuffle([

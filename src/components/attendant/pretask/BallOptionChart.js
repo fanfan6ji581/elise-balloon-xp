@@ -10,7 +10,7 @@ const plugins = [
 ]
 
 const blue = '#6495ED';
-const green = '#AFE1AF'
+const green = '#50C878'
 
 export default function BallOptionChart({ type, winQty, lossQty, winCash, lossCash }) {
     const winRatio = Math.round(10 * winQty / 100);
