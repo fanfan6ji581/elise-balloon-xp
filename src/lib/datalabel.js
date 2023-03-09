@@ -516,18 +516,41 @@ function drawTextLine(ctx, text, cfg) {
     const texts = text.split('|');
     // lee changed
     if (texts.length === 2) {
+      const coinCount = parseInt(texts[0].replace(/[^\d]/g, ''))
       const imageSize = texts[1];
       let imageWidth = 32 + parseInt(imageSize) * 6
 
-      const img = texts[0].startsWith('win') ? window.document.getElementById('profitImg') :
-        window.document.getElementById('lossImg')
-      if (img) {
-        ctx.drawImage(
-          img
-          , x + w / 2 - imageWidth / 2,
-          y - 1.2 * imageWidth,
-          imageWidth, imageWidth);
+      // const img = texts[0].startsWith('win') ? window.document.getElementById('profitImg') :
+      //   window.document.getElementById('lossImg')
+      // if (img) {
+      //   ctx.drawImage(
+      //     img
+      //     , x + w / 2 - imageWidth / 2,
+      //     y - 1.2 * imageWidth,
+      //     imageWidth, imageWidth);
+      // }
+
+      const trendUpImg = window.document.getElementById('trendUpImg')
+      const trendDownImg = window.document.getElementById('trendDownImg')
+
+      for (let i = 0; i < coinCount; i++) {
+        const coinImg = window.document.getElementById('coinImg')
+        if (coinImg) {
+          ctx.drawImage(
+            coinImg
+            , x + w / 2 - imageWidth / 2 - 10 + i * 9,
+            y - 1.2 * imageWidth,
+            imageWidth, imageWidth);
+        }
       }
+
+      let img = texts[0].startsWith('win') ? trendUpImg : trendDownImg;
+      ctx.drawImage(
+        img
+        , x + w / 2 - imageWidth + coinCount * 9,
+        y - 2 * imageWidth,
+        imageWidth, imageWidth);
+
       ctx.fillText(texts[0], x, y, w);
     } else {
       ctx.fillText(texts[0], x, y, w);

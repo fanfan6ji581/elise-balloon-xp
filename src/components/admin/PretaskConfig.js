@@ -68,7 +68,7 @@ const schema = {
         "outcomeShowTime": {
             "type": "integer",
             "title": "Outcome stage, millisecond showing the output result, 2000 ms = 2 sec",
-            "default": 2000
+            "default": 0
         },
     }
 };

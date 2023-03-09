@@ -2,6 +2,9 @@
 import * as _ from "lodash";
 import { useEffect, useState } from "react";
 
+const blue = '#6495ED';
+const green = '#AFE1AF'
+
 export default function Jar({ ballAQty, totalQty }) {
   const getData = () => _.shuffle([
     ...Array.from({ length: ballAQty }).fill({
@@ -51,7 +54,7 @@ export default function Jar({ ballAQty, totalQty }) {
                 margin: '1px 2px',
                 borderRadius: '50%',
                 border: '1px #333 solid',
-                backgroundColor: ball.type === 'a' ? 'rgba(54, 162, 235, 1)' : 'rgba(75, 192, 192, 1)',
+                backgroundColor: ball.type === 'a' ? blue : green,
                 position: 'relative',
                 top: `${Math.round(Math.random() * 4) - 2}px`,
                 bottom: `${Math.round(Math.random() * 4) - 2}px`,

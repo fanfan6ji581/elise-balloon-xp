@@ -9,6 +9,9 @@ const plugins = [
     ChartDataLabels,
 ]
 
+const blue = '#6495ED';
+const green = '#AFE1AF'
+
 export default function BallOptionChart({ type, winQty, lossQty, winCash, lossCash }) {
     const winRatio = Math.round(10 * winQty / 100);
     const lossRatio = Math.round(10 * lossQty / 100) || 1;
@@ -19,14 +22,14 @@ export default function BallOptionChart({ type, winQty, lossQty, winCash, lossCa
                 label: 'count',
                 data: [winQty, lossQty],
                 backgroundColor: [
-                    type === 'a' ? 'rgba(54, 162, 235, 0.75)' : 'rgba(75, 192, 192, 0.75)',
-                    type === 'a' ? 'rgba(75, 192, 192, 0.75)' : 'rgba(54, 162, 235, 0.75)',
+                    type === 'a' ? blue : green,
+                    type === 'a' ? green : blue,
                 ],
-                borderColor: [
-                    type === 'a' ? 'rgba(54, 162, 235, 1)' : 'rgba(75, 192, 192, 1)',
-                    type === 'a' ? 'rgba(75, 192, 192, 1)' : 'rgba(54, 162, 235, 1)',
-                ],
-                borderWidth: 1,
+                // borderColor: [
+                //     type === 'a' ? '#7FFFD4	' : 'rgba(75, 192, 192, 1)',
+                //     type === 'a' ? 'rgba(75, 192, 192, 1)' : '#7FFFD4	',
+                // ],
+                // borderWidth: 1,
             },
         ],
     };
