@@ -496,6 +496,7 @@ function textGeometry(rect, align, font) {
 }
 
 function drawTextLine(ctx, text, cfg) {
+  debugger
   var shadow = ctx.shadowBlur;
   var stroked = cfg.stroked;
   var x = rasterize(cfg.x);
@@ -514,26 +515,28 @@ function drawTextLine(ctx, text, cfg) {
     }
 
     const texts = text.split('|');
-    const imageSize = texts[1];
-    const imageWidth = imageSize === '0' ? 30 :
-      imageSize === '1' ? 36 :
-        imageSize === '2' ? 42 :
-          imageSize === '3' ? 48 :
-            imageSize === '4' ? 54 :
-              60;
-
-    const img = texts[0].startsWith('win') ? window.document.getElementById('profitImg') :
-      window.document.getElementById('lossImg')
     // lee changed
-    if (img) {
-      ctx.drawImage(
-        img
-        , x - imageWidth / 2,
-        y - imageWidth / 2, imageWidth, imageWidth);
+    if (texts.length === 2) {
+      const imageSize = texts[1];
+      const imageWidth = imageSize === '0' ? 30 :
+        imageSize === '1' ? 36 :
+          imageSize === '2' ? 42 :
+            imageSize === '3' ? 48 :
+              imageSize === '4' ? 54 :
+                60;
+
+      const img = texts[0].startsWith('win') ? window.document.getElementById('profitImg') :
+        window.document.getElementById('lossImg')
+      if (img) {
+        ctx.drawImage(
+          img
+          , x - imageWidth / 2,
+          y - imageWidth / 2, imageWidth, imageWidth);
+      }
+      ctx.fillText(texts[0], x + imageWidth / 2, y, w);
+    } else {
+      ctx.fillText(texts[0], x, y, w);
     }
-
-
-    ctx.fillText(texts[0], x + imageWidth / 2, y, w);
 
     if (shadow && stroked) {
       ctx.shadowBlur = shadow;

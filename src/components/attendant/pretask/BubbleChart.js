@@ -72,7 +72,7 @@ export default class BubbleChart extends Component {
             .force(
                 "forceX",
                 d3
-                    .forceX()
+                    .forceX(5)
                     .strength(0.1)
                     .x(width * 0.5)
             )
@@ -81,17 +81,17 @@ export default class BubbleChart extends Component {
                 d3
                     .forceY()
                     .strength(0.1)
-                    .y(height * 0.5)
+                    .y(height * 1)
             )
-            .force(
-                "center",
-                d3
-                    .forceCenter()
-                    .x(width * 0.5)
-                    .y(height * 0.5)
-            )
+            // .force(
+            //     "center",
+            //     d3
+            //         .forceCenter()
+            //         .x(width * 0.5)
+            //         .y(height * 0.75)
+            // )
             .force("charge", d3.forceManyBody().strength(-15));
-        this.simulation.tick(50)
+        // this.simulation.tick(50)
 
         let nodeg = d3
             .select(node)
