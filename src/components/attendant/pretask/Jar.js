@@ -42,19 +42,21 @@ export default function Jar({ ballAQty, totalQty }) {
           alignItems: 'end',
           justifyContent: 'center'
         }}>
-          {data.map(ball => {
-            return <div style={{
-              width: '36px',
-              height: '36px',
-              margin: '1px 2px',
-              borderRadius: '50%',
-              backgroundColor: ball.type === 'a' ? 'rgba(54, 162, 235, 1)' : 'rgba(75, 192, 192, 1)',
-              position: 'relative',
-              top: `${Math.round(Math.random() * 4) - 2}px`,
-              bottom: `${Math.round(Math.random() * 4) - 2}px`,
-              left: `${Math.round(Math.random() * 4) - 2}px`,
-              right: `${Math.round(Math.random() * 4) - 2}px`,
-            }}></div>
+          {data.map((ball, i) => {
+            return <div
+              key={i}
+              style={{
+                width: '36px',
+                height: '36px',
+                margin: '1px 2px',
+                borderRadius: '50%',
+                backgroundColor: ball.type === 'a' ? 'rgba(54, 162, 235, 1)' : 'rgba(75, 192, 192, 1)',
+                position: 'relative',
+                top: `${Math.round(Math.random() * 4) - 2}px`,
+                bottom: `${Math.round(Math.random() * 4) - 2}px`,
+                left: `${Math.round(Math.random() * 4) - 2}px`,
+                right: `${Math.round(Math.random() * 4) - 2}px`,
+              }}></div>
           })}
         </div>
       </div>

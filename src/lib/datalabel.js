@@ -529,10 +529,10 @@ function drawTextLine(ctx, text, cfg) {
       if (img) {
         ctx.drawImage(
           img
-          , x - imageWidth / 2,
-          y - imageWidth / 2, imageWidth, imageWidth);
+          , x + w / 2 - imageWidth / 2,
+          y - 1.375 * imageWidth, imageWidth, imageWidth);
       }
-      ctx.fillText(texts[0], x + imageWidth / 2, y, w);
+      ctx.fillText(texts[0], x, y, w);
     } else {
       ctx.fillText(texts[0], x, y, w);
     }
