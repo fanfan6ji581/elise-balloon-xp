@@ -19,12 +19,12 @@ export default function BallOptionSkip() {
             }}
             onClick={() => onClick()}>
             <div style={{
-                width: '300px',
-                height: '300px',
+                width: '360px',
+                height: '360px',
                 borderRadius: '50%',
                 background: '#A9A9A9',
                 margin: '0 auto',
-                padding: '135px 0',
+                padding: '165px 0',
                 textAlign: 'center',
                 fontSize: 20,
                 color: 'white'

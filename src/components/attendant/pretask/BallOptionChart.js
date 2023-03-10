@@ -35,6 +35,7 @@ export default function BallOptionChart({ type, winQty, lossQty, winCash, lossCa
     };
 
     const options = {
+        responsive: false,
         animation: {
             duration: 500,
         },
@@ -55,7 +56,7 @@ export default function BallOptionChart({ type, winQty, lossQty, winCash, lossCa
                     },
                     value: {
                         // color: 'red'
-                    }
+                    },
                 },
                 formatter: function (val, context) {
                     if (context.dataIndex === 0) {
@@ -88,6 +89,6 @@ export default function BallOptionChart({ type, winQty, lossQty, winCash, lossCa
     }
 
     return <>
-        <Pie data={data} options={options} plugins={plugins} style={{ margin: 'auto' }} />
+        <Pie width={360} height={360} data={data} options={options} plugins={plugins} style={{ margin: 'auto' }} />
     </>
 }

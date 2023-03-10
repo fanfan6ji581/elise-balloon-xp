@@ -36,6 +36,7 @@ const pretaskSlice = createSlice({
             if (missed) {
                 state.outcomeHistory.push(state.pretask.missLose)
             } else {
+                // calculate outcome
                 state.outcomeHistory.push(4);
             }
             // show a delay before next game start
