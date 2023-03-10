@@ -144,7 +144,7 @@ const Pretask = ({ isTraining }) => {
                 </Grid>
               </Grid>
             </Grid>
-            <Button variant="contained" onClick={() => onSubmit()} sx={{ my: 3 }}>Submit</Button>
+            <Button variant="contained" onClick={() => onSubmit()} sx={{ my: 1 }}>Submit</Button>
           </Grid>
         </Container>
       }

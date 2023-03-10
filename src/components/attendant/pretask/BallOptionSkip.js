@@ -12,11 +12,9 @@ export default function BallOptionSkip() {
         dispatch(updateBet({ type: "skip", value: !betSkipS }));
     }
 
-    return <Box sx={{ p: 1, }}>
+    return <Box sx={{ px: 0.1, }}>
         <Box className={`card ${betSkipS ? 'cardactive' : ''}`}
-            style={{
-                padding: '24px 0',
-            }}
+            sx={{ py: 1, px: 2 }}
             onClick={() => onClick()}>
             <div style={{
                 width: '360px',
@@ -29,7 +27,7 @@ export default function BallOptionSkip() {
                 fontSize: 20,
                 color: 'white'
             }}>get $0 with certainty</div>
-            <Box sx={{ textAlign: 'center', mt: 3 }}>
+            <Box sx={{ textAlign: 'center', mt: 2 }}>
                 <Typography variant="h5">Skip</Typography>
             </Box>
         </Box>
