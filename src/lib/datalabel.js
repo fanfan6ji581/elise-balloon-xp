@@ -518,57 +518,29 @@ function drawTextLine(ctx, text, cfg) {
     if (texts.length === 2) {
       const coinCount = parseInt(texts[0].replace(/[^\d]/g, ''))
       const imageSize = texts[1];
-      let imageWidth = 32 + parseInt(imageSize) * (coinCount === 5 ? 7 : 6)
+      let imageWidth = 28 + parseInt(imageSize) * (coinCount === 5 ? 6 : 5)
 
       // const trendUpImg = window.document.getElementById('trendUpImg')
-      const trendDownImg = window.document.getElementById('trendDownImg')
-      const laughingImg = window.document.getElementById('laughingImg')
+      const downRightImg = window.document.getElementById('downRightImg')
+      const happyImg = window.document.getElementById('happyImg')
       
       for (let i = 0; i < coinCount; i++) {
         const coinImg = window.document.getElementById('coinImg')
         if (coinImg) {
           ctx.drawImage(
             coinImg
-            , x + w / 2 - imageWidth / 2 - (imageWidth / 3) + i * (imageWidth / 6),
+            , x + w / 2 - imageWidth / 2 - (imageWidth / 3) + i * (imageWidth / 8),
             y - 1.25 * imageWidth,
             imageWidth, imageWidth);
         }
       }
 
-      let img = texts[0].startsWith('win') ? laughingImg : trendDownImg;
+      let img = texts[0].startsWith('win') ? happyImg : downRightImg;
       ctx.drawImage(
         img
-        , x + w / 2 - imageWidth + coinCount * 9,
+        , x + w / 2 - imageWidth * 0.9 + coinCount * 6,
         y + 12,
         imageWidth * 0.75, imageWidth * 0.75);
-
-      // if (texts[0].startsWith('win')) {
-      //   ctx.fillText(
-      //     "😀"
-      //     , x + w / 2 - imageWidth + coinCount * 9,
-      //     y + 8, 20);
-      // } else {
-      //   ctx.drawImage(
-      //     trendDownImg
-      //     , x + w / 2 - imageWidth + coinCount * 9,
-      //     y + 8,
-      //     imageWidth, imageWidth);
-      // }
-      // if (texts[0].startsWith('win')) {
-      //   let img = outcomeProfitsImg;
-      //   ctx.drawImage(
-      //     img
-      //     , x + w / 2 - imageWidth / 2 - 10 + (coinCount - 1) * 9,
-      //     y - 1.55 * imageWidth,
-      //     imageWidth * 1.4, imageWidth * 1.4);
-      // } else {
-      //   let img = outcomeLossImg;
-      //   ctx.drawImage(
-      //     img
-      //     , x + w / 2 - imageWidth / 2 - 10 + (coinCount - 1) * 9,
-      //     y - 1.2 * imageWidth,
-      //     imageWidth * 1.38, imageWidth * 1.38);
-      // }
 
 
       ctx.fillText(texts[0], x, y, w);
