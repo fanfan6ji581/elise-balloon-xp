@@ -518,7 +518,7 @@ function drawTextLine(ctx, text, cfg) {
     if (texts.length === 2) {
       const coinCount = parseInt(texts[0].replace(/[^\d]/g, ''))
       const imageSize = texts[1];
-      let imageWidth = 28 + parseInt(imageSize) * (coinCount === 5 ? 6 : 5)
+      let imageWidth = 28 + parseInt(imageSize) * (coinCount === 5 ? 5.5 : 5)
 
       // const trendUpImg = window.document.getElementById('trendUpImg')
       const downRightImg = window.document.getElementById('downRightImg')
@@ -529,7 +529,7 @@ function drawTextLine(ctx, text, cfg) {
         if (coinImg) {
           ctx.drawImage(
             coinImg
-            , x + w / 2 - imageWidth / 2 - (imageWidth / 3) + i * (imageWidth / 8),
+            , x + w / 2 - imageWidth / 2 - (imageWidth / 3) + i * (imageWidth / 10),
             y - 1.25 * imageWidth,
             imageWidth, imageWidth);
         }
@@ -540,7 +540,7 @@ function drawTextLine(ctx, text, cfg) {
         img
         , x + w / 2 - imageWidth * 0.9 + coinCount * 6,
         y + 12,
-        imageWidth * 0.75, imageWidth * 0.75);
+        imageWidth * 0.85, imageWidth * 0.85);
 
 
       ctx.fillText(texts[0], x, y, w);
