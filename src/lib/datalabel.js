@@ -540,8 +540,8 @@ function drawTextLine(ctx, text, cfg) {
         img
         , x + w / 2 - imageWidth * 1 + coinCount * 3,
         y + 12,
-        coinCount * 16,
-        coinCount * 16,
+        12 + coinCount * (texts[0].startsWith('win') ? 10 : 11),
+        12 + coinCount * (texts[0].startsWith('win') ? 10 : 11),
       );
 
 

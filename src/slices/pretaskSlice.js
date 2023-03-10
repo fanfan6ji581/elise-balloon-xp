@@ -16,9 +16,10 @@ const initialState = {
     pretask: {},
     ballAQty: [],
     resetHistory: [],
-    ballPickHistory: [],
-    choiceHistory: [],
-    outcomeHistory: [],
+    betResultHistory: [],
+    betHistory: [],
+    betChosenHistory: [],
+    moneyOutcomeHistory: [],
     missHistory: [],
     reactionHistory: [],
 };
@@ -29,15 +30,49 @@ const pretaskSlice = createSlice({
     // The `reducers` field lets us define reducers and generate associated actions
     reducers: {
         recordChoice: (state, action) => {
-            const { choices, missed } = action.payload
-            state.choiceHistory.push(choices);
+            const { bets, missed } = action.payload
+            state.betHistory.push(bets);
             state.reactionHistory.push(Date.now() - state.progressStartTime);
             state.missHistory.push(missed);
+            const betResult = Math.round(Math.random() * 100) < state.ballAQty[state.trialIndex] ?
+                'a' : 'b';
+            state.betResultHistory.push(betResult);
             if (missed) {
-                state.outcomeHistory.push(state.pretask.missLose)
+                state.moneyOutcomeHistory.push(state.pretask.missLose)
+                state.betChosenHistory.push('')
             } else {
-                // calculate outcome
-                state.outcomeHistory.push(4);
+                // calculate moneyOutcome
+                let bet = bets[0];
+                if (state.bets.length > 1 && Math.random() > 0.5) {
+                    bet = bets[1];
+                }
+                let moneyOutcome;
+
+                if (bet === 'skip') {
+                    moneyOutcome = 0;
+                }
+                if (betResult === 'a') {
+                    if (bet === 'a') {
+                        moneyOutcome = state.pretask.ballAWin;
+                    }
+                }
+                if (betResult === 'b') {
+                    if (bet === 'a') {
+                        moneyOutcome = state.pretask.ballALose;
+                    }
+                }
+                if (betResult === 'b') {
+                    if (bet === 'a') {
+                        moneyOutcome = state.pretask.ballBLose;
+                    }
+                }
+                if (betResult === 'b') {
+                    if (bet === 'b') {
+                        moneyOutcome = state.pretask.ballBWin;
+                    }
+                }
+                state.betChosenHistory.push(bet)
+                state.moneyOutcomeHistory.push(moneyOutcome);
             }
             // show a delay before next game start
             state.showAfterClickDelay = true;
@@ -57,6 +92,11 @@ const pretaskSlice = createSlice({
             state.showMoneyOutcome = false;
             state.timerProgress = 0;
             state.trialIndex++;
+            state.bets = [];
+            state.betA = false;
+            state.betB = false;
+            state.betSkip = false;
+
             state.ballAQty.push(
                 Math.max(0,
                     Math.min(state.pretask.totalQty,
@@ -105,7 +145,7 @@ export const showAfterClickDelay = (state) => state.pretask.showAfterClickDelay;
 export const timerProgress = (state) => state.pretask.timerProgress;
 export const showMoneyOutcome = (state) => state.pretask.showMoneyOutcome;
 export const choiceHistory = (state) => state.pretask.choiceHistory;
-export const outcomeHistory = (state) => state.pretask.outcomeHistory;
+export const moneyOutcomeHistory = (state) => state.pretask.moneyOutcomeHistory;
 export const missHistory = (state) => state.pretask.missHistory;
 export const reactionHistory = (state) => state.pretask.reactionHistory;
 export const pretask = (state) => state.pretask.pretask;

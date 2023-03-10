@@ -4,7 +4,7 @@ import outcome_profits from '../../../assets/outcome_profits.png';
 import { motion } from "framer-motion";
 import { Box, Typography, CardMedia, CardContent } from "@mui/material";
 import {
-    showMoneyOutcome, outcomeHistory,
+    showMoneyOutcome, moneyOutcomeHistory,
     missHistory,
     trialIndex, nextTrial
 } from "../../../slices/pretaskSlice";
@@ -14,7 +14,7 @@ export default function MoneyOutcome({ pretask }) {
     const dispatch = useDispatch();
     const loadingInterval = useRef(null);
     const showMoneyOutcomeS = useSelector(showMoneyOutcome);
-    const outcomeHistoryS = useSelector(outcomeHistory);
+    const outcomeHistoryS = useSelector(moneyOutcomeHistory);
     const missHistoryS = useSelector(missHistory);
     const trialIndexS = useSelector(trialIndex);
     const { outcomeShowTime } = pretask;

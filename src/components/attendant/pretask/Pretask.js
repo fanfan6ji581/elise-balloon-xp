@@ -7,7 +7,8 @@ import {
   trialIndex,
   ballAQty,
   reset,
-  recordChoice
+  recordChoice,
+  bets,
 } from "../../../slices/pretaskSlice";
 import { useDispatch, useSelector } from "react-redux";
 import TrialTimerProgress from "./TrialTimerProgress";
@@ -41,6 +42,7 @@ const Pretask = ({ isTraining }) => {
   // const loginAttendantS = useSelector(loginAttendant);
   const trialIndexS = useSelector(trialIndex);
   const ballAQtyS = useSelector(ballAQty);
+  const betsS = useSelector(bets);
   // const choiceHistoryS = useSelector(choiceHistory);
   // const outcomeHistoryS = useSelector(outcomeHistory);
   // const missHistoryS = useSelector(missHistory);
@@ -63,7 +65,7 @@ const Pretask = ({ isTraining }) => {
   const onSubmit = () => {
     dispatch(recordChoice({
       missed: false,
-      choices: [1, 2],
+      bets: betsS,
     }));
   }
 
@@ -91,7 +93,7 @@ const Pretask = ({ isTraining }) => {
       <img id="laughingImg" src={laughingImg} alt="coin" style={{ display: 'none' }} />
       <img id="happyImg" src={happyImg} alt="coin" style={{ display: 'none' }} />
       <img id="downRightImg" src={downRightImg} alt="coin" style={{ display: 'none' }} />
-      
+
       <Backdrop
         sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={loadingOpen}>
@@ -114,7 +116,7 @@ const Pretask = ({ isTraining }) => {
               </Grid>
               <Grid container alignItems="center" sx={{ mt: 5 }}>
                 <Grid item xs={12}>
-                  <Jar totalQty={pretask.totalQty} ballAQty={ballAQtyS[trialIndexS]} />
+                  <Jar />
                 </Grid>
 
                 <Grid container alignItems="center" sx={{ mt: 1 }}>
@@ -144,7 +146,9 @@ const Pretask = ({ isTraining }) => {
                 </Grid>
               </Grid>
             </Grid>
-            <Button variant="contained" onClick={() => onSubmit()} sx={{ my: 1 }}>Submit</Button>
+            <Button variant="contained"
+              disabled={betsS.length === 0} 
+              onClick={() => onSubmit()} sx={{ mt: 3, mb: 1 }}>Submit</Button>
           </Grid>
         </Container>
       }
