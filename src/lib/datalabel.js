@@ -538,9 +538,11 @@ function drawTextLine(ctx, text, cfg) {
       let img = texts[0].startsWith('win') ? happyImg : downRightImg;
       ctx.drawImage(
         img
-        , x + w / 2 - imageWidth * 1 + coinCount * 6,
+        , x + w / 2 - imageWidth * 1 + coinCount * 3,
         y + 12,
-        50, 50);
+        coinCount * 16,
+        coinCount * 16,
+      );
 
 
       ctx.fillText(texts[0], x, y, w);
