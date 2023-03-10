@@ -524,28 +524,42 @@ function drawTextLine(ctx, text, cfg) {
       const downRightImg = window.document.getElementById('downRightImg')
       const happyImg = window.document.getElementById('happyImg')
 
-      for (let i = 0; i < coinCount; i++) {
-        const coinImg = window.document.getElementById('coinImg')
-        if (coinImg) {
-          ctx.drawImage(
-            coinImg
-            , x + w / 2 - imageWidth / 2 - (imageWidth / 3) + i * (imageWidth / 10),
-            y - 1.25 * imageWidth,
-            imageWidth, imageWidth);
+      if (texts[0].startsWith('win')) {
+        for (let i = 0; i < coinCount; i++) {
+          const coinImg = window.document.getElementById('coinImg')
+          if (coinImg) {
+            ctx.drawImage(
+              coinImg
+              , x + w / 2 - imageWidth / 2 - (imageWidth / 3) + i * (imageWidth / 10),
+              y - 1.25 * imageWidth,
+              imageWidth, imageWidth);
+          }
         }
       }
 
       let img = texts[0].startsWith('win') ? happyImg : downRightImg;
-      ctx.drawImage(
-        img
-        , x + w / 2 - imageWidth * 1 + coinCount * 3,
-        y + 12,
-        12 + coinCount * (texts[0].startsWith('win') ? 10 : 11),
-        12 + coinCount * (texts[0].startsWith('win') ? 10 : 11),
-      );
+      if (texts[0].startsWith('win')) {
+        // win
+        ctx.drawImage(
+          img
+          , x + w / 2 - imageWidth * 1 + coinCount * 3,
+          y + 12,
+          12 + coinCount * (texts[0].startsWith('win') ? 10 : 11),
+          12 + coinCount * (texts[0].startsWith('win') ? 10 : 11),
+        );
+        ctx.fillText(texts[0], x, y, w);
+      } else {
+        // loss
+        ctx.drawImage(
+          img
+          , x + w / 2 - imageWidth * 1 + coinCount * 4,
+          y - 10,
+          12 + coinCount * (texts[0].startsWith('win') ? 10 : 11),
+          12 + coinCount * (texts[0].startsWith('win') ? 10 : 11),
+        );
+        ctx.fillText(texts[0], x, y - 22, w);
+      }
 
-
-      ctx.fillText(texts[0], x, y, w);
     } else {
       ctx.fillText(texts[0], x, y, w);
     }
