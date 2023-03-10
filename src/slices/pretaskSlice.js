@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, current } from '@reduxjs/toolkit';
 
 const initialState = {
     trialIndex: 0,
@@ -8,6 +8,11 @@ const initialState = {
     showAfterClickDelay: false,
 
     // internal data
+    bets: [],
+    betA: false,
+    betB: false,
+    betSkip: false,
+
     pretask: {},
     ballAQty: [],
     resetHistory: [],
@@ -62,6 +67,21 @@ const pretaskSlice = createSlice({
             state.trialIndex = 0;
             state.ballAQty = [pretask.ballAQty];
         },
+        updateBet: (state, action) => {
+            const { type, value } = action.payload;
+            if (value && !state.bets.includes(type)) {
+                state.bets.push(type);
+                if (current(state.bets).length > 2) {
+                    state.bets.shift();
+                }
+            } else {
+                state.bets = state.bets.filter(v => v !== type);
+            }
+
+            state.betA = state.bets.includes("a");
+            state.betB = state.bets.includes("b");;
+            state.betSkip = state.bets.includes("skip");;
+        },
     },
 });
 
@@ -74,6 +94,7 @@ export const {
     reset,
     next,
     recordChoice,
+    updateBet,
 } = pretaskSlice.actions;
 
 export const trialIndex = (state) => state.pretask.trialIndex;
@@ -86,5 +107,9 @@ export const outcomeHistory = (state) => state.pretask.outcomeHistory;
 export const missHistory = (state) => state.pretask.missHistory;
 export const reactionHistory = (state) => state.pretask.reactionHistory;
 export const pretask = (state) => state.pretask.pretask;
+export const betA = (state) => state.pretask.betA;
+export const betB = (state) => state.pretask.betB;
+export const betSkip = (state) => state.pretask.betSkip;
+export const bets = (state) => state.pretask.bets;
 
 export default pretaskSlice.reducer;

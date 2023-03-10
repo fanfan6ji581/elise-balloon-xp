@@ -1,14 +1,20 @@
-import { React, useState } from "react";
+import { React } from "react";
 import { Box, Typography } from '@mui/material';
 import BallOptionChart from "./BallOptionChart"
 import { Global, css } from '@emotion/react'
-
+import { betA, betB, updateBet, } from "../../../slices/pretaskSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function BallOption({ type, winQty, lossQty, winCash, lossCash, label }) {
-    const [active, setActive] = useState(false)
+    const dispatch = useDispatch();
+    const betAS = useSelector(betA);
+    const betBS = useSelector(betB);
 
     const onClick = () => {
-        setActive(!active);
+        dispatch(updateBet({
+            type,
+            value: type === 'a' ? !betAS : !betBS
+        }));
     }
 
     return <>
@@ -28,7 +34,7 @@ export default function BallOption({ type, winQty, lossQty, winCash, lossCash, l
         />
 
         <Box sx={{ p: 1 }}>
-            <Box sx={{ py: 3 }} className={`card ${active ? 'cardactive' : ''}`} onClick={() => onClick()}>
+            <Box sx={{ py: 3 }} className={`card ${(type === 'a' ? betAS : betBS) ? 'cardactive' : ''}`} onClick={() => onClick()}>
                 <BallOptionChart
                     type={type}
                     winQty={winQty}

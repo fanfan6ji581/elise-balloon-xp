@@ -87,7 +87,7 @@ const Pretask = ({ isTraining }) => {
       <img id="trendUpImg" src={trendUpImg} alt="coin" style={{ display: 'none' }} />
       <img id="trendDownImg" src={trendDownImg} alt="coin" style={{ display: 'none' }} />
       <img id="laughingImg" src={laughingImg} alt="coin" style={{ display: 'none' }} />
-      
+
       <Backdrop
         sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={loadingOpen}>
@@ -98,7 +98,7 @@ const Pretask = ({ isTraining }) => {
           <Grid container justifyContent="center">
             <Grid item xs={12}>
               <Typography variant="h5" align="center" sx={{ mt: 2, mb: 1 }}>
-                Trial: {trialIndexS + 1}
+                {isTraining ? 'Training' : ''} Trial: {trialIndexS + 1}
               </Typography>
               <TrialTimerProgress pretask={pretask} />
               <Grid container>
@@ -108,7 +108,7 @@ const Pretask = ({ isTraining }) => {
                   </Box>
                 </Grid>
               </Grid>
-              <Grid container alignItems="center" sx={{mt: 5}}>
+              <Grid container alignItems="center" sx={{ mt: 5 }}>
                 <Grid item xs={12}>
                   <Jar totalQty={pretask.totalQty} ballAQty={ballAQtyS[trialIndexS]} />
                 </Grid>
