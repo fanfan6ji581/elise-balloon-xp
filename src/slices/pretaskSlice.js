@@ -58,8 +58,9 @@ const pretaskSlice = createSlice({
             state.timerProgress = 0;
             state.trialIndex++;
             state.ballAQty.push(
-                Math.min(state.pretask.totalQty,
-                    state.ballAQty[state.trialIndex - 1] + state.pretask.x)
+                Math.max(0,
+                    Math.min(state.pretask.totalQty,
+                        state.ballAQty[state.trialIndex - 1] + state.pretask.x))
             );
         },
         reset: (state, action) => {

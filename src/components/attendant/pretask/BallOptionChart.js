@@ -13,9 +13,6 @@ const blue = '#6495ED';
 const green = '#50C878'
 
 export default function BallOptionChart({ type, winQty, lossQty, winCash, lossCash }) {
-    const winRatio = Math.round(10 * winQty / 100);
-    const lossRatio = Math.round(10 * lossQty / 100) || 1;
-
     const data = {
         datasets: [
             {
@@ -25,11 +22,11 @@ export default function BallOptionChart({ type, winQty, lossQty, winCash, lossCa
                     type === 'a' ? blue : green,
                     type === 'a' ? green : blue,
                 ],
-                // borderColor: [
-                //     type === 'a' ? '#7FFFD4	' : 'rgba(75, 192, 192, 1)',
-                //     type === 'a' ? 'rgba(75, 192, 192, 1)' : '#7FFFD4	',
-                // ],
-                // borderWidth: 1,
+                borderColor: [
+                    type === 'a' ? blue : green,
+                    type === 'a' ? green : blue,
+                ],
+                borderWidth: 1,
             },
         ],
     };
@@ -37,7 +34,7 @@ export default function BallOptionChart({ type, winQty, lossQty, winCash, lossCa
     const options = {
         responsive: false,
         animation: {
-            duration: 500,
+            duration: 0,
         },
         layout: {
             padding: 0,
@@ -60,9 +57,9 @@ export default function BallOptionChart({ type, winQty, lossQty, winCash, lossCa
                 },
                 formatter: function (val, context) {
                     if (context.dataIndex === 0) {
-                        return `win $${winCash}|${winRatio}`;
+                        return lossQty === 100 ? '' : `win $${winCash}|`;
                     } else {
-                        return `lose -$${-lossCash}|${lossRatio}`;
+                        return winQty === 100 ? '' : `lose -$${-lossCash}|`;
                     }
                 }
             },

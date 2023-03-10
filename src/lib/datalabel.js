@@ -540,7 +540,7 @@ function drawTextLine(ctx, text, cfg) {
         img
         , x + w / 2 - imageWidth * 1 + coinCount * 6,
         y + 12,
-        40, 40);
+        50, 50);
 
 
       ctx.fillText(texts[0], x, y, w);
