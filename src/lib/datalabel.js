@@ -530,7 +530,7 @@ function drawTextLine(ctx, text, cfg) {
           if (coinImg) {
             ctx.drawImage(
               coinImg
-              , x + w / 2 - imageWidth / 2 - (imageWidth / 3) + i * (imageWidth / 10),
+              , x + w / 2 - imageWidth / 1.5 + i * (imageWidth / 10),
               y - 1.25 * imageWidth,
               imageWidth, imageWidth);
           }
@@ -542,7 +542,7 @@ function drawTextLine(ctx, text, cfg) {
         // win
         ctx.drawImage(
           img
-          , x + w / 2 - imageWidth * 1 + coinCount * 3,
+          , x + w / 2 - imageWidth * 1 + coinCount * 6,
           y + 12,
           12 + coinCount * (texts[0].startsWith('win') ? 10 : 11),
           12 + coinCount * (texts[0].startsWith('win') ? 10 : 11),
