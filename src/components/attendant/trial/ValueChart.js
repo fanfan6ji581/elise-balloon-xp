@@ -59,8 +59,7 @@ export default function ValueChart({ xpData }) {
             duration: 0
         },
         scales: {
-            y:
-            {
+            y: {
                 grid: {
                     display: false
                 },
@@ -70,16 +69,34 @@ export default function ValueChart({ xpData }) {
                     callback: function (value, index, values) {
                         if (value === 2 || value === -2) return '$' + value
                         return '';
-                    }
+                    },
+                    font: {
+                        size: 16,
+                    },
                 },
                 suggestedMax: 2,
                 suggestedMin: -2
             },
+            x: {
+                ticks: {
+                    font: {
+                        size: 16,
+                    },
+                },
+            }
         },
         plugins: {
             datalabels: {
                 display: false,
             },
+            legend: {
+                display: true,
+                labels: {
+                    font: {
+                        size: 16
+                    }
+                }
+            }
         }
     };
 
@@ -89,19 +106,36 @@ export default function ValueChart({ xpData }) {
             duration: 0
         },
         scales: {
-            y:
-            {
+            y: {
                 display: false,
                 ticks: {
                     beginAtZero: true,
+                    font: {
+                        size: 16,
+                    },
                 },
                 suggestedMax: 20
             },
+            x: {
+                ticks: {
+                    font: {
+                        size: 16,
+                    },
+                },
+            }
         },
         plugins: {
             datalabels: {
                 display: false,
             },
+            legend: {
+                display: true,
+                labels: {
+                    font: {
+                        size: 16
+                    }
+                }
+            }
         }
     };
     return (
