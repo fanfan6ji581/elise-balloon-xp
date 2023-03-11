@@ -47,6 +47,10 @@ const Instruction1Page = () => {
             </Grid>
             <Grid item xs={8}>
               <Typography variant="h6" sx={{ my: 5 }}>
+                If you play well you can earn a lot of money in this game (up to $150),
+                so please read the following instructions very carefully.
+              </Typography>
+              <Typography variant="h6" sx={{ my: 5 }}>
                 In this game, in each of {xpConfig.numberOfTrials} trials, you are
                 to choose whether and where to pop a balloon on a screen with 2
                 panels. You can choose to pop the balloon on the top panel (line 1
