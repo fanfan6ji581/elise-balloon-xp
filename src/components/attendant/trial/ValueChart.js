@@ -1,3 +1,4 @@
+import * as _ from "lodash";
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -28,13 +29,20 @@ export default function ValueChart({ xpData }) {
     const trialIndexS = useSelector(trialIndex);
     const { balloonValues, balloonSpeed } = xpData;
 
-    const labels = Array.from({ length: trialIndexS + (showMoneyOutcomeS ? 2 : 1) }, (_, i) => i + 1);
+    let labels = Array.from({ length: trialIndexS + (showMoneyOutcomeS ? 2 : 1) }, (_, i) => i + 1);
+    let lengthLimit = 10;
+    if (showMoneyOutcomeS) {
+        lengthLimit++;
+    }
+    if (labels.length > lengthLimit) {
+        labels = labels.slice(-lengthLimit);
+    }
     const data = {
         labels: labels,
         datasets: [
             {
                 label: 'Value history',
-                data: balloonValues,
+                data: balloonValues && _.slice(balloonValues, labels[0], labels.length + labels[0]),
                 backgroundColor: 'rgb(14,133,255)',
                 borderColor: 'rgba(99,104,255,0.2)',
             },
@@ -46,7 +54,7 @@ export default function ValueChart({ xpData }) {
         datasets: [
             {
                 label: 'Speed history',
-                data: balloonSpeed,
+                data: balloonSpeed && _.slice(balloonSpeed, labels[0], labels.length + labels[0]),
                 backgroundColor: 'rgb(141,168,181)',
                 borderColor: 'rgba(99,104,255,0.2)',
             },
