@@ -18,7 +18,7 @@ const PretaskPage = () => {
   return (
     <>
       <Pretask isTraining={true} />
-      <TrainingTimer trainingSessionSeconds={3 * 2} onFinish={onFinish} />
+      <TrainingTimer trainingSessionSeconds={60 * 2} onFinish={onFinish} />
     </>
   );
 };
