@@ -10,7 +10,9 @@ async function generateXPZip(attendants, xpConfig) {
 
     attendants.forEach((attendant, i) => {
         const attendantData = extractXpData(attendant);
-        zip.file(`${xpConfig.alias}/${attendant.username}.csv`, parser.parse(attendantData));
+        if (attendantData.length) {
+            zip.file(`${xpConfig.alias}/${attendant.username}.csv`, parser.parse(attendantData));
+        }
     });
     const content = await zip.generateAsync({ type: 'blob' })
     saveAs(content, `${xpConfig.alias}-main.zip`)
@@ -22,7 +24,9 @@ async function generatePretaskZip(attendants, xpConfig) {
 
     attendants.forEach((attendant, i) => {
         const attendantData = extractPretaskData(attendant);
-        zip.file(`${xpConfig.alias}-pretask/${attendant.username}.csv`, parser.parse(attendantData));
+        if (attendantData.length) {
+            zip.file(`${xpConfig.alias}-pretask/${attendant.username}.csv`, parser.parse(attendantData));
+        }
     });
     const content = await zip.generateAsync({ type: 'blob' })
     saveAs(content, `${xpConfig.alias}-pretask.zip`)
