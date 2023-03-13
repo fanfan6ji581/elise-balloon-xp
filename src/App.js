@@ -26,6 +26,7 @@ import SignupPage from './components/attendant/SignupPage';
 import StartGamePage from './components/attendant/StartGamePage';
 import PretaskPage from './components/attendant/pretask/PretaskPage';
 import PretaskTrainingPage from './components/attendant/pretask/PretaskTrainingPage';
+import PretaskPaymentPage from './components/attendant/pretask/PretaskPaymentPage';
 
 
 const theme = createTheme();
@@ -53,6 +54,7 @@ function App() {
                                 <Route path="xp/:alias/start-game" element={<StartGamePage />} />
                                 <Route path="xp/:alias/pretask" element={<PretaskPage />} />
                                 <Route path="xp/:alias/pretask/training" element={<PretaskTrainingPage />} />
+                                <Route path="xp/:alias/pretask/payment" element={<PretaskPaymentPage />} />
                             </Route>
                             <Route path="/admin" element={<AdminLayout />}>
                                 <Route path="login" element={<AdminLoginPage />} />

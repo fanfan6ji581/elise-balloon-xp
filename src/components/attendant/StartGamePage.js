@@ -42,7 +42,7 @@ const SkipTraining = () => {
                     <Typography variant="h6" align="center" sx={{my: 5}}>Waiting for experimenter to enable the game.</Typography>
                 }
             </Box>
-        </Container >
+        </Container>
     )
 }
 

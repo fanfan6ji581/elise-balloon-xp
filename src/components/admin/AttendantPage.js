@@ -5,6 +5,7 @@ import { Container, Grid, Typography, Alert, TextField, Box, Tab } from "@mui/ma
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { Link, useParams } from 'react-router-dom';
 import AttendantDataTable from "./AttendantDataTable";
+import AttendentPretaskDataTable from "./AttendentPretaskDataTable";
 import AttendantInfo from "./AttendantInfo";
 
 const Attendent = () => {
@@ -63,11 +64,16 @@ const Attendent = () => {
                             <TabContext value={tab}>
                                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                                     <TabList onChange={onChangeTab} aria-label="lab API tabs example">
-                                        <Tab label="Data" value="1" />
-                                        <Tab label="Info" value="2" />
+                                        <Tab label="Pretask Data" value="1" />
+                                        <Tab label="XP Data" value="2" />
+                                        <Tab label="Info" value="3" />
                                     </TabList>
                                 </Box>
                                 <TabPanel value="1">
+                                    <AttendentPretaskDataTable attendant={attendant} />
+                                </TabPanel>
+
+                                <TabPanel value="2">
                                     <AttendantDataTable attendant={attendant} />
                                     <br />
                                     <TextField variant="standard" fullWidth sx={{ my: 2 }}
@@ -91,7 +97,7 @@ const Attendent = () => {
                                         defaultValue={JSON.stringify(attendant.xpData._dangerZoneResetCalc)}
                                         InputProps={{ readOnly: true }} />
                                 </TabPanel>
-                                <TabPanel value="2">
+                                <TabPanel value="3">
                                     <AttendantInfo attendant={attendant} />
                                 </TabPanel>
                             </TabContext>

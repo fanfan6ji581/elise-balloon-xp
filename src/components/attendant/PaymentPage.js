@@ -75,6 +75,6 @@ export default function PaymentPage() {
                     </Backdrop>
                 </Grid>
             </Grid>
-        </Container >
+        </Container>
     )
 }

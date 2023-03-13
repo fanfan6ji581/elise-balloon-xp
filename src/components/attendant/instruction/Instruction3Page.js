@@ -35,7 +35,7 @@ const Instruction3Page = () => {
                     <Button component={Link} variant="contained" size="large" to={`/xp/${alias}/instruction4`} sx={{ mx: 2 }}>Next</Button>
                 </Box>
             </Grid>
-        </Container >
+        </Container>
     )
 }
 

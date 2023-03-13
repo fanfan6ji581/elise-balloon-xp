@@ -30,7 +30,7 @@ const Instruction2Page = () => {
                     </Box>
                 </Grid>
             </Grid>
-        </Container >
+        </Container>
     )
 }
 

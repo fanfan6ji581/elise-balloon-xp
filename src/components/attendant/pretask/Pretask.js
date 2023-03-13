@@ -7,16 +7,25 @@ import {
   trialIndex,
   ballAQty,
   reset,
-  recordChoice,
+  recordBet,
   bets,
+  resetHistory,
+  betResultHistory,
+  betHistory,
+  betChosenHistory,
+  moneyOutcomeHistory,
+  missHistory,
+  reactionHistory,
 } from "../../../slices/pretaskSlice";
 import { useDispatch, useSelector } from "react-redux";
 import TrialTimerProgress from "./TrialTimerProgress";
 import { getPretask } from "../../../database/pretask"
+import { getAttendant, updatePretaskRecord } from "../../../database/attendant"
 import { useParams } from "react-router-dom"
 import Jar from "./Jar"
 import BallOption from "./BallOption"
 import BallOptionSkip from "./BallOptionSkip"
+
 import profitImg from "../../../assets/profit.png";
 import lossImg from "../../../assets/loss.png";
 import coinImg from "../../../assets/coin.png";
@@ -28,42 +37,66 @@ import happyImg from "../../../assets/happy.png";
 import laughingImg from "../../../assets/laughing.png";
 import downRightImg from "../../../assets/down-right.png";
 import MoneyOutcome from "./MoneyOutcome";
+import { loginAttendant } from "../../../slices/attendantSlice";
+import { useNavigate } from "react-router-dom"
 
 const Pretask = ({ isTraining }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { alias } = useParams()
   const [pretask, setPretask] = useState(null);
   const [loadingOpen, setLoadingOpen] = useState(true);
-  // const [betA, setBetA] = useState(false);
-  // const [betB, setBetB] = useState(false);
-  // const [betSkip, setBetSkip] = useState(false);
-
-
-  // const loginAttendantS = useSelector(loginAttendant);
+  const loginAttendantS = useSelector(loginAttendant);
   const trialIndexS = useSelector(trialIndex);
   const ballAQtyS = useSelector(ballAQty);
   const betsS = useSelector(bets);
-  // const choiceHistoryS = useSelector(choiceHistory);
-  // const outcomeHistoryS = useSelector(outcomeHistory);
-  // const missHistoryS = useSelector(missHistory);
-  // const reactionHistoryS = useSelector(reactionHistory);
+  const resetHistoryS = useSelector(resetHistory);
+  const betResultHistoryS = useSelector(betResultHistory);
+  const betHistoryS = useSelector(betHistory);
+  const betChosenHistoryS = useSelector(betChosenHistory);
+  const moneyOutcomeHistoryS = useSelector(moneyOutcomeHistory);
+  const missHistoryS = useSelector(missHistory);
+  const reactionHistoryS = useSelector(reactionHistory);
+  let attendant = null;
 
   const fetchPretask = async () => {
     try {
       console.log('fetching pretask')
       const pretask = await getPretask(alias);
       setPretask(pretask)
-      dispatch(reset(pretask));
+      attendant = await getAttendant(loginAttendantS.id);
+
+      dispatch(reset({
+        pretask,
+        pretaskRecord: isTraining ? null : attendant.pretaskRecord
+      }));
       setLoadingOpen(false);
     } catch (error) {
       console.error(error)
     }
   }
-  // const storeToDB = async () => {
+  const storeToDB = async () => {
+    if (isTraining) {
+      return;
+    }
 
-  // };
-  const onSubmit = () => {
-    dispatch(recordChoice({
+    const pretaskRecord = {
+      trialIndex: trialIndexS,
+      ballAQty: ballAQtyS,
+      resetHistory: resetHistoryS,
+      betResultHistory: betResultHistoryS,
+      betHistory: betHistoryS.map(arr => arr.join(',')),
+      betChosenHistory: betChosenHistoryS,
+      moneyOutcomeHistory: moneyOutcomeHistoryS,
+      missHistory: missHistoryS,
+      reactionHistory: reactionHistoryS,
+    };
+    console.log(pretaskRecord)
+    await updatePretaskRecord(loginAttendantS.id, pretaskRecord);
+  };
+
+  const onSubmit = async () => {
+    dispatch(recordBet({
       missed: false,
       bets: betsS,
     }));
@@ -71,14 +104,19 @@ const Pretask = ({ isTraining }) => {
 
   useEffect(() => {
     fetchPretask();
-    return () => {
-      // reset game data
-    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // useEffect(() => {
-  // }, [trialIndexS])
+  useEffect(() => {
+    if (pretask && resetHistoryS &&
+      resetHistoryS.length >= pretask.repeatLimit) {
+      navigate(`/xp/${alias}/pretask/payment`);
+    }
+    if (trialIndexS > 0) {
+      storeToDB();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ballAQtyS, resetHistoryS, trialIndexS]);
 
   return (
     <>
@@ -147,7 +185,7 @@ const Pretask = ({ isTraining }) => {
               </Grid>
             </Grid>
             <Button variant="contained"
-              disabled={betsS.length === 0} 
+              disabled={betsS.length === 0}
               onClick={() => onSubmit()} sx={{ mt: 3, mb: 1 }}>Submit</Button>
           </Grid>
         </Container>

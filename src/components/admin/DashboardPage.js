@@ -177,7 +177,7 @@ const DashboardPage = () => {
                     <Form schema={schema} onSubmit={onAddXp} validator={validator} />
                 </Grid>
             </Grid>
-        </Container >
+        </Container>
     )
 }
 

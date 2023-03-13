@@ -473,7 +473,7 @@ const QuizPage = () => {
             >
                 <CircularProgress color="inherit" />
             </Backdrop>
-        </Container >
+        </Container>
     )
 }
 

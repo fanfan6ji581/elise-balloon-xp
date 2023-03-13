@@ -81,7 +81,7 @@ const Instruction4Page = () => {
             >
                 <CircularProgress color="inherit" />
             </Backdrop>
-        </Container >
+        </Container>
     )
 }
 

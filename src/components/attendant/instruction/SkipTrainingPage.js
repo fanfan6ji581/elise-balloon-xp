@@ -28,7 +28,7 @@ const SkipTraining = () => {
             <Typography variant="h4" align="center" sx={{ py: 5 }}>
                 Please wait, the experimenter will come shortly
             </Typography>
-        </Container >
+        </Container>
     )
 }
 

@@ -2,7 +2,7 @@ import { LinearProgress } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import {
   timerProgress,
-  recordChoice,
+  recordBet,
   showMoneyOutcome,
   showAfterClickDelay,
   setShowMoneyOutcome,
@@ -61,7 +61,7 @@ export default function TrialTimer({ pretask }) {
   useEffect(() => {
     if (timerProgressS >= 100) {
       clearInterval(timerInterval.current);
-      dispatch(recordChoice({ missed: true }));
+      dispatch(recordBet({ bets: [], missed: true }));
     }
     if (timerProgressS === 0) {
       restartGameTimer();
