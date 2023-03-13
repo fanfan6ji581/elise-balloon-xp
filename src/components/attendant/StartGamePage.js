@@ -8,7 +8,7 @@ import db from "../../database/firebase";
 import { loginAttendant } from "../../slices/attendantSlice";
 import { useSelector } from "react-redux";
 
-const SkipTraining = () => {
+const StartGamePage = () => {
     const { alias } = useParams();
     const loginAttendantS = useSelector(loginAttendant);
     const [xp, setXp] = useState(null);
@@ -46,4 +46,4 @@ const SkipTraining = () => {
     )
 }
 
-export default SkipTraining
+export default StartGamePage

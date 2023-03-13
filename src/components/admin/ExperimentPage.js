@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom"
 import { useEffect, useState } from "react";
 import { collection, getDocs, query, where, doc, updateDoc } from "firebase/firestore";
 import db from "../../database/firebase";
+import { updatePretask } from "../../database/pretask";
 import { getPretask } from "../../database/pretask"
 import BalloonXPConfig from './BalloonXPConfig';
 import PretaskConfig from './PretaskConfig';
@@ -18,6 +19,7 @@ const Experiment = () => {
     const [xp, setXp] = useState(null);
     const [pretask, setPretask] = useState(null);
     const [enablePlaying, setEnablePlaying] = useState(false);
+    const [enablePretaskPlaying, setEnablePretaskPlaying] = useState(false);
     const [errorMsg, setErrorMsg] = useState('');
     const { alias } = useParams()
 
@@ -40,6 +42,7 @@ const Experiment = () => {
         try {
             const pretask = await getPretask(alias);
             setPretask(pretask)
+            setEnablePretaskPlaying(pretask.enablePretaskPlaying);
         } catch (error) {
             setErrorMsg(error.message)
         }
@@ -53,6 +56,16 @@ const Experiment = () => {
             window.alert('Game play has been enabled');
         } else {
             window.alert('Game play has been disabled');
+        }
+    }
+
+    const onSwitchEnablePretaskPlaying = async (e, val) => {
+        await updatePretask(pretask.id, { enablePretaskPlaying: val });
+        setEnablePretaskPlaying(val);
+        if (val) {
+            window.alert('Pretask play has been enabled');
+        } else {
+            window.alert('Pretask play has been disabled');
         }
     }
 
@@ -74,6 +87,9 @@ const Experiment = () => {
                 <Grid item>
                     <FormGroup>
                         <FormControlLabel control={<Switch checked={enablePlaying} onChange={onSwitchEnablePlaying} />} label="Enable game play" />
+                    </FormGroup>
+                    <FormGroup>
+                        <FormControlLabel control={<Switch checked={enablePretaskPlaying} onChange={onSwitchEnablePretaskPlaying} />} label="Enable pretask play" />
                     </FormGroup>
                 </Grid>
             </Grid>

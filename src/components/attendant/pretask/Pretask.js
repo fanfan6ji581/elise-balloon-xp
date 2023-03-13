@@ -110,7 +110,11 @@ const Pretask = ({ isTraining }) => {
   useEffect(() => {
     if (pretask && resetHistoryS &&
       resetHistoryS.length >= pretask.repeatLimit) {
-      navigate(`/xp/${alias}/pretask/payment`);
+      if (isTraining) {
+        navigate(`/xp/${alias}/pretask/start`);
+      } else {
+        navigate(`/xp/${alias}/pretask/payment`);
+      }
     }
     if (trialIndexS > 0) {
       storeToDB();

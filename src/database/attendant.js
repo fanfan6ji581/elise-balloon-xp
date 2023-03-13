@@ -5,6 +5,11 @@ import {
 
 const TABLE = "attendant";
 
+const updatePretask = async (id, data) => {
+    const ref = doc(db, TABLE, id);
+    await updateDoc(ref, data);
+};
+
 const updatePretaskRecord = async (id, data) => {
     const ref = doc(db, TABLE, id);
     await updateDoc(ref, {
@@ -19,6 +24,7 @@ const getAttendant = async (id) => {
 };
 
 export {
+    updatePretask,
     updatePretaskRecord,
     getAttendant,
 }

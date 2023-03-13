@@ -103,7 +103,7 @@ const SignupPage = () => {
         const docRef = await addDoc(collection(db, "attendant"), attendant);
         attendant.id = docRef.id;
         dispatch(login(attendant));
-        navigate(`/xp/${alias}/instruction1`)
+        navigate(`/xp/${alias}/pretask/instruction1`)
     }
 
     const fetchXP = async () => {

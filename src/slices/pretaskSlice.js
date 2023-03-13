@@ -116,8 +116,10 @@ const pretaskSlice = createSlice({
             state.betHistory.push(bets);
             state.reactionHistory.push(Date.now() - state.progressStartTime);
             state.missHistory.push(missed);
-            const betResult = Math.round(Math.random() * 100) < state.ballAQty[state.trialIndex] ?
+            const randomNum = Math.round(Math.random() * 100)
+            const betResult = randomNum < state.ballAQty[state.trialIndex] ?
                 'a' : 'b';
+            console.log(`comparing ${randomNum} vs ${state.ballAQty[state.trialIndex]}, result is ${betResult}`);
             state.betResultHistory.push(betResult);
             if (missed) {
                 state.moneyOutcomeHistory.push(state.pretask.missLose)

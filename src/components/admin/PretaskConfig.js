@@ -60,6 +60,11 @@ const schema = {
             "title": "Decision stage, milliseconds that allow attendant to do decision, e.g. 2000 ms = 2 sec",
             "default": 4000
         },
+        "percentageEarning": {
+            "type": "integer",
+            "title": "Percentage of trials for earnings, e.g. use 50 for 50%, 100 for 100%",
+            "default": 50
+        },
     }
 };
 
@@ -78,7 +83,7 @@ const uiSchema = {
 const PretaskConfig = ({ pretask, setPretask }) => {
     const onSaveConfig = async ({ formData }, e) => {
         e.preventDefault();
-        await updatePretask(formData);
+        await updatePretask(formData.id, formData);
         setPretask(formData);
         window.alert("Pretask config has been saved successfully");
     };

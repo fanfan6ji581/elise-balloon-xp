@@ -1,27 +1,45 @@
-import { useSelector } from "react-redux";
+import * as _ from "lodash";
+import { useDispatch, useSelector } from "react-redux";
 import { Container, Grid, Typography, Backdrop, CircularProgress } from "@mui/material";
 import { useEffect, useState } from "react";
-import { loginAttendant } from "../../../slices/attendantSlice";
-import { getAttendant } from "../../../database/attendant";
+import { loginAttendant, logout } from "../../../slices/attendantSlice";
+import { getAttendant, updatePretask } from "../../../database/attendant";
+import { getPretask } from "../../../database/pretask";
+import { useParams } from 'react-router-dom';
 
 export default function PretaskPaymentPage() {
+    const dispatch = useDispatch();
+    const { alias } = useParams();
     const loginAttendantS = useSelector(loginAttendant);
     const [earning, setEarning] = useState("...");
     const [loadingOpen, setLoadingOpen] = useState(true);
 
     const calculateFinalOutcomes = async () => {
+        const pretask = await getPretask(alias);
         const attendant = await getAttendant(loginAttendantS.id);
-        let { pretaskRecord } = attendant;
+        let { pretaskRecord, pickedPretaskOutcomeIndexes } = attendant;
 
         if (pretaskRecord) {
-            setEarning(pretaskRecord.moneyOutcomeHistory.reduce((a, b) => a + b, 0))
-        }
+            const { moneyOutcomeHistory } = pretaskRecord;
+            const isCalculated = pickedPretaskOutcomeIndexes && pickedPretaskOutcomeIndexes.length !== 0;
+            if (!isCalculated) {
+                const shuffledIndex = _.shuffle(moneyOutcomeHistory.map((_, idx) => (idx)));
+                const length = Math.round(moneyOutcomeHistory.length * pretask.percentageEarning / 100);
+                const pickedIndex = shuffledIndex.slice(0, length);
+                pickedPretaskOutcomeIndexes = pickedIndex.sort((a, b) => a - b);
+                await updatePretask(attendant.id, { pickedPretaskOutcomeIndexes });
+            }
+            const sumEarning = pickedPretaskOutcomeIndexes.reduce((a, b) => a + pretaskRecord.moneyOutcomeHistory[b], 0);
+            const earning = Math.max(0, Math.min(150, sumEarning));
+            setEarning(earning);
 
+        }
         setLoadingOpen(false);
     }
 
     useEffect(() => {
         calculateFinalOutcomes();
+        dispatch(logout());
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 

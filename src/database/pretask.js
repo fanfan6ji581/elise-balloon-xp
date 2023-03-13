@@ -19,6 +19,8 @@ const createPretask = (alias) => ({
     outcomeShowTime: 0,
     afkTimeout: 4000,
     choiceDelay: 0,
+    percentageEarning: 50,
+    enablePretaskPlaying: false,
 })
 
 const getPretask = async (alias) => {
@@ -31,8 +33,8 @@ const getPretask = async (alias) => {
     }
 };
 
-const updatePretask = async (data) => {
-    const xpDocRef = doc(db, TABLE, data.id);
+const updatePretask = async (id, data) => {
+    const xpDocRef = doc(db, TABLE, id);
     await updateDoc(xpDocRef, data);
 };
 
