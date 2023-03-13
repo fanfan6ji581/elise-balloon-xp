@@ -6,10 +6,6 @@ function extractPretaskData(attendant) {
         return rows;
     }
 
-    const { missHistory } = pretaskRecord;
-    if (missHistory.filter(x => x).length >= 5) {
-    }
-
     let sum = 0;
     const accumulateOutcomeHistory = pretaskRecord.moneyOutcomeHistory.map((v, i) => {
         if (pickedPretaskOutcomeIndexes.includes(i)) {
