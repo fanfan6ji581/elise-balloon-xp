@@ -1,4 +1,4 @@
-import { Container, Grid, Typography } from "@mui/material";
+import { Container, Typography } from "@mui/material";
 import Countdown from 'react-countdown';
 
 const TrainingTimer = ({ trainingSessionSeconds, onFinish }) => {
