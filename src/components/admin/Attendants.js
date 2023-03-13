@@ -11,7 +11,7 @@ import { Visibility as VisibilityIcon, Delete as DeleteIcon, Login as LoginIcon,
 import { DataGrid } from '@mui/x-data-grid';
 import moment from 'moment';
 import { generateBalloonData } from '../../util/xp_data'
-import { generateZip } from '../../util/generate_zip'
+import { generateXPZip, generatePretaskZip } from '../../util/generate_zip'
 import { Link, useParams } from 'react-router-dom';
 import AttendantsInfo from './AttendantsInfo';
 
@@ -118,7 +118,13 @@ const Attendants = ({ xp }) => {
 
     const onDownloadZip = async (e) => {
         setLoadingOpen(true);
-        await generateZip(attendants, xp);
+        await generateXPZip(attendants, xp);
+        setLoadingOpen(false);
+    }
+
+    const onDownloadPretaskZip = async (e) => {
+        setLoadingOpen(true);
+        await generatePretaskZip(attendants, xp);
         setLoadingOpen(false);
     }
 
@@ -160,8 +166,9 @@ const Attendants = ({ xp }) => {
                     <Form schema={schema} onSubmit={onCreateAttendants} validator={validator} />
 
                     <Divider sx={{ my: 5 }} />
-                    <Button variant="outlined" sx={{ my: 1, width: '100%' }} onClick={() => setDialogOpen(true)}><VisibilityIcon sx={{mx: 1}}/> View mcq Responses</Button>
-                    <Button variant="outlined" sx={{ my: 1, width: '100%' }} onClick={onDownloadZip}><FileDownload sx={{mx: 1}}/> Download CSV zip</Button>
+                    <Button variant="outlined" sx={{ my: 1, width: '100%' }} onClick={() => setDialogOpen(true)}><VisibilityIcon sx={{ mx: 1 }} /> View mcq Responses</Button>
+                    <Button variant="outlined" sx={{ my: 1, width: '100%' }} onClick={onDownloadZip}><FileDownload sx={{ mx: 1 }} /> Download Main XP zip</Button>
+                    <Button variant="outlined" sx={{ my: 1, width: '100%' }} onClick={onDownloadPretaskZip}><FileDownload sx={{ mx: 1 }} /> Download Pretask zip</Button>
                 </Grid>
             </Grid>
 

@@ -2,8 +2,9 @@ import JSZip from "jszip";
 import { saveAs } from "file-saver";
 import { Parser } from '@json2csv/plainjs';
 import { extractXpData } from './xp_data';
+import { extractPretaskData } from './pretask_data';
 
-async function generateZip(attendants, xpConfig) {
+async function generateXPZip(attendants, xpConfig) {
     const zip = new JSZip();
     const parser = new Parser();
 
@@ -12,7 +13,20 @@ async function generateZip(attendants, xpConfig) {
         zip.file(`${xpConfig.alias}/${attendant.username}.csv`, parser.parse(attendatData));
     });
     const content = await zip.generateAsync({ type: 'blob' })
-    saveAs(content, `${xpConfig.alias}.zip`)
+    saveAs(content, `${xpConfig.alias}-main.zip`)
 }
 
-export { generateZip };
+async function generatePretaskZip(attendants, xpConfig) {
+    const zip = new JSZip();
+    const parser = new Parser();
+
+    attendants.forEach((attendant, i) => {
+        const attendatData = extractPretaskData(attendant);
+        zip.file(`${xpConfig.alias}-pretask/${attendant.username}.csv`, parser.parse(attendatData));
+    });
+    const content = await zip.generateAsync({ type: 'blob' })
+    saveAs(content, `${xpConfig.alias}-pretask.zip`)
+}
+
+
+export { generatePretaskZip, generateXPZip };
