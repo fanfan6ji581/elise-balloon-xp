@@ -7,6 +7,8 @@ import {
   trialIndex,
   ballAQty,
   reset,
+  resetTraining,
+  removeData,
   recordBet,
   bets,
   resetHistory,
@@ -63,13 +65,17 @@ const Pretask = ({ isTraining }) => {
     try {
       console.log('fetching pretask')
       const pretask = await getPretask(alias);
-      setPretask(pretask)
+      setPretask(pretask);
       attendant = await getAttendant(loginAttendantS.id);
 
-      dispatch(reset({
-        pretask,
-        pretaskRecord: isTraining ? null : attendant.pretaskRecord
-      }));
+      if (isTraining) {
+        dispatch(resetTraining({ pretask }));
+      } else {
+        dispatch(reset({
+          pretask,
+          pretaskRecord: attendant.pretaskRecord
+        }));
+      }
       setLoadingOpen(false);
     } catch (error) {
       console.error(error)
@@ -91,7 +97,6 @@ const Pretask = ({ isTraining }) => {
       missHistory: missHistoryS,
       reactionHistory: reactionHistoryS,
     };
-    console.log(pretaskRecord)
     await updatePretaskRecord(loginAttendantS.id, pretaskRecord);
   };
 
@@ -108,19 +113,31 @@ const Pretask = ({ isTraining }) => {
   }, []);
 
   useEffect(() => {
-    if (pretask && resetHistoryS &&
-      resetHistoryS.length >= pretask.repeatLimit) {
+    if (trialIndexS > 0 && !isTraining) {
+      storeToDB();
+    }
+
+    if (pretask && missHistoryS &&
+      missHistoryS.filter(x => x).length >= pretask.missLimit) {
       if (isTraining) {
+        dispatch(removeData(pretask));
         navigate(`/xp/${alias}/pretask/start`);
       } else {
         navigate(`/xp/${alias}/pretask/payment`);
       }
     }
-    if (trialIndexS > 0) {
-      storeToDB();
+
+    if (pretask && resetHistoryS &&
+      resetHistoryS.length >= pretask.repeatLimit) {
+      if (isTraining) {
+        dispatch(removeData(pretask));
+        navigate(`/xp/${alias}/pretask/start`);
+      } else {
+        navigate(`/xp/${alias}/pretask/payment`);
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ballAQtyS, resetHistoryS, trialIndexS]);
+  }, [ballAQtyS, resetHistoryS, trialIndexS, missHistoryS]);
 
   return (
     <>

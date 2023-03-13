@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Container, Grid, Typography, Backdrop, CircularProgress } from "@mui/material";
 import { useEffect, useState } from "react";
 import { loginAttendant, logout } from "../../../slices/attendantSlice";
-import { getAttendant, updatePretask } from "../../../database/attendant";
+import { getAttendant, updateAttendant } from "../../../database/attendant";
 import { getPretask } from "../../../database/pretask";
 import { useParams } from 'react-router-dom';
 
@@ -13,27 +13,48 @@ export default function PretaskPaymentPage() {
     const loginAttendantS = useSelector(loginAttendant);
     const [earning, setEarning] = useState("...");
     const [loadingOpen, setLoadingOpen] = useState(true);
+    // const [missed, setMissed] = useState(false);
 
     const calculateFinalOutcomes = async () => {
+        if (!loginAttendantS || !loginAttendantS.id) {
+            return;
+        }
         const pretask = await getPretask(alias);
         const attendant = await getAttendant(loginAttendantS.id);
-        let { pretaskRecord, pickedPretaskOutcomeIndexes } = attendant;
+        let { pretaskRecord, pickedPretaskOutcomeIndexes, pretaskEarning } = attendant;
 
         if (pretaskRecord) {
-            const { moneyOutcomeHistory } = pretaskRecord;
-            const isCalculated = pickedPretaskOutcomeIndexes && pickedPretaskOutcomeIndexes.length !== 0;
-            if (!isCalculated) {
-                const shuffledIndex = _.shuffle(moneyOutcomeHistory.map((_, idx) => (idx)));
-                const length = Math.round(moneyOutcomeHistory.length * pretask.percentageEarning / 100);
-                const pickedIndex = shuffledIndex.slice(0, length);
-                pickedPretaskOutcomeIndexes = pickedIndex.sort((a, b) => a - b);
-                await updatePretask(attendant.id, { pickedPretaskOutcomeIndexes });
-            }
-            const sumEarning = pickedPretaskOutcomeIndexes.reduce((a, b) => a + pretaskRecord.moneyOutcomeHistory[b], 0);
-            const earning = Math.max(0, Math.min(150, sumEarning));
-            setEarning(earning);
+            if (pretaskEarning !== undefined) {
+                setEarning(pretaskEarning);
+            } else {
+                const { moneyOutcomeHistory, missHistory } = pretaskRecord;
 
+                if (missHistory.filter(x => x).length >= pretask.missLimit) {
+                    // setMissed(true);
+                    await updateAttendant(attendant.id, {
+                        pretaskEarning: 0,
+                    });
+                    setEarning(0);
+                }
+                else {
+                    const isCalculated = pickedPretaskOutcomeIndexes && pickedPretaskOutcomeIndexes.length !== 0;
+                    if (!isCalculated) {
+                        const shuffledIndex = _.shuffle(moneyOutcomeHistory.map((_, idx) => (idx)));
+                        const length = Math.round(moneyOutcomeHistory.length * pretask.percentageEarning / 100);
+                        const pickedIndex = shuffledIndex.slice(0, length);
+                        pickedPretaskOutcomeIndexes = pickedIndex.sort((a, b) => a - b);
+                        const sumEarning = pickedPretaskOutcomeIndexes.reduce((a, b) => a + pretaskRecord.moneyOutcomeHistory[b], 0);
+                        const earning = Math.max(0, Math.min(150, sumEarning));
+                        await updateAttendant(attendant.id, {
+                            pickedPretaskOutcomeIndexes,
+                            pretaskEarning: earning,
+                        });
+                        setEarning(earning);
+                    }
+                }
+            }
         }
+
         setLoadingOpen(false);
     }
 

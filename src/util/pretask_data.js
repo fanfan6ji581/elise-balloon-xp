@@ -1,8 +1,13 @@
 function extractPretaskData(attendant) {
-    const { pretaskRecord, pickedPretaskOutcomeIndexes } = attendant;
+    let { pretaskRecord, pickedPretaskOutcomeIndexes } = attendant;
+    pickedPretaskOutcomeIndexes = pickedPretaskOutcomeIndexes || [];
     const rows = []
     if (!pretaskRecord) {
         return rows;
+    }
+
+    const { missHistory } = pretaskRecord;
+    if (missHistory.filter(x => x).length >= 5) {
     }
 
     let sum = 0;
@@ -23,7 +28,7 @@ function extractPretaskData(attendant) {
                 betResult: i < pretaskRecord.betResultHistory.length ? pretaskRecord.betResultHistory[i] : '-',
                 betChosen: i < pretaskRecord.betChosenHistory.length ? pretaskRecord.betChosenHistory[i] : '-',
                 reset: pretaskRecord.resetHistory.includes(i),
-                moneyOutcome: i < pretaskRecord.moneyOutcomeHistory.length ? pretaskRecord.moneyOutcomeHistory[i] : '-',
+                moneyOutcome: i < pretaskRecord.moneyOutcomeHistory.length ? pretaskRecord.moneyOutcomeHistory[i] : null,
                 pickedOutcome: pickedPretaskOutcomeIndexes.includes(i) ? pretaskRecord.moneyOutcomeHistory[i] : null,
                 accumulateOutcome: i < accumulateOutcomeHistory.length ? accumulateOutcomeHistory[i] : null,
                 reaction: i < pretaskRecord.reactionHistory.length ? pretaskRecord.reactionHistory[i] : '-',

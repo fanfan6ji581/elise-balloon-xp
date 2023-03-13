@@ -7,7 +7,7 @@ import { getPretask } from "../../../database/pretask";
 
 const StartPretaskPage = () => {
     const { alias } = useParams();
-    const [loadingOpen, setLoadingOpen] = useState(null);
+    const [loadingOpen, setLoadingOpen] = useState(true);
     const [pretask, setPretask] = useState(null);
 
     const fetchPretask = async () => {

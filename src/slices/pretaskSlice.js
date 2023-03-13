@@ -207,29 +207,52 @@ const pretaskSlice = createSlice({
                 triggerReset(state);
             }
         },
-        reset: (state, action) => {
-            const { pretask, pretaskRecord } = action.payload;
+        resetTraining: (state, action) => {
+            let { pretask } = action.payload;
             state.pretask = pretask;
             state.trialIndex = 0;
+            state.ballAQty = [];
+            state.resetHistory = [];
+            state.betResultHistory = [];
+            state.betHistory = [];
+            state.betChosenHistory = [];
+            state.moneyOutcomeHistory = [];
+            state.missHistory = [];
+            state.reactionHistory = [];
             state.ballAQty = [pretask.ballAQty];
+        },
+        removeData: (state, action) => {
+            state.trialIndex = 0;
+            state.ballAQty = [];
+            state.resetHistory = [];
+            state.betResultHistory = [];
+            state.betHistory = [];
+            state.betChosenHistory = [];
+            state.moneyOutcomeHistory = [];
+            state.missHistory = [];
+            state.reactionHistory = [];
+            state.ballAQty = [];
+        },
+        reset: (state, action) => {
+            let { pretask, pretaskRecord } = action.payload;
+            state.pretask = pretask;
+            state.ballAQty = [];
 
-            if (pretaskRecord) {
-                state.trialIndex = pretaskRecord.trialIndex || 0;
-                state.ballAQty = pretaskRecord.ballAQty || [];
-                state.resetHistory = pretaskRecord.resetHistory || [];
-                state.betResultHistory = pretaskRecord.betResultHistory || [];
-                state.betHistory = (pretaskRecord.betHistory || []).map(el => el.split(','));
-                state.betChosenHistory = pretaskRecord.betChosenHistory || [];
-                state.moneyOutcomeHistory = pretaskRecord.moneyOutcomeHistory || [];
-                state.missHistory = pretaskRecord.missHistory || [];
-                state.reactionHistory = pretaskRecord.reactionHistory || [];
+            pretaskRecord = pretaskRecord || {};
 
-                if (state.ballAQty.length === 0) {
-                    state.ballAQty = [pretask.ballAQty];
-                }
+            state.trialIndex = pretaskRecord.trialIndex || 0;
+            state.ballAQty = pretaskRecord.ballAQty || [];
+            state.resetHistory = pretaskRecord.resetHistory || [];
+            state.betResultHistory = pretaskRecord.betResultHistory || [];
+            state.betHistory = (pretaskRecord.betHistory || []).map(el => el.split(','));
+            state.betChosenHistory = pretaskRecord.betChosenHistory || [];
+            state.moneyOutcomeHistory = pretaskRecord.moneyOutcomeHistory || [];
+            state.missHistory = pretaskRecord.missHistory || [];
+            state.reactionHistory = pretaskRecord.reactionHistory || [];
 
+            if (state.ballAQty.length === 0) {
+                state.ballAQty = [pretask.ballAQty];
             }
-
 
         },
         updateBet: (state, action) => {
@@ -260,6 +283,8 @@ export const {
     next,
     recordBet,
     updateBet,
+    resetTraining,
+    removeData,
 } = pretaskSlice.actions;
 
 export const trialIndex = (state) => state.pretask.trialIndex;

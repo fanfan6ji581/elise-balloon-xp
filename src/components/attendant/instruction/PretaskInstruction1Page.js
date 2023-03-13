@@ -17,7 +17,7 @@ import video2 from "../../../assets/video2.mp4";
 const PretaskInstruction1Page = () => {
   const { alias } = useParams();
   const [pretask, setPretask] = useState(null);
-  const [loadingOpen, setLoadingOpen] = useState(null);
+  const [loadingOpen, setLoadingOpen] = useState(true);
 
   const fetchPretask = async () => {
     setPretask(await getPretask(alias));
@@ -84,11 +84,10 @@ const PretaskInstruction1Page = () => {
 
               <Typography variant="h6" sx={{ my: 5 }}>
                 Please make sure you reply within the imparted time ({pretask.afkTimeout / 1000} sec), as if
-                you don't, you will lose ${-pretask.missLose}, and after 5 missed trials, the task automatically stops and you
+                you don't, you will lose ${-pretask.missLose}, and after {pretask.missLimit} missed trials, the task automatically stops and you
                 don't get any earnings.
               </Typography>
               <Typography variant="h6" sx={{ my: 5 }}>
-
                 Once you've made your decision, we don't show you the outcome on screen but it is
                 recorded and at the end of the game the computer randomly selects {pretask.percentageEarning}% of the trials and you receive your net accumulated outcomes on
                 these trials.

@@ -25,6 +25,11 @@ const schema = {
             "title": "N, how many reset to terminate the trails",
             "default": 5
         },
+        "missLimit": {
+            "type": "integer",
+            "title": "when missed this many times, terminate the pretask",
+            "default": 5
+        },
         "x": {
             "type": "integer",
             "title": "x",

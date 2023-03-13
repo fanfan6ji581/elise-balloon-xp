@@ -9,8 +9,8 @@ import { extractPretaskData } from "../../util/pretask_data";
 
 const columns = [
   { field: "id", headerName: "Trial #", width: 60 },
-  { field: "n", headerName: "N (blue ball count)", width: 120 },
-  { field: "betResult", headerName: "Random Picked Ball", width: 100 },
+  { field: "n", headerName: "N (blue ball count)", width: 150 },
+  { field: "betResult", headerName: "Random result", width: 150 },
   { field: "bet", headerName: "Bet", width: 120 },
   { field: "betChosen", headerName: "Bet Chosen", width: 120 },
   {
@@ -59,6 +59,7 @@ const AttendentPretaskDataTable = ({ attendant }) => {
 
   return (
     <>
+      <p>Final earning is ${attendant.pretaskEarning}</p>
       <DataGrid
         autoHeight
         rows={rows}
