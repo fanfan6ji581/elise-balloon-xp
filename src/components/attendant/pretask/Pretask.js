@@ -63,7 +63,6 @@ const Pretask = ({ isTraining }) => {
 
   const fetchPretask = async () => {
     try {
-      console.log('fetching pretask')
       const pretask = await getPretask(alias);
       setPretask(pretask);
       attendant = await getAttendant(loginAttendantS.id);

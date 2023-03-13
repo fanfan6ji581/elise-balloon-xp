@@ -119,7 +119,6 @@ const pretaskSlice = createSlice({
             const randomNum = Math.round(Math.random() * 100)
             const betResult = randomNum < state.ballAQty[state.trialIndex] ?
                 'a' : 'b';
-            console.log(`comparing ${randomNum} vs ${state.ballAQty[state.trialIndex]}, result is ${betResult}`);
             state.betResultHistory.push(betResult);
             if (missed) {
                 state.moneyOutcomeHistory.push(state.pretask.missLose)
@@ -182,28 +181,28 @@ const pretaskSlice = createSlice({
             const x = state.pretask.x
             if (current(state.missHistory)[state.trialIndex - 1]) {
                 // if last bet missed, then do nothing
-                console.log('case missed')
+                // console.log('case missed')
                 setNextBallAQty(state, 0)
             } else if (isAllSkip(partialBetHistory)) {
-                console.log('case 1')
+                // console.log('case 1')
                 setNextBallAQty(state, x)
             } else if (isPrevAllSkipLastBlueOrIndiffBlue(partialBetHistory)) {
-                console.log('case 2')
+                // console.log('case 2')
                 setNextBallAQty(state, -x)
             } else if (isCase2ThenAllSkip(partialBetHistory)) {
-                console.log('case 3')
+                // console.log('case 3')
                 setNextBallAQty(state, -x)
             } else if (isAllBlue(partialBetHistory)) {
-                console.log('case 4')
+                // console.log('case 4')
                 setNextBallAQty(state, -x)
             } else if (partialBetHistory.length === 1 && isLastBet(partialBetHistory, ["a", "skip"])) {
-                console.log('case 5')
+                // console.log('case 5')
                 setNextBallAQty(state, -x)
             } else if (isCase6(partialBetHistory)) {
-                console.log('case 6')
+                // console.log('case 6')
                 setNextBallAQty(state, -x)
             } else {
-                console.log('reset')
+                // console.log('reset')
                 triggerReset(state);
             }
         },
