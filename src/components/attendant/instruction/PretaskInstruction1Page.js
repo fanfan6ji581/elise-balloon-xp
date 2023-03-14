@@ -44,9 +44,13 @@ const PretaskInstruction1Page = () => {
                 Welcome!
               </Typography>
 
-              <Typography variant="h6" sx={{ mt: 10, mb: 5 }}>
+              <Typography variant="h6" sx={{ mt: 10, mb: 3 }}>
                 Thanks for agreeing to participate in the "Balloon Experiment"! Before you perform the
                 main experimental task, we ask you to complete the following task.
+              </Typography>
+
+              <Typography variant="h6" sx={{ mt: 3, mb: 5 }}>
+                You will be paid based on your decisions in the task so please read carefully these instructions and ask the experimenters any clarifying questions.
               </Typography>
 
               <Grid container alignItems="center" sx={{ my: 5 }}>
@@ -63,14 +67,20 @@ const PretaskInstruction1Page = () => {
                   <ul>
                     <li>
                       <Typography variant="h6" sx={{ my: 3 }}>
-                        Bet that the ball is blue: a winning bet
-                        will give you <b>${pretask.ballAWin}</b>, a losing bet, a loss of  <b>${-pretask.ballALose}</b>
+                        Bet that the ball is blue: a
+                        <Typography component="span" variant="span" sx={{ fontWeight: 'bold', color: 'primary.main' }}> winning bet </Typography>
+                        will give you <b>${pretask.ballAWin}</b>,
+                        a
+                        <Typography component="span" variant="span" sx={{ fontWeight: 'bold', color: 'success.main' }}> losing bet</Typography>,
+                        a loss of  <b>${-pretask.ballALose}</b>
                       </Typography>
                     </li>
                     <li>
                       <Typography variant="h6" sx={{ my: 3 }}>
-                        Bet that the ball is green: a winning bet
-                        will give you <b>${pretask.ballBWin}</b>, a losing bet, a loss of  <b>${-pretask.ballBLose}</b>
+                        Bet that the ball is green: a 
+                        <Typography component="span" variant="span" sx={{ fontWeight: 'bold', color: 'success.main' }}> winning bet </Typography>
+                        will give you <b>${pretask.ballBWin}</b>, a 
+                        <Typography component="span" variant="span" sx={{ fontWeight: 'bold', color: 'primary.main' }}> losing bet</Typography>, a loss of  <b>${-pretask.ballBLose}</b>
                       </Typography>
                     </li>
                     <li>
