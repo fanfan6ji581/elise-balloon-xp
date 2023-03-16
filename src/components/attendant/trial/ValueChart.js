@@ -30,7 +30,7 @@ export default function ValueChart({ xpData }) {
     const { balloonValues, balloonSpeed } = xpData;
 
     let labels = Array.from({ length: trialIndexS + (showMoneyOutcomeS ? 2 : 1) }, (_, i) => i + 1);
-    let lengthLimit = 10;
+    let lengthLimit = 50;
     if (showMoneyOutcomeS) {
         lengthLimit++;
     }

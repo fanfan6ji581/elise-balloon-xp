@@ -116,7 +116,7 @@ const PretaskInstruction1Page = () => {
 
               <Typography variant="h6" sx={{ my: 5 }}>
                 Please make sure you pay attention throughout the task. Not only you will likely win more
-                money if you do so, your choice on each trial will also help us better interpret your behavior
+                money if you do so; your choice on each trial will also help us better interpret your behavior
                 in the main experimental task.
               </Typography>
 
