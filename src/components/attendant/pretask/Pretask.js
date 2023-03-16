@@ -99,7 +99,9 @@ const Pretask = ({ isTraining }) => {
       missHistory: missHistoryS,
       reactionHistory: reactionHistoryS,
     };
-    await updatePretaskRecord(loginAttendantS.id, pretaskRecord);
+    if (loginAttendantS) {
+      await updatePretaskRecord(loginAttendantS.id, pretaskRecord);
+    }
   };
 
   const onSubmit = async () => {
