@@ -36,7 +36,15 @@ const StartPretaskPage = () => {
                     <Button component={Link} variant="contained" size="large"
                         to={`/xp/${alias}/pretask`}
                         disabled={!pretask || !pretask.enablePretaskPlaying}
+                        sx={{ m: 3 }}
                     >Start Game</Button>
+
+                    <br />
+
+                    <Button component={Link} variant="outlined" size="large"
+                        to={`/xp/${alias}/pretask/instruction1`}
+                        sx={{ m: 3 }}
+                    >Back to instruction</Button>
                     {
                         pretask && !pretask.enablePretaskPlaying &&
                         <Typography variant="h6" align="center" sx={{ my: 5 }}>Waiting for experimenter to enable the game.</Typography>

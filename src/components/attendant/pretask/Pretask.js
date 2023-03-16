@@ -65,15 +65,17 @@ const Pretask = ({ isTraining }) => {
     try {
       const pretask = await getPretask(alias);
       setPretask(pretask);
-      attendant = await getAttendant(loginAttendantS.id);
 
-      if (isTraining) {
-        dispatch(resetTraining({ pretask }));
-      } else {
-        dispatch(reset({
-          pretask,
-          pretaskRecord: attendant.pretaskRecord
-        }));
+      if (loginAttendantS) {
+        attendant = await getAttendant(loginAttendantS.id);
+        if (isTraining) {
+          dispatch(resetTraining({ pretask }));
+        } else {
+          dispatch(reset({
+            pretask,
+            pretaskRecord: attendant.pretaskRecord
+          }));
+        }
       }
       setLoadingOpen(false);
     } catch (error) {
