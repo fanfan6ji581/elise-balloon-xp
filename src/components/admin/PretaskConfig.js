@@ -70,6 +70,11 @@ const schema = {
             "title": "Percentage of trials for earnings, e.g. use 50 for 50%, 100 for 100%",
             "default": 50
         },
+        "choiceDelay": {
+            "type": "integer",
+            "title": "Delay in milliseconds after clicking a balloon, 1000 ms = 1 sec",
+            "default": 20
+        },
     }
 };
 

@@ -1,4 +1,4 @@
-import { LinearProgress } from "@mui/material";
+import { LinearProgress, Backdrop } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import {
   timerProgress,
@@ -70,12 +70,20 @@ export default function TrialTimer({ pretask }) {
   }, [timerProgressS]);
 
   return (
-    <LinearProgress
-      className="instant"
-      style={{ width: "100%" }}
-      variant={"determinate"}
-      value={timerProgressS}
-      color={timerProgressS >= 55 ? "secondary" : "primary"}
-    />
+    <>
+      <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={showAfterClickDelayS}
+      >
+      </Backdrop>
+      <LinearProgress
+        className="instant"
+        style={{ width: "100%" }}
+        variant={"determinate"}
+        value={timerProgressS}
+        color={timerProgressS >= 55 ? "secondary" : "primary"}
+      />
+
+    </>
   );
 }
