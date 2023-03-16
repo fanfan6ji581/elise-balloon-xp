@@ -41,6 +41,7 @@ import downRightImg from "../../../assets/down-right.png";
 import MoneyOutcome from "./MoneyOutcome";
 import { loginAttendant } from "../../../slices/attendantSlice";
 import { useNavigate } from "react-router-dom"
+import TextTransition, { presets } from "react-text-transition";
 
 const Pretask = ({ isTraining }) => {
   const dispatch = useDispatch();
@@ -164,7 +165,12 @@ const Pretask = ({ isTraining }) => {
           <Grid container justifyContent="center">
             <Grid item xs={12}>
               <Typography variant="h5" align="center" sx={{ mt: 2, mb: 1 }}>
-                {isTraining ? 'Training' : ''} Trial: {trialIndexS + 1}
+                {isTraining ? 'Training' : ''} Trial:
+                <Box sx={{ display: 'inline-block', ml: 1 }}>
+                  <TextTransition springConfig={presets.wobbly}>
+                    {trialIndexS + 1}
+                  </TextTransition>
+                </Box>
               </Typography>
               <TrialTimerProgress pretask={pretask} />
               <Grid container>
