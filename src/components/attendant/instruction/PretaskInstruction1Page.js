@@ -12,7 +12,7 @@ import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getPretask } from "../../../database/pretask";
 import pretaskPreviewImg from "../../../assets/pretask_preview.png";
-import video2 from "../../../assets/video2.mp4";
+import demoPretaskVideo from "../../../assets/demo_pretask.mov";
 
 const PretaskInstruction1Page = () => {
   const { alias } = useParams();
@@ -107,8 +107,8 @@ const PretaskInstruction1Page = () => {
               <Grid container alignItems="center" sx={{ my: 5 }}>
                 <Grid item xs={1} />
                 <Grid item xs={10}>
-                  <video width="100%" controls muted styles={{ objecFit: 'fill' }}>
-                    <source src={video2} type="video/mp4" />
+                  <video width="100%" controls styles={{ objecFit: 'fill' }}>
+                    <source src={demoPretaskVideo} />
                   </video>
                 </Grid>
               </Grid>
