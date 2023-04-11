@@ -82,8 +82,9 @@ const SignupPage = () => {
         ));
 
         const attendants = snapshot.docs.map(d => (Object.assign({ id: d.id }, d.data())));
-        if (attendants.length > 1) {
+        if (attendants.length > 0) {
             setErrorMsg("This email has been registered already")
+            setLoadingOpen(false);
             return;
         }
 
