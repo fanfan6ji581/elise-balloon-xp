@@ -31,9 +31,9 @@ export default function ValueChart({ xpData }) {
 
     let labels = Array.from({ length: trialIndexS + (showMoneyOutcomeS ? 2 : 1) }, (_, i) => i + 1);
     let lengthLimit = 50;
-    if (showMoneyOutcomeS) {
-        lengthLimit++;
-    }
+    // if (showMoneyOutcomeS) {
+    //     lengthLimit++;
+    // }
     if (labels.length > lengthLimit) {
         labels = labels.slice(-lengthLimit);
     }
@@ -42,7 +42,7 @@ export default function ValueChart({ xpData }) {
         datasets: [
             {
                 label: 'Value history',
-                data: balloonValues && _.slice(balloonValues, labels[0], labels.length + labels[0]),
+                data: balloonValues && _.slice(balloonValues, labels[0] - 1, labels.length + labels[0] - 1),
                 backgroundColor: 'rgb(14,133,255)',
                 borderColor: 'rgba(99,104,255,0.2)',
             },
@@ -54,7 +54,7 @@ export default function ValueChart({ xpData }) {
         datasets: [
             {
                 label: 'Speed history',
-                data: balloonSpeed && _.slice(balloonSpeed, labels[0], labels.length + labels[0]),
+                data: balloonSpeed && _.slice(balloonSpeed, labels[0] - 1, labels.length + labels[0] - 1),
                 backgroundColor: 'rgb(141,168,181)',
                 borderColor: 'rgba(99,104,255,0.2)',
             },
