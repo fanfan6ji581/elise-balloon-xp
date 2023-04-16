@@ -9,7 +9,7 @@ import AdminLoginPage from "./components/admin/Login";
 import DashboardPage from "./components/admin/DashboardPage";
 import ExperimentPage from "./components/admin/ExperimentPage";
 import AttendantPage from "./components/admin/AttendantPage";
-
+import CountDownPage from './components/attendant/trial/TrialCountDownPage';
 import AttendantLayout from "./components/attendant/Layout";
 import LoginPage from "./components/attendant/LoginPage";
 import TrialPage from "./components/attendant/trial/TrialPage";
@@ -52,6 +52,7 @@ function App() {
                                 <Route path="xp/:alias/skip-training" element={<SkipTrainingPage />} />
                                 <Route path="xp/:alias/quiz" element={<QuizPage />} />
                                 <Route path="xp/:alias/strategy" element={<StrategyPage />} />
+                                <Route path="xp/:alias/count-down" element={<CountDownPage />} />
                                 <Route path="xp/:alias/start-game" element={<StartGamePage />} />
                                 <Route path="xp/:alias/pretask" element={<PretaskPage />} />
                                 <Route path="xp/:alias/pretask/training" element={<PretaskTrainingPage />} />

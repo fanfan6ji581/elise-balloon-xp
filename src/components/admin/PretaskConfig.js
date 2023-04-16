@@ -70,10 +70,19 @@ const schema = {
             "title": "Percentage of trials for earnings, e.g. use 50 for 50%, 100 for 100%",
             "default": 50
         },
+        "outcomeShowTime": {
+            "type": "integer",
+            "title": "Outcome stage, millisecond showing the output result, 2000 ms = 2 sec, default is 0",
+            "default": 0
+        },
         "choiceDelay": {
             "type": "integer",
-            "title": "Delay in milliseconds after clicking a balloon, 1000 ms = 1 sec",
+            "title": "Delay in milliseconds after making a choice, 1000 ms = 1 sec",
             "default": 20
+        },
+        "trainingSessionSeconds": {
+            "type": "integer",
+            "title": "Seconds of how long the training session last (default is 120 seconds, 2 min)",
         },
     }
 };
