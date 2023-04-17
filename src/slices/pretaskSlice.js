@@ -78,7 +78,7 @@ function setNextBallAQty(state, val, isMissed) {
     let nextVal = Math.max(0,
         Math.min(state.pretask.totalQty,
             state.ballAQty[state.trialIndex - 1] + val));
-    if (!isMissed && (nextVal === 0 || nextVal === state.pretask.totalQty)) {
+    if (!isMissed && (nextVal < 0 || nextVal > state.pretask.totalQty)) {
         return triggerReset(state);
     }
     state.ballAQty.push(nextVal);
