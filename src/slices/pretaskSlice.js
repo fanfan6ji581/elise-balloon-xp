@@ -147,7 +147,7 @@ const pretaskSlice = createSlice({
                 if (betResult === 'b' && bet === 'a') {
                     moneyOutcome = state.pretask.ballALose;
                 }
-                if (betResult === 'b' && bet === 'a') {
+                if (betResult === 'a' && bet === 'b') {
                     moneyOutcome = state.pretask.ballBLose;
                 }
                 if (betResult === 'b' && bet === 'b') {
