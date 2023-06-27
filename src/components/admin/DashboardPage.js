@@ -138,6 +138,8 @@ const DashboardPage = () => {
             percentageEarning: 50,
             trainingSessionSeconds: 120,
             enablePlaying: false,
+            clickToShowVolumeChart: true,
+            hideVolumeChartWhenShowOutcome: false,
         };
 
         const resp = await addDoc(collection(db, "xp"), xp);

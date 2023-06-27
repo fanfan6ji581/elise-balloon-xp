@@ -104,6 +104,7 @@ function generateBalloonData(xp) {
             // data recordings
             trialIndex: -1,
             reactionHistory: Array.from({ length: xp.numberOfTrials }).fill(null),
+            clickToShowChartHistory: Array.from({ length: xp.numberOfTrials }).fill(null),
             choiceHistory: Array.from({ length: xp.numberOfTrials }).fill(0),
             outcomeHistory: Array.from({ length: xp.numberOfTrials }).fill(0),
             missHistory: Array.from({ length: xp.numberOfTrials }).fill(false),
@@ -129,6 +130,7 @@ function extractXpData(attendant) {
         reactionHistory,
         choiceHistory,
         outcomeHistory,
+        clickToShowChartHistory,
     } = xpRecord;
 
     let sum = 0;
@@ -138,6 +140,12 @@ function extractXpData(attendant) {
             return sum;
         }
         return null;
+    });
+
+    let fullSum = 0;
+    const fullAccumulateOutcomeHistory = outcomeHistory.map((v) => {
+        fullSum = fullSum + v
+        return fullSum;
     });
 
     const mcqs = calcuateCorrectness(attendant);
@@ -155,6 +163,8 @@ function extractXpData(attendant) {
                 outcome: outcomeHistory[i],
                 pickedOutcome: pickedOutcomeIndexes.includes(i) ? outcomeHistory[i] : null,
                 accumulateOutcome: accumulateOutcomeHistory[i],
+                fullAccumulateOutcomeHistory: fullAccumulateOutcomeHistory[i],
+                clickToShowChart: clickToShowChartHistory[i] === null ? '' : clickToShowChartHistory[i] ? 1 : 0,
             },
             {
                 username: attendant.username,
@@ -177,7 +187,7 @@ const calcuateCorrectness = (attendant) => {
     const solution = {
         mcq1: 2,
         mcq2: 1,
-        mcq3: 2,
+        mcq3: 1,
         mcq4: 2,
         mcq5: 3,
         mcq6: 3,

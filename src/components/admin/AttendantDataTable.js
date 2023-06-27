@@ -16,6 +16,10 @@ const columns = [
   { field: "reaction", headerName: "Reaction ms", width: 95 },
   { field: "choice", headerName: "choice", width: 60 },
   {
+    field: "clickToShowChart", headerName: "clicked asset chart", width: 150,
+    valueFormatter: (p) => `${p.value != null ? `${p.value}` : "-"}`,
+  },
+  {
     field: "outcome",
     headerName: "Outcome$",
     valueFormatter: (p) => `${p.value != null ? `$${p.value}` : "-"}`,
@@ -29,6 +33,12 @@ const columns = [
   },
   {
     field: "accumulateOutcome",
+    headerName: "Accumulate$",
+    valueFormatter: (p) => `${p.value != null ? `$${p.value}` : "-"}`,
+    width: 100,
+  },
+  {
+    field: "fullAccumulateOutcomeHistory",
     headerName: "Accumulate$",
     valueFormatter: (p) => `${p.value != null ? `$${p.value}` : "-"}`,
     width: 100,

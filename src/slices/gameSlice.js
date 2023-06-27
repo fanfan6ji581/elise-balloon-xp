@@ -7,6 +7,8 @@ const initialState = {
     progressStartTime: 0,
     showMoneyOutcome: false,
     showAfterClickDelay: false,
+    showVolumeChart: false,
+    showVolumeChartInitialValue: false,
 
     // internal data
     xpData: {},
@@ -15,6 +17,7 @@ const initialState = {
     outcomeHistory: [],
     missHistory: [],
     reactionHistory: [],
+    clickToShowChartHistory: [],
 };
 
 const gameSlice = createSlice({
@@ -38,6 +41,7 @@ const gameSlice = createSlice({
                 money = -xpConfig.afkTimeoutCost;
             }
             state.outcomeHistory[trialIndex] = money;
+            state.clickToShowChartHistory[trialIndex] = state.showVolumeChart;
 
             if (!missed) {
                 state.reactionHistory[trialIndex] = Date.now() - state.progressStartTime;
@@ -50,6 +54,7 @@ const gameSlice = createSlice({
                 // when click pass
                 state.timerProgress = 0;
                 state.trialIndex++;
+                state.showVolumeChart = state.showVolumeChartInitialValue
             }
         },
         setShowMoneyOutcome: (state, action) => {
@@ -67,6 +72,7 @@ const gameSlice = createSlice({
             state.showMoneyOutcome = false;
             state.timerProgress = 0;
             state.trialIndex++;
+            state.showVolumeChart = state.showVolumeChartInitialValue
         },
         onLoginTraining: (state, action) => {
             const { xpConfig } = action.payload
@@ -80,10 +86,13 @@ const gameSlice = createSlice({
             state.outcomeHistory = [];
             state.missHistory = [];
             state.reactionHistory = [];
+            state.clickToShowChartHistory = [];
             state.trialIndex = 0;
             state.timerProgress = 0;
             state.showAfterClickDelay = false;
             state.showMoneyOutcome = false;
+            state.showVolumeChartInitialValue = !xpConfig.clickToShowVolumeChart;
+            state.showVolumeChart = state.showVolumeChartInitialValue
         },
         reset: (state) => {
             state.trialIndex = -1;
@@ -91,6 +100,7 @@ const gameSlice = createSlice({
             state.outcomeHistory = [];
             state.missHistory = [];
             state.reactionHistory = [];
+            state.clickToShowChartHistory = [];
             state.showAfterClickDelay = false;
             state.showMoneyOutcome = false;
             state.timerProgress = 0;
@@ -103,31 +113,44 @@ const gameSlice = createSlice({
                 outcomeHistory,
                 missHistory,
                 reactionHistory,
+                clickToShowChartHistory,
             } = xpRecord;
             state.trialIndex = trialIndex + 1;
             state.choiceHistory = choiceHistory;
             state.outcomeHistory = outcomeHistory;
             state.missHistory = missHistory;
             state.reactionHistory = reactionHistory;
+            state.clickToShowChartHistory = clickToShowChartHistory;
             state.xpData = xpData;
             state.xpConfig = xpConfig;
             state.timerProgress = 0;
             state.showAfterClickDelay = false;
             state.showMoneyOutcome = false;
+            state.showVolumeChartInitialValue = !xpConfig.clickToShowVolumeChart;
+            state.showVolumeChart = state.showVolumeChartInitialValue
         },
+        setXpConfig: (state, action) => {
+            state.xpConfig = action.payload
+        },
+        doShowVolumeChart: (state) => {
+            state.showVolumeChart = true
+        }
     },
 });
 
 export const { recordMulResp, setProgressStartTime,
     setTimerProgress, nextTrial, onLogin, onLoginTraining,
-    setShowMoneyOutcome, reset } = gameSlice.actions;
+    setShowMoneyOutcome, reset, doShowVolumeChart } = gameSlice.actions;
 
 export const trialIndex = (state) => state.game.trialIndex;
+export const showVolumeChart = (state) => state.game.showVolumeChart;
+export const showVolumeChartInitialValue = (state) => state.game.showVolumeChartInitialValue;
 export const showAfterClickDelay = (state) => state.game.showAfterClickDelay;
 export const timerProgress = (state) => state.game.timerProgress;
 export const showMoneyOutcome = (state) => state.game.showMoneyOutcome;
 export const choiceHistory = (state) => state.game.choiceHistory;
 export const outcomeHistory = (state) => state.game.outcomeHistory;
+export const clickToShowChartHistory = (state) => state.game.clickToShowChartHistory;
 export const missHistory = (state) => state.game.missHistory;
 export const reactionHistory = (state) => state.game.reactionHistory;
 export const xpDataS = (state) => state.game.xpData;

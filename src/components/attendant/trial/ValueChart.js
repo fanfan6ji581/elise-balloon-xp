@@ -11,8 +11,9 @@ import {
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import { Box } from "@mui/material";
-import { useSelector } from "react-redux";
-import { trialIndex, showMoneyOutcome } from "../../../slices/gameSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { trialIndex, showMoneyOutcome, showVolumeChart, showVolumeChartInitialValue, doShowVolumeChart } from "../../../slices/gameSlice";
+import { useEffect } from "react";
 
 ChartJS.register(
     CategoryScale,
@@ -24,10 +25,18 @@ ChartJS.register(
     Legend
 );
 
-export default function ValueChart({ xpData }) {
+export default function ValueChart({ xpData, xpConfig }) {
+    const dispatch = useDispatch();
     const showMoneyOutcomeS = useSelector(showMoneyOutcome);
     const trialIndexS = useSelector(trialIndex);
+    const showVolumeChartS = useSelector(showVolumeChart);
+    const showVolumeChartInitialValueS = useSelector(showVolumeChartInitialValue);
     const { balloonValues, balloonSpeed } = xpData;
+
+    useEffect(() => {
+        // dispatch(doShowVolumeChart);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [showVolumeChartS])
 
     let labels = Array.from({ length: trialIndexS + (showMoneyOutcomeS ? 2 : 1) }, (_, i) => i + 1);
     let lengthLimit = 50;
@@ -146,12 +155,24 @@ export default function ValueChart({ xpData }) {
             }
         }
     };
+
+    const onClickAssetChart = () => {
+        if (showMoneyOutcomeS) {
+            return;
+        }
+        dispatch(doShowVolumeChart());
+    }
+
     return (
         <>
             <Box>
                 <Line data={data} options={options} />
             </Box>
-            <Box sx={{ mt: 12 }}>
+            <Box sx={{
+                mt: 12,
+                opacity: showVolumeChartS ? '1' : '0',
+                display: (xpConfig.hideVolumeChartWhenShowOutcome && !showVolumeChartInitialValueS && showMoneyOutcomeS) ? 'none' : 'block',
+            }} onClick={onClickAssetChart}>
                 <Line style={{ paddingLeft: '25px' }} data={data2} options={options2} />
             </Box>
         </>

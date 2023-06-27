@@ -31,7 +31,7 @@ const QuizPage = () => {
     const solution = {
         mcq1: 2,
         mcq2: 1,
-        mcq3: 2,
+        mcq3: 1,
         mcq4: 2,
         mcq5: 3,
         mcq6: 3,
@@ -43,7 +43,7 @@ const QuizPage = () => {
         mcq1: 'It is about .28',
         mcq2: 'It is about .48',
         mcq3: 'It is about .6',
-        mcq4: `You lose ${xpConfig.afkTimeoutCost} every time you do not reply within the imparted ${xpConfig.afkTimeout / 1000} sec`,
+        mcq4: `You lose ${xpConfig.afkTimeoutCost} every time you do not reply within the allowed ${xpConfig.afkTimeout / 1000} sec`,
         mcq5: 'Win of $2',
         mcq6: 'Win of $2',
         mcq7: `It can switch; if that occurs, you know that the value will return to its current value next trial (this is "an aberration")`,
@@ -266,7 +266,7 @@ const QuizPage = () => {
                 </RadioGroup>
 
                 <Typography variant="h5" sx={{ mt: 3 }}>
-                    4. If I so not reply within the imparted time, I proceed to the next trial without any penalty.
+                    4. If I so not reply within the allowed time, I proceed to the next trial without any penalty.
                 </Typography>
                 <RadioGroup sx={{ mx: 3 }} >
                     {
