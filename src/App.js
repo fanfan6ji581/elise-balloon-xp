@@ -16,6 +16,7 @@ import TrialPage from "./components/attendant/trial/TrialPage";
 import TrialTrainingPage from "./components/attendant/trial/TrialTrainingPage";
 import PaymentPage from "./components/attendant/PaymentPage";
 import Instruction1Page from "./components/attendant/instruction/Instruction1Page";
+import Instruction1Page2 from "./components/attendant/instruction/Instruction1Page2";
 import Instruction2Page from "./components/attendant/instruction/Instruction2Page";
 import Instruction3Page from "./components/attendant/instruction/Instruction3Page";
 import Instruction4Page from "./components/attendant/instruction/Instruction4Page";
@@ -46,6 +47,7 @@ function App() {
                                 <Route path="xp/:alias/training" element={<TrialTrainingPage />} />
                                 <Route path="xp/:alias/payment" element={<PaymentPage />} />
                                 <Route path="xp/:alias/instruction1" element={<Instruction1Page />} />
+                                <Route path="xp/:alias/instruction1_2" element={<Instruction1Page2 />} />
                                 <Route path="xp/:alias/instruction2" element={<Instruction2Page />} />
                                 <Route path="xp/:alias/instruction3" element={<Instruction3Page />} />
                                 <Route path="xp/:alias/instruction4" element={<Instruction4Page />} />
